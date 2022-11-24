@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Главная - Справочник АО "ЦКБА"</title>
+	<link rel="shortcut icon" href="../../assets/img/Header/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../assets/css/search.css">
+	<script defer src="../../assets/js/main.js"></script>
+	<script defer src="../../assets/js/info.v2.js"></script>
+	<script defer src="../../assets/js/search.js"></script>
+</head>
+<body>
+  <!-- Шапка с навигационным меню -->
+	<header class="header" id="header">
+		<div class="container">
+			<div class="header-wrap">
+				<a class="logo" href="../../pages/main/index.html">
+					<span class="logo__img-block">
+						<img class="logo__img" src="../../assets/img/Header/logo-ckba.png" onselectstart="return false">
+					</span>
+					<div class="logo__info-block">
+						<span class="logo__factory-discription" onselectstart="return false" onmousedown="return false">АО "ЦКБА"</span>
+						<div class="logo__factory-name" onselectstart="return false" onmousedown="return false">СПРАВОЧНИК
+							<div class="logo__version">
+								<svg version="1.1" id="mdi-alpha" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									width="20px" height="20px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+									<path fill="#FFFFFF" d="M18.08,17.8c-0.46,0.13-0.87,0.2-1.23,0.2c-1.199,0-2.01-0.88-2.42-2.65h-0.05
+									c-0.989,1.91-2.38,2.86-4.13,2.86c-1.31,0-2.36-0.49-3.15-1.479C6.31,15.74,5.92,14.5,5.92,13c0-1.75,0.45-3.15,1.34-4.24
+									c0.89-1.09,2.1-1.64,3.63-1.64c0.82,0,1.56,0.23,2.2,0.68c0.641,0.46,1.131,1.1,1.471,1.93H14.6l0.711-2.4h2.56l-2.14,5.32
+									c0.24,1.24,0.49,2.09,0.77,2.539c0.24,0.451,0.58,0.681,1,0.681c0.24,0,0.43-0.04,0.6-0.11L18.08,17.8 M13.82,12.561
+									c-0.211-1.13-0.551-2.011-1.01-2.61c-0.451-0.61-1-0.91-1.63-0.91c-0.82,0-1.48,0.37-1.97,1.1c-0.49,0.74-0.71,1.65-0.71,2.719
+									c0,0.98,0.19,1.791,0.62,2.451c0.42,0.659,0.99,0.979,1.7,0.979c0.6,0,1.15-0.29,1.64-0.84c0.5-0.57,0.91-1.4,1.24-2.49
+									L13.82,12.561z"/>
+								</svg>
+								<!--<svg version="1.1" id="mdi-beta" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									width="20px" height="20px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+								<path fill="#FFFFFF" d="M9.23,17.59v5.53H6.88V6.72c0-1.45,0.43-2.59,1.28-3.439C9,2.43,10.17,2,11.61,2c1.39,0,2.46,0.34,3.26,1
+									c0.79,0.68,1.18,1.62,1.18,2.81c0,0.82-0.26,1.59-0.78,2.3c-0.52,0.71-1.189,1.2-2.02,1.47v0.04c1.25,0.2,2.221,0.65,2.88,1.38
+									c0.66,0.71,0.99,1.62,0.99,2.74c0,1.32-0.46,2.4-1.37,3.229c-0.92,0.83-2.12,1.24-3.62,1.24C11.07,18.21,10.1,18,9.23,17.59
+									M10.72,10.75V8.83c0.87-0.11,1.58-0.43,2.15-0.97C13.43,7.31,13.71,6.7,13.71,6c0-1.38-0.71-2.08-2.11-2.08
+									c-0.76,0-1.35,0.24-1.76,0.73C9.43,5.14,9.23,5.82,9.23,6.71v8.79c0.91,0.53,1.8,0.79,2.66,0.79c0.84,0,1.5-0.22,1.969-0.649
+									c0.471-0.44,0.701-1.061,0.701-1.851C14.561,12,13.279,11,10.72,10.75z"/>
+								</svg>-->
+							</div>
+						</div>
+					</div>
+				</a><!-- logo -->
+				<nav class="navbar">
+					<ul class="navbar__list">
+						<li class="navbar__items navbar__items_active" data-partition-menu="search"  onselectstart="return false" onmousedown="return false">
+							<a href="../../pages/main/index.html">Поиск</a> 
+						</li>
+						<li class="navbar__items" data-partition-menu="department" onselectstart="return false" onmousedown="return false">
+							<a href="../../pages/departments/index.html">Отделы</a> 
+						</li>
+						<li class="navbar__items" data-partition-menu="information" onselectstart="return false" onmousedown="return false">
+							<a href="../../pages/information/index.html">Информация</a> 
+						</li>
+						<li class="navbar__items" data-partition-menu="plan" onselectstart="return false" onmousedown="return false">
+							<a href="../../pages/plan/index.html">План</a> 
+						</li>
+						<li class="navbar__items" data-partition-menu="help" onselectstart="return false" onmousedown="return false">
+							<a href="../../pages/help/index.html">Помощь</a> 
+						</li>
+					</ul>
+				</nav><!-- navbar -->
+			</div><!-- header-wrap -->
+		</div><!-- container -->
+	</header><!-- header -->
+
+
+	<!-- Контент -->
+	<main>
+		<div class="container">
+			<div class="wrap" id="content_wrap">
+				<div class="card">
+					<div class="overlay">
+						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+							<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+							  <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+							</circle>
+						</svg>
+					</div>
+					<div class="card__title-wrap">
+						<div class="card__photo-block">
+							<a id="photo_link" href="../../assets/img/Staff/man.jpg" target="_blank">
+								<img class="card__photo" id="photo" src="../../assets/img/Staff/man.jpg" alt="">
+							</a>
+						</div>
+						<div class="card__title-block">
+							<h2 class="card__title" id="fullname"></h2>
+							<p class="card__position" id="position"></p>	
+						</div>
+					</div>
+					<div class="card__info-wrap">
+						<table class="card__table table">
+							<tr>
+								<td class="table__items table__header-items">Подразделение</td>
+								<td class="table__items" id="department"></td>
+							</tr>
+							<tr>
+								<td class="table__items table__header-items">Группа</td>
+								<td class="table__items" id="group"></td>
+							</tr>
+						</table>
+
+						<h4 class="card__subtitle">Контакты</h4>
+						<table class="card__table table">
+							<tr>
+								<td class="table__items table__header-items">Рабочий тел.</td>
+								<td class="table__items" id="work_phone"></td>
+							</tr>
+							<tr>
+								<td class="table__items table__header-items">Городской тел.</td>
+								<td class="table__items" id="town_phone"></td>
+							</tr>
+							<tr>
+								<td class="table__items table__header-items">Сотовый тел.</td>
+								<td class="table__items" id="mobile_phone"></td>
+							</tr>
+							<tr>
+								<td class="table__items table__header-items">E-mail</td>
+								<td class="table__items"><a class="e-mail staff-card__contacts_grey" href="#" title="Написать письмо" id="email"></a></td>
+							</tr>
+							<tr>
+								<td class="table__items table__header-items">Местоположение</td>
+								<td class="table__items" id="location"></td>
+							</tr>
+						</table>
+
+						<h4 class="card__subtitle">Дополнительно</h4>
+						<table class="card__table table">
+							<tr>
+								<td class="table__items table__header-items">Время работы подразделения</td>
+								<td class="table__items" id="work_time"></td>
+							</tr>
+							<tr>
+								<td class="table__items table__header-items">Обед</td>
+								<td class="table__items" id="dinner_time"></td>
+							</tr>
+							<tr>
+								<td class="table__items table__header-items">Ключевые слова</td>
+								<td class="table__items" id="keywords"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="search">
+					<div class="search-wrap">
+						<div class="overlay ">
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+								<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+								  <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+								</circle>
+							</svg>
+						</div>
+						<form class="search__search-form search-form" action="pages/search/actions/search_init.php" method="POST">
+							<div class="search-form__wrap">
+							  <input type="text" class="search-form__input" placeholder="Введите запрос" id="search_input" name="query" data-dep="" data-look="0" autocomplete="off" value="" autofocus="true">
+							  <button class="search-form__submit btn" id="search_btn" type="submit">Найти</button>
+							</div>
+							<span class="field__message" id="search_message"></span>
+						</form>
+					</div>
+					<div class="result-wrap">
+						<div class="overlay ">
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+								<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138">
+								  <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+								</circle>
+							</svg>
+						</div>
+						<div class="counter result__counter">
+							<span class="counter__text">Найдено совпадений: </span>
+							<span class="counter__quantity" id="result_counter">0</span>
+							<span class="counter__text">Показано: </span>
+							<span class="counter__showed" id="showed_result">0</span>
+						</div>
+						<div class="result__out" id="result_out">
+
+						</div>
+						<div class="result__message" id="start_message">
+							<div>Для получения результатов поиска введите запрос в поисковую строку</div>
+							<span>Поиск возможен по следующим параметрам:</span>
+							<ul>
+								<li>фамилия;</li>
+								<li>имя;</li>
+								<li>отчество;</li>
+								<li>рабочий номер телефона;</li>
+								<li>подразделение;</li>
+								<li>ключевые слова.</li>
+							</ul>
+						</div>
+						<div class="result__message hidden" id="no_result">
+							Результатов не найдено, попробуйте изменить поисковой запрос
+						</div>
+						<div class="result__view-more hidden" id="show_more">
+							<button class="btn" id="show_more_btn">Показать еще</button>
+						</div>
+					</div>
+				</div>
+			</div><!-- wrap -->
+		</div><!-- container -->
+	</main>
+
+
+	<!-- Футер -->
+	<footer class="footer">
+		<button class="scroll-btn hidden" id="scroll_btn">
+			<i class="fa fa-arrow-up"></i>
+		</button>
+		<div class="container">
+			<div class="footer-wrap">
+				<span class="footer__department">Научно-инновационный отдел</span> <!-- /.footer__department -->
+				<span class="footer__version" title="Обновлено 23 ноября 2022 г.">v 2.0.0 alpha</span> <!-- /.footer__version -->
+			</div>
+		</div> <!-- /.container -->
+	</footer> <!-- /.footer -->
+</body>
+</html>

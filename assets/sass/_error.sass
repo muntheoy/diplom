@@ -1,0 +1,168 @@
+.help-section
+    display: none
+.error
+    &-wrap
+        padding: 50px
+        background-color: #ffffff
+        min-height: 350px
+        width: 100%
+        display: flex
+        flex-direction: column
+    &__title
+        margin-bottom: 25px
+        font-size: 20px
+        text-align: center
+
+    //IT-поддержка по направлениям
+    &__service-wrap
+        display: flex
+        flex-direction: row
+        flex-wrap: wrap
+        justify-content: space-around
+        align-items: stretch
+        width: 100%
+        margin-bottom: 30px
+    &__service-card
+        width: 300px
+        min-height: 200px
+        margin-bottom: 20px
+        box-shadow: 1px 4px 5px 1px rgba(165, 165, 165, 0.3), -1px 0px 10px 1px rgba(165, 165, 165, 0.3)
+        border-radius: 5px
+        padding: 10px
+        transition: 0.15s ease-in-out
+        font-size: 18px
+        display: flex
+        align-items: center
+        flex-direction: column
+        justify-content: center
+        &:hover
+            margin-top: -2px
+            margin-bottom: 22px
+            box-shadow: 1px 4px 12px 1px rgba(136, 135, 135, 0.3), -1px 0px 12px 1px rgba(136, 135, 135, 0.3)
+    &__card-title
+        color: #0572a7
+        font-size: 20px
+        text-align: center
+        display: block
+        margin-bottom: 15px
+        width: 100%
+    &__card-info
+        text-align: center
+        display: block
+        width: 100%
+        margin-bottom: 8px
+    &__fullname
+        +candaraBold
+    &__mail-link
+        color: #063d58
+
+    &__discription
+        font-size: 18px
+        +candaraReg
+        text-align: justify
+        line-height: 1.5
+        display: block
+        margin-bottom: 25px
+        text-indent: 50px
+    &__horizontal-line
+        width: 80%
+        height: 2px
+        display: block
+        margin: 0 auto 60px auto
+        background-color: rgba(188, 186, 186, 0.5)
+        border: none
+    &-card
+        &__title
+            display: block
+            margin-bottom: 60px
+            text-align: center
+            width: 100%
+            font-size: 20px
+        &__mail-theme
+            display: flex
+            justify-content: flex-start
+            align-items: center
+            flex-direction: row
+            flex-wrap: wrap
+            margin-bottom: 70px
+        &__theme-item
+            display: block
+            padding: 10px 20px
+            margin: 0 3px 3px 3px
+            background-color: #cccccc
+            border-radius: 5px
+            text-decoration: none
+            color: #000000
+            font-size: 16px
+            &[data-massage-theme="addInformation"]
+                background-color: #bcffe0
+            &[data-massage-theme="addNews"]
+                background-color: #fffd9e
+            &[data-massage-theme="suggestionImprovement"]
+                background-color: #d9dbff
+            &[data-massage-theme="errorRefecenceBook"]
+                background-color: #ffc6c6
+        &__wrap
+            display: flex
+            justify-content: space-around
+            align-items: flex-start
+            flex-wrap: wrap
+        &__card
+            width: 300px
+            display: flex
+            justify-content: center
+            flex-direction: column
+            margin-bottom: 15px
+        &__photo-block
+            width: 160px
+            height: 160px
+            border-radius: 50%
+            overflow: hidden
+            margin: 0 auto 30px auto
+            display: flex
+            justify-content: center
+            padding-top: 55px
+            border: 10px solid #d6d6d6
+        &__photo
+            width: 100%
+            align-self: center
+        &__full-name
+            font-size: 28px
+            text-align: center
+            +candaraReg
+            line-height: 1.25
+            margin-bottom: 5px
+        &__department
+            font-size: 22px
+            text-align: center
+            display: block
+            margin-bottom: 5px
+        &__mail-link, &__mobile-phone
+            color: #0572a7
+            font-size: 18px
+            display: block
+            margin-bottom: 5px
+            text-align: center
+            +candaraReg   
+        &__work-phone
+            color: #0572a7
+            font-size: 18px
+            text-align: center
+            +candaraReg 
+.form-btn
+    display: block
+    margin:  10px auto
+    text-decoration: none
+    color: #000000
+    border: 2px solid #00aaff
+    padding: 5px 50px
+    font-size: 18px
+    +candaraReg
+    transition: 0.2s ease-in-out
+    background-color: rgba(0, 170, 255, 0.3)
+    &:hover
+        background-color: #00aaff
+        cursor: pointer
+    &:active, &:focus
+        outline: none
+        background-color: rgba(0, 170, 255, 0.5)

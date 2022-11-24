@@ -1,0 +1,120 @@
+.header
+	background-color: #004e74
+	height: 55px
+	width: 100%
+	&-wrap
+		display: flex
+		align-items: center
+		height: 100%
+	&__prevention
+		color: #4da9d0
+		display: block
+		text-align: right
+		width: 100%
+		margin: 2px 0
+.logo
+	display: flex
+	flex-basis: 30%
+	align-items: center
+	text-decoration: none
+	&__img-block
+		width: 45px
+		height: 45px
+		border-radius: 50%
+		display: flex
+		justify-content: center
+		align-items: center
+		margin-right: 10px
+	&__img
+		height: 45px
+		display: flex
+		align-self: center
+	&__factory
+		&-discription
+			display: block
+			color: #5fd6fd//rgb(189, 255, 255)
+			text-transform: uppercase
+			font-size: 15px
+			line-height: 1.2em
+		&-name
+			position: relative
+			display: block
+			color: #ffffff
+			font-size: 15px
+			line-height: 1.2em
+			font-weight: 600
+	&__version
+		position: absolute
+		right: -5px
+		top: -8px
+		height: 5px
+		width: 5px
+
+.navbar
+	display: flex
+	flex-basis: 100%
+	padding-left: 50px
+	&__list
+		display: flex
+		width: 100%
+		justify-content: flex-end
+		align-items: center
+		font-size: 16px
+		line-height: 1.2em
+		font-family: Montserrat, "Open sans", sans-serif
+	&__items
+		list-style: none
+		position: relative
+		transition: 0.3s ease
+		margin-left: 25px
+		a
+			text-decoration: none
+			color: #ffffff
+		&::before
+			content: ''
+			display: block
+			height: 1.5px
+			background-color: #ffffff
+			width: 0
+			position: absolute
+			bottom: -3px
+			right: 0
+			transition: 0.4s ease-in-out
+		&:hover
+			cursor: pointer
+		&:hover::before
+			width: 100%
+			left: 0
+		&_active a
+			color: #5fd6fd
+			&:hover:after
+				width: 0
+		&:first-child
+			margin-left: 0
+
+@media all and (max-width: 1050px)
+	.header
+		height: 45px
+	.navbar
+		&__list
+			font-size: 14px
+		&__items
+			margin-left: 15px
+			&::before
+				height: 1px
+
+	.logo
+		&__img-block
+			width: 35px
+			height: 35px
+		&__img
+			height: 35px
+		&__factory
+			&-discription
+				font-size: 13px
+			&-name
+				font-size: 13px
+		&__version
+			right: -1px
+			height: 3px
+			width: 3px

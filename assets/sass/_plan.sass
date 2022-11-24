@@ -1,0 +1,62 @@
+.plan
+    &-section
+        display: none
+    &-wrap
+        padding: 30px 50px
+        background-color: #ffffff
+        min-height: 350px
+        width: 100%
+        display: flex
+        flex-direction: column
+    &__title
+        margin-bottom: 20px
+.factory-map
+    &__wrap
+        display: flex
+        flex-direction: row
+        height: 100%
+    &__map-block
+        max-width: 1000px
+        margin-right: 15px
+        position: relative
+        width: 100%
+    &__bg-img
+        width: 100%
+    &__info-block
+        max-width: 500px
+        width: 40%
+    &__title-info
+        margin-bottom: 15px
+        font-size: 17px
+        font-weight: 600
+        color: #0572a7
+    &__list
+        list-style: none
+    &__items
+        padding-bottom: 5pxzz
+        transition: 0.3s ease-in-out
+        &:last-child
+            margin-bottom: 0
+        &:hover
+            background-color: rgba(0, 133, 255, 0.5)
+            cursor: pointer
+    &__marker-img
+        width: 100%
+        height: 100%
+.foreground-image
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 0
+.second-image
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 1
+.background-image
+    position: absolute
+    top: 0
+    left: 0
+    z-index: 2
+.map__marker:hover
+    cursor: pointer

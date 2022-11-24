@@ -1,0 +1,90 @@
+.emergency-services
+    position: fixed
+    top: 95px
+    left: 0
+    display: flex
+    flex-direction: row
+    flex-wrap: nowrap
+    align-items: flex-start
+    transition: 0.3s ease-in-out
+    color: #ffffff
+    overflow: hidden
+    +candaraReg
+    z-index: 99
+    &__list-title
+        color: #21b9ec
+        font-size: 16px
+        margin-bottom: 10px
+        text-align: center
+    &__items-label
+        color: #c2f0ff
+    &__info-block
+        background-color: rgba(0, 0, 0, 0.8)
+        width: 0
+        border-top: 2px solid #f85757
+        border-bottom: 2px solid #f85757
+        height: 800px
+        border-radius: 0 0 10px 0
+        overflow: hidden
+        padding: 0
+    &__title-block
+        position: relative
+        width: 30px
+        height: 270px
+        overflow: hidden
+        background-color: #f85757
+        border-radius: 0 10px 10px 0
+        opacity: 0.4
+        transition: 0.3s ease-in-out
+        &:hover
+            opacity: 1
+            cursor: pointer
+    &__close
+        position: absolute
+        top: 5px
+        right: 6px
+        background: none
+        border: none
+        padding: 5px
+        display: none
+        &:focus, &:active
+            outline: none
+        &:hover
+            cursor: pointer
+    &__title
+        position: absolute
+        bottom: 190px
+        right: -117px
+        transform: rotate(270deg)
+        width: 270px
+        color: #ffffff
+        +candaraBold
+        font-size: 16px
+    &__internally
+        margin-bottom: 20px
+    &__items
+        display: block
+        list-style: none
+        border-bottom: 1px solid rgba(145, 145, 145, 0.4)
+        padding-bottom: 3px
+        margin-top: -1px
+        &:last-child
+            border-bottom: none
+.internally
+    opacity: 0
+    overflow: hidden
+    &__work-phone
+        display: inline-block
+        margin-right: 20px
+    &__town-phone
+        display: inline-block
+        margin-right: 20px
+.external
+    opacity: 0
+    overflow: hidden
+    &__items
+        display: flex
+        justify-content: space-between
+    &__items-info
+        width: 130px
+        text-align: left
