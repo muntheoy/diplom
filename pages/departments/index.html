@@ -7,10 +7,10 @@
 	<link rel="shortcut icon" href="../../assets/img/Header/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
-	<link rel="stylesheet" href="../../assets/css/search.css">
+	<link rel="stylesheet" href="../../assets/css/departments.css">
 	<script defer src="../../assets/js/main.js"></script>
 	<script defer src="../../assets/js/info.v2.js"></script>
-	<!-- <script defer src="../../assets/js/search.js"></script> -->
+	<script defer src="../../assets/js/departments.js"></script>
 </head>
 <body>
   <!-- Шапка с навигационным меню -->
@@ -73,8 +73,55 @@
 
 <main>
 	<div class="container">
-
-	</div>
+		<div class="wrap" id="content_wrap">
+			<div class="sidebar-box">
+				<div class="sidebar agile">
+					<div class="overlay">
+						<div>
+							<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+								<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+							</svg>
+						</div>
+					</div>
+					<div class="sidebar-wrap" id="departments_list">
+						
+					</div>
+				</div><!-- .sidebar -->
+			</div><!-- .sidebar-box -->
+			<div class="content agile">
+				<div class="overlay">
+					<div>
+						<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+							<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+						</svg>
+					</div>
+				</div>
+				<div class="metadata">
+					<h2 class="metadata__title" id="dep_name"></h2>
+					<table class="metadata__table table">
+						<tr>
+							<td class="table__items table__header-items">Сокращенно</td>
+							<td class="table__items table__header-items">Номер</td>
+							<td class="table__items table__header-items">Кол-во записей</td>
+							<td class="table__items table__header-items">Рабочее время</td>
+							<td class="table__items table__header-items">Обед</td>
+						</tr>
+						<tr>
+							<td class="table__items" id="dep_shortname"></td>
+							<td class="table__items" id="dep_number"></td>
+							<td class="table__items" id="dep_quantity"></td>
+							<td class="table__items" id="dep_worktime"></td>
+							<td class="table__items" id="dep_dinnertime"></td>
+						</tr>
+					</table>
+					<div class="metadata__links-block" id="groups_list">
+					</div>
+				</div>
+				<div class="personal" id="personal">
+				</div>
+			</div><!-- .content -->
+		</div><!-- .wrap -->
+	</div><!-- .container -->
 </main>
 
 	<!-- Футер -->

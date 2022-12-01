@@ -342,14 +342,13 @@ window.addEventListener('load', function() {
                     this.resultElements.resultOutElement.classList.add('hidden');
                     this.resultElements.noResultElement.classList.remove('hidden');
                 } else {
-                    this.resultElements.resultOutElement.firstChild.dispatchEvent(new Event('click',  {bubbles: true}));
                     this.resultElements.resultOutElement.classList.remove('hidden');
                     this.resultElements.noResultElement.classList.add('hidden');
                     if (this.resultList.length > this.pageWidth) this.resultElements.showMore.classList.remove('hidden');
                 };
             })
             .catch( error => {
-                console.log(error);
+                console.error(error);
                 this.clearResultList();
                 this.clearCard();
                 this.inputElements.searchMessage.innerHTML = error;
@@ -358,6 +357,7 @@ window.addEventListener('load', function() {
                 this.inputElements.input.dataset.lock = '';
                 this.resultElements.overlay.classList.add('hidden');
                 this.inputElements.button.classList.remove('btn_lightGrey');
+                this.resultElements.resultOutElement.firstElementChild.dispatchEvent(new Event('click',  {bubbles: true}));
             });
         }
 
@@ -404,45 +404,52 @@ window.addEventListener('load', function() {
         }
     };
 
-    const SearchElement = new Search(State);
-    SearchElement.endLoad();
 
-    // Обработчик для кнопки посика
-    SearchElement.inputElements.button.addEventListener('click', SearchElement.search);
+    try {
+        const SearchElement = new Search(State);
+        SearchElement.endLoad();
 
-    // Обработчик для кнопки "Зазгрузить еще"
-    SearchElement.resultElements.showMoreBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (SearchElement.resultElements.showMoreBtn.dataset.lock === 'true') return;
-        new Promise( (resolve, reject) => {
-            SearchElement.resultElements.showMoreBtn.dataset.lock = 'true';
-            SearchElement.resultElements.showMoreBtn.classList.add('btn_lightGrey');
+        // Обработчик для кнопки посика
+        SearchElement.inputElements.button.addEventListener('click', SearchElement.search);
 
-            SearchElement.showResult();
-            resolve();
-        })
-        .then( () => {
-            SearchElement.resultElements.showMoreBtn.dataset.lock = '';
-            SearchElement.resultElements.showMoreBtn.classList.remove('btn_lightGrey');
-        })
-        .catch( error => {
-            console.log(error);
-            alert(error);
-            //this.inputElements.searchMessage.innerHTML = error;
+        // Обработчик для кнопки "Зазгрузить еще"
+        SearchElement.resultElements.showMoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (SearchElement.resultElements.showMoreBtn.dataset.lock === 'true') return;
+            new Promise( (resolve, reject) => {
+                SearchElement.resultElements.showMoreBtn.dataset.lock = 'true';
+                SearchElement.resultElements.showMoreBtn.classList.add('btn_lightGrey');
+
+                SearchElement.showResult();
+                resolve();
+            })
+            .then( () => {
+                SearchElement.resultElements.showMoreBtn.dataset.lock = '';
+                SearchElement.resultElements.showMoreBtn.classList.remove('btn_lightGrey');
+            })
+            .catch( error => {
+                console.log(error);
+                alert(error);
+                //this.inputElements.searchMessage.innerHTML = error;
+            });
         });
-    });
 
-    // Фиксация карточки при прокрутке
-    const html_element = document.querySelector('html');
-    const contentWrap = document.querySelector('main');
-    const cardElement = document.querySelector('.card');
-    window.addEventListener('scroll', () => {
-        if (html_element.scrollTop > contentWrap.offsetTop) {
-            const yPosition = html_element.scrollTop + 10;
-            cardElement.style = `position: sticky; top: ${yPosition}px;`;
-        } else {
-            cardElement.style = '';
-        };
-    });
+        // Фиксация карточки при прокрутке
+        const html_element = document.querySelector('html');
+        const contentWrap = document.querySelector('main');
+        const cardElement = document.querySelector('.card');
+        window.addEventListener('scroll', () => {
+            if (html_element.scrollTop > contentWrap.offsetTop) {
+                const yPosition = html_element.scrollTop + 10;
+                cardElement.style = `position: sticky; top: ${yPosition}px;`;
+            } else {
+                cardElement.style = '';
+            };
+        });
+    }
+    catch (error) {
+        alert('Возникла непредвиденная ошибка! Невозможно загрузить справочник. Не перезагружайте страницу и обратитесь к администратору по телефону 06-66 (э) или напишите на почту KuznetsovGS@ckba.local.');
+        console.error(error);
+    };
 
 });
