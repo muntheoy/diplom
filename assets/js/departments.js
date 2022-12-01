@@ -45,7 +45,9 @@ window.addEventListener('load', function () {
 
         // Сокрытие оверлея сайдбара (элементов визализации загрузки)
         _hideContentOverlay = () => {
-            this.contentItems.overlay.classList.add('hidden');
+            setTimeout(() => {
+                this.contentItems.overlay.classList.add('hidden');
+            }, 0);
             //this.contentItems.content.classList.remove('agile');
         };
 

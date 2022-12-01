@@ -168,7 +168,7 @@
 		&__contacts-block
 			font-size: 14px
 
-@media all and (max-width: 1290px)
+@media all and (max-width: 1366px)
 	.card
 		width: 450px
 		&__photo-block
@@ -189,7 +189,7 @@
 	.search
 		width: calc(100% - 460px)
 
-@media all and (max-width: 1050px)
+@media all and (max-width: 960px)
 	.card,
 	.search-wrap,
 	.result-wrap
@@ -238,13 +238,85 @@
 		&__message
 			font-size: 12px
 
-@media all and (max-width: 820px)
-	.card
-		width: 350px
 
-@media all and (max-width: 620px)
+@media all and (max-width: 680px)
+	.card,
+	.search-wrap,
+	.result-wrap
+		position: relative
+		padding: 10px
+
 	.card
-		width: 350px
+		width: 300px
+		&__photo-block
+			width: 90px
+		&__title-block
+			width: calc(100% - 90px)
+		&__title
+			font-size: 18px
+			margin-bottom: 5px
+		&__subtitle
+			font-size: 13px
+		&__position
+			font-size: 12px
+		&__table
+			font-size: 10px
+			.table__header-items
+				width: 100px
+	
+	.search
+		width: calc(100% - 310px)
+	
+	.search-form
+		font-size: 12px
+	.person
+		padding: 5px 5px 3px 5px
+		&__name
+			font-size: 12px
+			line-height: 1em
+		&__position
+			font-size: 9px
+		&__photo-block
+			margin-right: 7px
+		&__info-block
+			width: 110px
+			margin-right: 5px
+		&__contacts-block
+			font-size: 9px
+
+	.result
+		&__message
+			font-size: 10px
+
+	.counter
+		font-size: 12px
+
+@media all and (max-width: 640px)
+	.card,
+	.search-wrap,
+	.result-wrap
+		padding: 8px
+
+	.card
+		width: 260px
+		&__photo-block
+			width: 80px
+		&__title-block
+			width: calc(100% - 80px)
+		&__title
+			font-size: 16px
+			margin-bottom: 5px
+		&__subtitle
+			font-size: 13px
+
+	.search
+		width: calc(100% - 270px)
+
+	.person
+		&__info-block
+			width: 107px
+			margin-right: 3px
+
 
 
 	

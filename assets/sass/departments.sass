@@ -154,7 +154,7 @@
 			width: 120px
 
 
-@media all and (max-width: 1366px)
+@media all and (max-width: 1600px)
 	.sidebar,
 	.content
 		padding: 15px
@@ -197,9 +197,12 @@
 		&__table
 			font-size: 11px
 			line-height: 1em
-		&__view-photo i
-			font-size: 22px
-@media all and (max-width: 960px)
+		&__view-photo
+			height: calc( 100% - 4px )
+			i
+				font-size: 22px
+	
+@media all and (max-width: 1050px)
 	.sidebar,
 	.content
 		padding: 10px
