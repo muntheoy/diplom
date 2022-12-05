@@ -1,0 +1,108 @@
+// Обертка
+.wrap
+    display: flex
+    align-items: flex-start
+    justify-content: space-between
+.help
+    position: relative
+    width: 100%
+    min-height: calc( 100vh - 115px )
+    padding: 25px
+    background-color: #fff
+    border-radius: 5px
+    box-shadow: 0px 0px 5px 6px #dfdfdf
+    font-family: Montserrat, "Open sans", sans-serif
+    &__navlinks
+        margin-bottom: 20px
+    &__title
+        font-size: 16px
+    &__text
+        color: #828282
+        width: 60%
+        font-size: 15px
+        text-align: center
+        margin: 20px auto 40px auto
+
+.navlinks
+    display: grid
+    grid-template-columns: repeat(3, 1fr)
+    column-gap: 20px
+    row-gap: 20px
+    width: 950px
+    margin: 0 auto
+    &__item
+        width: 100%
+        height: 100%
+        border: 1px solid #ebebeb
+        align-self: self-start
+        justify-self: center
+        text-align: center
+        padding: 15px
+        border-radius: 5px
+        &:hover
+            background-color: #f7f7f7
+            cursor: pointer
+    &__icon
+        font-size: 35px
+        color: #828282
+        margin-bottom: 10px
+    &__title
+        font-size: 18px
+        margin-bottom: 5px
+    a:hover
+        color: #0b86d3
+    &__text
+        font-size: 12px
+        color: #b5b5b5
+
+@media all and (max-width: 1600px)
+    .help
+        &__text
+            width: 950px
+@media all and (max-width: 1050px)
+    .navlinks
+        width: 100%
+        &__item
+            padding: 10px
+    .help
+        &__text
+            font-size: 14px
+            width: 100%
+@media all and (max-width: 800px)
+    .navlinks
+        width: 100%
+        column-gap: 10px
+        row-gap: 10px
+        &__item
+            padding: 10px
+        &__icon
+            font-size: 32px
+        &__title
+            font-size: 15px
+        a:hover
+            color: #0b86d3
+        &__text
+            font-size: 10px
+    .help
+        &__text
+            font-size: 12px
+            width: 100%
+@media all and (max-width: 700px)
+    .navlinks
+        width: 100%
+        column-gap: 10px
+        row-gap: 10px
+        &__item
+            padding: 10px
+        &__icon
+            font-size: 24px
+        &__title
+            font-size: 13px
+        a:hover
+            color: #0b86d3
+        &__text
+            font-size: 10px
+    .help
+        &__text
+            font-size: 12px
+    
