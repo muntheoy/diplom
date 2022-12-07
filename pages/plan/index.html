@@ -32,11 +32,11 @@
 							<a href="../../pages/main/index.html">Поиск</a> 
 						</li>
 						<li class="navbar__items" data-partition-menu="department" onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/departments/index.html">Отделы</a> 
+							<a href="../../pages/departments/index.html">Подразделения</a> 
 						</li>
-						<li class="navbar__items" data-partition-menu="information" onselectstart="return false" onmousedown="return false">
+						<!-- <li class="navbar__items" data-partition-menu="information" onselectstart="return false" onmousedown="return false">
 							<a href="../../pages/information/index.html">Информация</a> 
-						</li>
+						</li> -->
 						<li class="navbar__items navbar__items_active" data-partition-menu="plan" onselectstart="return false" onmousedown="return false">
 							<a href="../../pages/plan/index.html">План</a> 
 						</li>
@@ -52,41 +52,79 @@
 	<main>
 		<div class="container">
 			<div class="plan">
-				<div class="plan-wrap">
-					<img class="plan__factory-map" id="plan" src="../../assets/img/Plan/factory-plan.jpg" alt="План АО ЦКБА">
-					<svg class="plan__marker-img" viewBox="0 0 3133 2745" fill="none" xmlns="http://www.w3.org/2000/svg">
-						<path class="map__marker" id="building-1" data-show="false" fill-rule="evenodd" clip-rule="evenodd" d="M290 1611H158V2468V2588H290H508V2468H290V1611Z" fill="#0085FF" fill-opacity="0"></path>
-						<rect class="map__marker" id="building-2" data-show="false" x="430" y="1902" width="650" height="422" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-3" data-show="false" x="817" y="2456" width="314" height="132" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-4" data-show="false" x="1294" y="1573" width="324" height="188" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-5" data-show="false" x="1267" y="1796" width="351" height="188" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-6" data-show="false" x="1240" y="2450" width="212" height="138" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-7" data-show="false" x="1112" y="1336" width="481" height="95" fill="#0085FF"></rect>
-						<circle class="map__marker" id="building-8" data-show="false" cx="1488" cy="2332" r="100" fill="#0085FF"></circle>
-						<circle class="map__marker" id="building-9" data-show="false" cx="656" cy="1778" r="100" fill="#0085FF"></circle>
-						<circle class="map__marker" id="building-10" data-show="false" cx="768" cy="1779" r="100" fill="#0085FF"></circle>
-						<circle class="map__marker" id="building-11" data-show="false" cx="1717" cy="2385" r="100" fill="#0085FF"></circle>
-						<circle class="map__marker" id="building-12" data-show="false" cx="1655" cy="2573" r="100" fill="#0085FF"></circle>
-						<circle class="map__marker" id="building-13" data-show="false" cx="1360" cy="2090" r="100" fill="#0085FF"></circle>
-						<rect class="map__marker" id="building-14" data-show="false" x="277" y="219" width="1231" height="814" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-15" data-show="false" x="166" y="219" width="111" height="816" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-16" data-show="false" x="760" y="1264" width="254" height="87" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-17" data-show="false" x="132" y="1153" width="211" height="256" fill="#0085FF"></rect>
-						<circle class="map__marker" id="building-18" data-show="false" cx="1270" cy="1299" r="100" fill="#0085FF"></circle>
-						<circle class="map__marker" id="building-19" data-show="false" cx="487" cy="1377" r="100" fill="#0085FF"></circle>
-						<rect class="map__marker" id="building-20" data-show="false" x="1727" y="720" width="744" height="313" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-21" data-show="false" x="1693" y="263" width="126" height="330" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-22" data-show="false" x="2397" y="182" width="190" height="361" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-23" data-show="false" x="2600" y="1177" width="117" height="159" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-24" data-show="false" x="2244" y="1152" width="232" height="150" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-25" data-show="false" x="2123" y="1415" width="353" height="136" fill="#0085FF"></rect>
-						<circle class="map__marker" id="building-26" data-show="false" cx="2295" cy="1366" r="100" fill="#0085FF"></circle>
-						<circle class="map__marker" id="building-27" data-show="false" cx="2422" cy="1362" r="100" fill="#0085FF"></circle>
-						<rect class="map__marker" id="building-28" data-show="false" x="1795" y="1673" width="361" height="96" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-29" data-show="false" x="2283" y="1569" width="292.137" height="165.035" transform="rotate(44.8045 2283 1569)" fill="#0085FF"></rect>
-						<rect class="map__marker" id="building-30" data-show="false" x="1678" y="1933" width="190" height="192" fill="#0085FF"></rect>
-						<circle class="map__marker" id="building-31" data-show="false" cx="1898" cy="2188" r="100" fill="#0085FF"></circle>
-					</svg>
+				<div class="map">
+					<div class="map-wrap">
+						<img class="map__img" id="plan" src="../../assets/img/Plan/factory-plan.jpg" alt="План АО ЦКБА">
+						<svg class="map__marker-img" id="marker_wrap" viewBox="0 0 3133 2745" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path class="map__marker"   id="building_1"  data-building="Корпус №1. Административно-инженерный" fill-rule="evenodd" clip-rule="evenodd" d="M290 1611H158V2468V2588H290H508V2468H290V1611Z" fill="#0085FF" fill-opacity="0"></path>
+							<rect class="map__marker"   id="building_2"  data-building="Корпус №2. Опытное производство с 2-мя нейтрализаторами" x="430" y="1902" width="650" height="422" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_3"  data-building="Корпус №3. Антенный Зал" x="817" y="2456" width="314" height="132" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_4"  data-building="Корпус №4. Ремонтный бокс автотранспорта" x="1294" y="1573" width="324" height="188" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_5"  data-building="Корпус №5. Бокс №1, бокс №2" x="1267" y="1796" width="351" height="188" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_6"  data-building="Корпус №6. Столовая" x="1240" y="2450" width="212" height="138" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_7"  data-building="Корпус №7. Ремонтно-энергетический" x="1112" y="1336" width="481" height="95" fill="#0085FF"></rect>
+							<circle class="map__marker" id="building_8"  data-building="Корпус №8. Здание вспомогательного производства" cx="1488" cy="2332" r="100" fill="#0085FF"></circle>
+							<circle class="map__marker" id="building_9"  data-building="Корпус №9. Здание над отстойником кислых стоков" cx="656" cy="1778" r="100" fill="#0085FF"></circle>
+							<circle class="map__marker" id="building_10" data-building="Корпус №10. Здание над отстоком цианистых стоков" cx="768" cy="1779" r="100" fill="#0085FF"></circle>
+							<circle class="map__marker" id="building_11" data-building="Корпус №12. Здание вспомогательного производства" cx="1717" cy="2385" r="100" fill="#0085FF"></circle>
+							<circle class="map__marker" id="building_12" data-building="Корпус №14. Контрольно-пропускной пункт" cx="1655" cy="2573" r="100" fill="#0085FF"></circle>
+							<circle class="map__marker" id="building_13" data-building="Корпус №15. Склад оборудования" cx="1360" cy="2090" r="100" fill="#0085FF"></circle>
+							<rect class="map__marker"   id="building_14" data-building="Корпус №16. Производственный корпус" x="277" y="219" width="1231" height="814" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_15" data-building="Корпус №17. Административно-бытовой" x="166" y="219" width="111" height="816" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_16" data-building="Корпус №18. Склад масел и химикатов" x="760" y="1264" width="254" height="87" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_17" data-building="Корпус №19. Столовая" x="132" y="1153" width="211" height="256" fill="#0085FF"></rect>
+							<circle class="map__marker" id="building_18" data-building="Корпус №21. Тепловой пункт" cx="1270" cy="1299" r="100" fill="#0085FF"></circle>
+							<circle class="map__marker" id="building_19" data-building="Корпус №22. Здание вспомогательного производства" cx="487" cy="1377" r="100" fill="#0085FF"></circle>
+							<rect class="map__marker"   id="building_20" data-building="Производственный корпус №3" x="1727" y="720" width="744" height="313" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_21" data-building="Нейтрализатор" x="1693" y="263" width="126" height="330" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_22" data-building="Корпус №5. Инв. 1155" x="2397" y="182" width="190" height="361" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_23" data-building="Овощехранилище на 250тн" x="2600" y="1177" width="117" height="159" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_24" data-building="Ремонтный бокс гаража" x="2244" y="1152" width="232" height="150" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_25" data-building="Склад материально-технического снабжения с незавершенной строительством пристройкой электрокарного депо" x="2123" y="1415" width="353" height="136" fill="#0085FF"></rect>
+							<circle class="map__marker" id="building_26" data-building="Ангар" cx="2295" cy="1366" r="100" fill="#0085FF"></circle>
+							<circle class="map__marker" id="building_27" data-building="Ангар" cx="2422" cy="1362" r="100" fill="#0085FF"></circle>
+							<rect class="map__marker"   id="building_28" data-building="Насосная водопроводная станция" x="1795" y="1673" width="361" height="96" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_29" data-building="Теплица-оранжерея с 2-ух этажной бытовой пристройкой" x="2283" y="1569" width="292.137" height="165.035" transform="rotate(44.8045 2283 1569)" fill="#0085FF"></rect>
+							<rect class="map__marker"   id="building_30" data-building="Корпус №4. Складское помещение из легкого материала" x="1678" y="1933" width="190" height="192" fill="#0085FF"></rect>
+							<circle class="map__marker" id="building_31" data-building="Хозпостройка цеха №15" cx="1898" cy="2188" r="100" fill="#0085FF"></circle>
+						</svg>
+					</div>
+					<div class="factorynames" id="factorynames_list">
+						<h3 class="factorynames__title">Наименования объектов</h3>
+						<ul class="factorynames__list">
+							<li class="factorynames__items" data-building="building_1" 	data-show="false">1. Корпус №1. Административно-инженерный</li>
+							<li class="factorynames__items" data-building="building_2" 	data-show="false">2. Корпус №2. Опытное производство с 2-мя нейтрализаторами</li>
+							<li class="factorynames__items" data-building="building_3" 	data-show="false">3. Корпус №3. Антенный Зал</li>
+							<li class="factorynames__items" data-building="building_4" 	data-show="false">4. Корпус №4. Ремонтный бокс автотранспорта</li>
+							<li class="factorynames__items" data-building="building_5" 	data-show="false">5. Корпус №5. Бокс №1, бокс №2</li>
+							<li class="factorynames__items" data-building="building_6" 	data-show="false">6. Корпус №6. Столовая</li>
+							<li class="factorynames__items" data-building="building_7" 	data-show="false">7. Корпус №7. Ремонтно-энергетический</li>
+							<li class="factorynames__items" data-building="building_8" 	data-show="false">8. Корпус №8. Здание вспомогательного производства</li>
+							<li class="factorynames__items" data-building="building_9" 	data-show="false">9. Корпус №9. Здание над отстойником кислых стоков</li>
+							<li class="factorynames__items" data-building="building_10" data-show="false">10. Корпус №10. Здание над отстоком цианистых стоков</li>
+							<li class="factorynames__items" data-building="building_11" data-show="false">11. Корпус №12. Здание вспомогательного производства</li>
+							<li class="factorynames__items" data-building="building_12" data-show="false">12. Корпус №14. Контрольно-пропускной пункт</li>
+							<li class="factorynames__items" data-building="building_13" data-show="false">13. Корпус №15. Склад оборудования</li>
+							<li class="factorynames__items" data-building="building_14" data-show="false">14. Корпус №16. Производственный корпус</li>
+							<li class="factorynames__items" data-building="building_15" data-show="false">15. Корпус №17. Административно-бытовой</li>
+							<li class="factorynames__items" data-building="building_16" data-show="false">16. Корпус №18. Склад масел и химикатов</li>
+							<li class="factorynames__items" data-building="building_17" data-show="false">17. Корпус №19. Столовая</li>
+							<li class="factorynames__items" data-building="building_18" data-show="false">18. Корпус №21. Тепловой пункт</li>
+							<li class="factorynames__items" data-building="building_19" data-show="false">19. Корпус №22. Здание вспомогательного производства</li>
+							<li class="factorynames__items" data-building="building_20" data-show="false">20. Производственный корпус №3</li>
+							<li class="factorynames__items" data-building="building_21" data-show="false">21. Нейтрализатор</li>
+							<li class="factorynames__items" data-building="building_22" data-show="false">22. Корпус №5. Инв. 1155</li>
+							<li class="factorynames__items" data-building="building_23" data-show="false">23. Овощехранилище на 250тн</li>
+							<li class="factorynames__items" data-building="building_24" data-show="false">24. Ремонтный бокс гаража</li>
+							<li class="factorynames__items" data-building="building_25" data-show="false">25. Склад  материально-технического снабжения с незавершенной строительством пристройкой электрокарного депо</li>
+							<li class="factorynames__items" data-building="building_26" data-show="false">26. Ангар</li>
+							<li class="factorynames__items" data-building="building_27" data-show="false">27. Ангар</li>
+							<li class="factorynames__items" data-building="building_28" data-show="false">28. Насосная водопроводная станция</li>
+							<li class="factorynames__items" data-building="building_29" data-show="false">29. Теплица-оранжерея с 2-ух этажной бытовой пристройкой</li>
+							<li class="factorynames__items" data-building="building_30" data-show="false">30. Корпус №4. Складское помещение из легкого материала</li>
+							<li class="factorynames__items" data-building="building_31" data-show="false">31. Хозпостройка цеха №15</li>
+						</ul>
+					</div> <!-- /.factorynames__info-block -->
 				</div>
 			</div>
 		</div>
