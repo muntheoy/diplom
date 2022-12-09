@@ -91,7 +91,7 @@ window.addEventListener('load', function() {
     function getMailingItemHTML(person) {
         return `<tr>
             <td class="table__items mailing__table_1">
-                <input type="checkbox" name="email" value="${person.email}" tabindex="${person.index}" checked>
+                <input type="checkbox" name="email" value="${person.email}" tabindex="${person.index}">
             </td>
             <td class="table__items mailing__table_2">${person.index}</td>
             <td class="table__items mailing__table_3">${person.surname} ${person.name} ${person.patronymic}</td>
@@ -104,7 +104,7 @@ window.addEventListener('load', function() {
     function getMailingLeadersItemHTML(person) {
         return `<tr>
             <td class="table__items mailing__table_6">
-                <input type="checkbox" name="email" value="${person.email}" tabindex="${person.index}" checked>
+                <input type="checkbox" name="email" value="${person.email}" tabindex="${person.index}">
             </td>
             <td class="table__items mailing__table_7">${person.index}</td>
             <td class="table__items mailing__table_8">${person.surname} ${person.name} ${person.patronymic}</td>
@@ -127,22 +127,30 @@ window.addEventListener('load', function() {
             
             let mailingList = [];
             for (let i = 0, l = checkboxList.length; i < l; i++) {
-                if (checkboxList[i].checked) mailingList.push(checkboxList[i].value);
+                if (checkboxList[i].checked && checkboxList[i].value !== '') mailingList.push(checkboxList[i].value);
             };
             
-            if (mailingList.length === 0) reject('Не удалось сформировать список для получения ссылки!');
-        
-            const link = new Mail('', mailingList).getMail();
-            window.open(link);
-            resolve();
+            console.log(mailingList);
+            if (mailingList.length === 0) {
+                reject('Вы не выбрали ни одного адресата!');
+            } else {
+                const link = new Mail('', mailingList).getMail();
+                window.open(link);
+                resolve();
+            };        
         })
         .then( () => {
             buttonUnlock(button);
             switchButtonMode(button, 1);
         })
         .catch( error => {
-            alert('Возникла ошибка при формировании ссылки! Обратитесь к администратору.');
-            console.log(error);
+            if (typeof error === 'string') {
+                alert(error);
+            } else {
+                alert('Возникла ошибка при формировании ссылки! Обратитесь к администратору.');
+                console.log(error);
+            };
+            
             buttonUnlock(button);
             switchButtonMode(button, 0);
         });
