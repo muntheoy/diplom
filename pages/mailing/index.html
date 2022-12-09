@@ -9,8 +9,8 @@
 	<link rel="stylesheet" href="../../assets/css/main.css">
 	<link rel="stylesheet" href="css/mailing.css">
 	<script defer src="../../assets/js/main.js"></script>
-	<!-- <script defer src="../../assets/js/info.v2.js"></script> -->
-	<!-- <script defer src="js/search.js"></script> -->
+	<script defer src="../../assets/js/info.v2.js"></script>
+	<script defer src="js/mailing.js"></script>
 </head>
 <body>
  <!-- Шапка с навигационным меню -->
@@ -75,8 +75,62 @@
 <main>
 	<div class="container">
 		<div class="content-wrap" id="content_wrap">
+			<div class="overlay">
+				<div>
+					<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+						<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+					</svg>
+				</div>
+			</div>
+			<h2 class="mailing__title title">Рассылка писем</h2>
+			<p class="mailing__description description">Здесь вы можете получить списки руководства предприятия и начальников подразделений для выполнения массовых рассылок информационных писем</p>	
 
-
+			<h3 class="mailing__subtitle subtitle">Руководство предприятия</h3>
+			<form class="table-wrap mailing__form" id="mailing_form" action="#">
+				<table class="mailing__table table">
+					<thead>
+						<tr>
+							<td class="table__items table__header-items mailing__table_6"></td>
+							<td class="table__items table__header-items mailing__table_7">№</td>
+							<td class="table__items table__header-items mailing__table_8">Ф.И.О.</td>
+							<td class="table__items table__header-items mailing__table_9">Электронная почта</td>
+						</tr>
+					</thead>
+					<tbody id="mailing_leadership">
+					</tbody>
+				</table>
+				<button class="mailing__btn btn" type="submit" id="go_mailing_leaderships" tabindex="999">
+					Перейти
+					<div class="btn__ico-box" id="spinner_add">
+					  <i class="fa fa-check check hidden"></i>
+					  <i class="fa fa-spinner spin hidden"></i>
+					</div>
+				</button>
+			</form>
+			
+			<h3 class="mailing__subtitle subtitle">Руководители подразделений</h3>
+			<form class="table-wrap mailing__form" id="mailing_dep_form" action="#">
+				<table class="mailing__table table">
+					<thead>
+						<tr>
+							<td class="table__items table__header-items mailing__table_1"></td>
+							<td class="table__items table__header-items mailing__table_2">№</td>
+							<td class="table__items table__header-items mailing__table_3">Ф.И.О.</td>
+							<td class="table__items table__header-items mailing__table_4">Подразделение</td>
+							<td class="table__items table__header-items mailing__table_5">Электронная почта</td>
+						</tr>
+					</thead>
+					<tbody id="mailing_leadership_dep">
+					</tbody>
+				</table>
+				<button class="mailing__btn btn" type="submit" id="go_mailing_leaderships_dep" tabindex="999">
+					Перейти
+					<div class="btn__ico-box" id="spinner_add">
+					  <i class="fa fa-check check hidden"></i>
+					  <i class="fa fa-spinner spin hidden"></i>
+					</div>
+				</button>
+			</form>
 		</div>
 	</div>
 </main>
