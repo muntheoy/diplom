@@ -9,8 +9,8 @@
 	<link rel="stylesheet" href="../../assets/css/main.css">
 	<link rel="stylesheet" href="css/changing.css">
 	<script defer src="../../assets/js/main.js"></script>
-	<!-- <script defer src="../../assets/js/info.v2.js"></script> -->
-	<!-- <script defer src="js/search.js"></script> -->
+	<script defer src="../../assets/js/info.v2.js"></script>
+	<script defer src="js/changing.js"></script>
 </head>
 <body>
  <!-- Шапка с навигационным меню -->
@@ -75,7 +75,304 @@
 <main>
 	<div class="container">
 		<div class="content-wrap" id="content_wrap">
+			<h2 class="changing__title title">Внести изменения в справочник</h2>
+			<p class="changing__description">Выберите тип изменений и заполните все необходимые поля. <br>Обязательные поля отмечены звездочкой (*).</p>
+			<form action="#" class="form changing__type" id="changing_type">
+				<div class="add-form__field field">
+					<label for="theme_form_input" class="field__label">Тип изменений</label>
+					<select class="field__input" name="theme_form_input" id="theme_form_input" type="text" tabindex="1">
+					  <option value="0" selected>Добавить сотрудника</option>
+					  <option value="1">Исправить информацию о сотруднике</option>
+					  <option value="2">Удалить сотрудника</option>
+					  <option value="3">Добавить фото</option>
+					  <option value="4">Неправильная работа справочника или опечатки</option>
+					  <option value="5">Предложить улучшение</option>
+					</select>
+					<span class="field__message"></span>
+				  </div>
+			</form>
+			
+			<div class="forms-block changing__forms-block" id="form_block">
+				<div class="overlay">
+					<div>
+						<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+							<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+						</svg>
+					</div>
+				</div>
 
+				<div class="add-person" id="add_person">
+					<h3 class="changing__subtitle">Добавить сотрудника</h3>
+					<form action="#" class="form" id="add_form">
+						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Добавить сотрудника">
+						<div class="changing__field field">
+							<label for="surname" class="field__label">Фамилия <span class="field__mark">*</span></label>
+							<input class="field__input" name="surname" data-nameru="Фамилия" type="text" tabindex="2" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="name" class="field__label">Имя <span class="field__mark">*</span></label>
+							<input class="field__input" name="name" data-nameru="Имя" type="text" tabindex="3" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="patronymic" class="field__label">Отчество <span class="field__mark">*</span></label>
+							<input class="field__input" name="patronymic" data-nameru="Отчество" type="text" tabindex="4" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="position" class="field__label">Должность</label>
+							<input class="field__input" name="position" data-nameru="Должность" type="text" tabindex="5" required>
+							<span class="field__message"></span>
+						</div>
+						
+						<div class="spliter"></div>
+
+						<div class="changing__field field">
+							<label for="department" class="field__label">Подразделение (отдел, цех, бюро и т.д.) <span class="field__mark">*</span></label>
+							<select class="field__input" id="add_department" name="department" data-nameru="Подразделение" type="text" tabindex="6" required>
+								<option value="0" selected="">Выберите подразделение</option>
+							</select>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="group" class="field__label">Наименование структурной единицы внутри подразделения (группа, сектор, бюро и т.д.)</label>
+							<select class="field__input" id="add_group" name="group" data-nameru="Группа" type="text" tabindex="7" disabled>
+							  <option value="0" selected="">Не найдено</option>
+							</select>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="new_group" class="field__label">Не оказалось нужной группы?<br>Укажите наименование (в скобках укажите ФИО начальника группы), она будет добавлена вместе с данными сотрудника</label>
+							<input class="field__input" id="new_group" name="new_group" data-nameru="Новая группа" type="text" tabindex="8">
+							<span class="field__message"></span>
+						</div>
+
+						<div class="spliter"></div>
+
+						<div class="changing__field field">
+							<label for="phone" class="field__label">Рабочий телефон <span class="field__mark">*</span></label>
+							<input class="field__input" name="phone" data-nameru="Рабочий телефон" type="text" tabindex="8" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="townphone" class="field__label">Городской телефон</label>
+							<input class="field__input" name="townphone" data-nameru="Городской телефон" type="text" tabindex="9">
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="mobile" class="field__label">Мобильный телефон</label>
+							<input class="field__input" name="mobile" data-nameru="Мобильный телефон" type="tel" tabindex="10">
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="email" class="field__label">Адрес электронной почты</label>
+							<input class="field__input" name="email" data-nameru="Электронная почта" type="email" tabindex="11">
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="location" class="field__label">Местоположение (корпус, кабинет) <span class="field__mark">*</span></label>
+							<input class="field__input" name="location" data-nameru="Местоположение" type="text" tabindex="12" required>
+							<span class="field__message"></span>
+						</div>
+
+						<div class="spliter"></div>
+
+						<div class="changing__message">Нажмите кнопку отправить, затем прикрепите к письму фотографию в доступных форматах: jpg, jpeg, png, bmp</div>
+
+						<button class="changing__btn btn" type="submit" id="submit_new_person" tabindex="13">
+							Отправить
+							<div class="btn__ico-box" id="spinner_add">
+							  <i class="fa fa-check check hidden"></i>
+							  <i class="fa fa-spinner spin hidden"></i>
+							</div>
+						</button>
+					</form>
+				</div>
+	
+				<div class="edit-person hidden" id="edit_person">
+					<h3 class="changing__subtitle">Изменить данные</h3>
+					<form action="#" class="form" id="add_form">
+						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Изменить данные">
+						<div class="changing__field field">
+							<label for="surname" class="field__label">Фамилия <span class="field__mark">*</span></label>
+							<input class="field__input" name="surname" data-nameru="Фамилия" type="text" tabindex="2" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="name" class="field__label">Имя <span class="field__mark">*</span></label>
+							<input class="field__input" name="name" data-nameru="Имя" type="text" tabindex="3" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="patronymic" class="field__label">Отчество <span class="field__mark">*</span></label>
+							<input class="field__input" name="patronymic" data-nameru="Отчество" type="text" tabindex="4" required>
+							<span class="field__message"></span>
+						</div>
+						
+						<div class="spliter"></div>
+						
+						<div class="changing__field field">
+							<label for="before_changing" class="field__label">Информация до изменений <span class="field__mark">*</span></label>
+							<textarea class="field__input" name="before_changing" data-nameru="Информация до изменений" type="text" rows="5" tabindex="5" required></textarea>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="after_changing" class="field__label">Информация после изменений <span class="field__mark">*</span></label>
+							<textarea class="field__input" name="after_changing" data-nameru="Информация после изменений" type="text" rows="5" tabindex="6" required></textarea>
+							<span class="field__message"></span>
+						</div>
+
+						<div class="spliter"></div>
+
+						<button class="changing__btn btn" type="submit" id="submit_edit" tabindex="7">
+							Отправить
+							<div class="btn__ico-box" id="spinner_add">
+							<i class="fa fa-check check hidden"></i>
+							<i class="fa fa-spinner spin hidden"></i>
+							</div>
+						</button>
+					</form>
+				</div>
+	
+				<div class="delete-person hidden" id="delete_person">
+					<h3 class="changing__subtitle">Удалить сотрудника</h3>
+					<form action="#" class="form" id="add_form">
+						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Удалить сотрудника">
+						<div class="changing__field field">
+							<label for="surname" class="field__label">Фамилия <span class="field__mark">*</span></label>
+							<input class="field__input" name="surname" data-nameru="Фамилия" type="text" tabindex="2" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="name" class="field__label">Имя <span class="field__mark">*</span></label>
+							<input class="field__input" name="name" data-nameru="Имя" type="text" tabindex="3" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="delete_patronymic" class="field__label">Отчество <span class="field__mark">*</span></label>
+							<input class="input" name="patronymic" data-nameru="Отчество" type="text" tabindex="4" required>
+							<span class="field__message"></span>
+						</div>
+						
+						<div class="spliter"></div>
+
+						<div class="changing__field field">
+							<label for="department" class="field__label">Подразделение (отдел, цех, бюро и т.д.) <span class="field__mark">*</span></label>
+							<select class="field__input" id="delete_department" name="department" data-nameru="Подразделение" type="text" tabindex="5" required>
+								<option value="0" selected="">Выберите подразделение</option>
+							</select>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="reason" class="field__label">Причина удаления</label>
+							<textarea class="field__input" name="reason" data-nameru="Причина удаления" type="text" rows="5" tabindex="6"></textarea>
+							<span class="field__message"></span>
+						</div>
+
+						<div class="spliter"></div>
+
+						<button class="changing__btn btn" type="submit" id="submit_delete_info" tabindex="7">
+							Отправить
+							<div class="btn__ico-box">
+							<i class="fa fa-check check hidden"></i>
+							<i class="fa fa-spinner spin hidden"></i>
+							</div>
+						</button>
+					</form>
+				</div>
+	
+				<div class="add-photo hidden" id="add_person_photo">
+					<h3 class="changing__subtitle">Добавить фото</h3>
+					<form action="#" class="form" id="photo_form">
+						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Добавить фото">
+						<div class="changing__field field">
+							<label for="surname" class="field__label">Фамилия <span class="field__mark">*</span></label>
+							<input class="field__input" name="surname" data-nameru="Фамилия" type="text" tabindex="2" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="name" class="field__label">Имя <span class="field__mark">*</span></label>
+							<input class="field__input" name="name" data-nameru="Имя" type="text" tabindex="3" required>
+							<span class="field__message"></span>
+						</div>
+						<div class="changing__field field">
+							<label for="patronymic" class="field__label">Отчество <span class="field__mark">*</span></label>
+							<input class="field__input" name="patronymic" data-nameru="Отчество" type="text" tabindex="4" required>
+							<span class="field__message"></span>
+						</div>
+
+						<div class="spliter"></div>
+
+						<!--<div class="add-form__field field">
+							<label for="photo" class="field__label">Добавьте фото в доступных форматах: jpg, jpeg, png, bmp</label>
+							<div class="import__file-container">
+							<input class="field__input import__file" name="photo" type="file" autocomplete="off" tabindex="5">
+							<div class="import__frontage">
+								<i class="fa fa-camera"></i>
+								<span>Перетащите файл</span>
+							</div>
+							</div>
+							<span class="import__filename" id="import__filename"></span>
+						</div>
+
+						<div class="spliter"></div>-->
+						<div class="changing__message">Нажмите кнопку отправить, затем прикрепите к письму фотографию в доступных форматах: jpg, jpeg, png, bmp</div>
+
+						<button class="changing__btn btn" type="submit" id="submit_new_person" tabindex="6">
+							Отправить
+							<div class="btn__ico-box" id="spinner_add">
+							<i class="fa fa-check check hidden"></i>
+							<i class="fa fa-spinner spin hidden"></i>
+							</div>
+						</button>
+					</form>
+				</div>
+	
+				<div class="errors hidden" id="errors_and_changes">
+					<h3 class="changing__subtitle">Сообщить об ошибке</h3>
+					<form action="#" class="form" id="errors_form">
+						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Ошибки в работе справочника">
+						<div class="changing__field field">
+							<label for="error" class="field__label">Укажите раздел, в котором заметили ошибку или опечатку. При некорректной работе справочника подробно опишите действия, при которых возникает ошибка или неисправность. На следующем этапе прикрепите скриншоты области экрана, где будет видно некорректную работу. <span class="field__mark">*</span></label>
+							<textarea class="field__input" placeholder="Подробно опишите неточность или суть ошибки и обстоятельства ее возникновения" name="error" data-nameru="Описание ошибка" type="text" rows="10" tabindex="2" required></textarea>
+							<span class="field__message"></span>
+						</div>
+
+						<div class="spliter"></div>
+
+						<button class="changing__btn btn" type="submit" id="submit_errors" tabindex="3">
+							Отправить
+							<div class="btn__ico-box">
+							<i class="fa fa-check check hidden"></i>
+							<i class="fa fa-spinner spin hidden"></i>
+							</div>
+						</button>
+					</form>
+				</div>
+	
+				<div class="improvement hidden" id="improvement">
+					<h3 class="changing__subtitle">Сообщить об ошибке</h3>
+					<form action="#" class="form" id="improvement_form">
+						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Предложение улучшения">
+						<div class="changing__field field">
+							<label for="improvement" class="field__label">Подробно опишите улучшения, которые хотели бы внести в справочник <span class="field__mark">*</span></label>
+							<textarea class="field__input" name="improvement" data-nameru="Описание улучшения" type="text" rows="10" tabindex="2" required></textarea>
+							<span class="field__message"></span>
+						</div>
+
+						<div class="spliter"></div>
+
+						<button class="changing__btn btn" type="submit" id="submit_improvement" tabindex="3">
+							Отправить
+							<div class="btn__ico-box">
+							<i class="fa fa-check check hidden"></i>
+							<i class="fa fa-spinner spin hidden"></i>
+							</div>
+						</button>
+					</form>
+				</div>
+			</div>
 
 		</div>
 	</div>
@@ -89,7 +386,7 @@
 		<div class="container">
 			<div class="footer-wrap">
 				<span class="footer__department">Научно-инновационный отдел</span> <!-- /.footer__department -->
-				<span class="footer__version" title="Обновлено 23 ноября 2022 г.">v 2.0.0 alpha</span> <!-- /.footer__version -->
+				<a class="footer__version" href="../../pages/versions/index.html" title="Обновлено 23 ноября 2022 г.">v 2.0.0 alpha</a> <!-- /.footer__version -->
 			</div>
 		</div> <!-- /.container -->
 	</footer> <!-- /.footer -->
