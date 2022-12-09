@@ -96,7 +96,7 @@ window.addEventListener('load', function() {
             <td class="table__items mailing__table_2">${person.index}</td>
             <td class="table__items mailing__table_3">${person.surname} ${person.name} ${person.patronymic}</td>
             <td class="table__items mailing__table_4" title="${person.department_name}">${person.department_shortname}</td>
-            <td class="table__items mailing__table_5">${person.email}</td>
+            <td class="table__items mailing__table_5"><a href="mailto:${person.email}">${person.email}</a></td>
         </tr>`;
     };
 
@@ -108,7 +108,7 @@ window.addEventListener('load', function() {
             </td>
             <td class="table__items mailing__table_7">${person.index}</td>
             <td class="table__items mailing__table_8">${person.surname} ${person.name} ${person.patronymic}</td>
-            <td class="table__items mailing__table_9">${person.email}</td>
+            <td class="table__items mailing__table_9"><a href="mailto:${person.email}">${person.email}</a></td>
         </tr>`;
     };
 
