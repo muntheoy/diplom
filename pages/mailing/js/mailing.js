@@ -156,6 +156,41 @@ window.addEventListener('load', function() {
         });
     };
 
+    // Обработчик для кнопки "Выбрать все"
+    const checkAllHandler = event => {
+        event.preventDefault();
+
+        const button = event.target.closest('.check_all');
+        if (button.dataset.lock === 'true') return;
+        buttonLock(button);
+
+        new Promise( (resolve, reject) => {
+            let checked = false;
+            if (button.dataset.checked === true || button.dataset.checked === 'true') {
+                checked = false;
+                button.classList.remove('check_all_active');
+            } else {
+                checked = true;
+                button.classList.add('check_all_active');
+            };
+            button.dataset.checked = checked;
+
+            const formElements = event.target.closest('form').elements;
+            for (let i = 0, l = formElements.length; i < l; i++) {
+                const element = formElements[i];
+                if (element.type === 'checkbox') element.checked = checked;
+            };
+            resolve();
+        })
+        .then( () => {
+            buttonUnlock(button);
+        })
+        .catch( error => {
+            alert('Возникла непредвиденная ошибка! Не удается выделить все элементы списка.');
+            console.error(error);
+        });
+    };
+
 
     try {
         new Promise( (resolve, reject) => {
@@ -194,9 +229,10 @@ window.addEventListener('load', function() {
             document.querySelector('#go_mailing_leaderships').addEventListener('click', goToMailingHandler);
             document.querySelector('#go_mailing_leaderships_dep').addEventListener('click', goToMailingHandler);
 
+            document.querySelector('#check_all_leadership').addEventListener('click', checkAllHandler);
+            document.querySelector('#check_all_dep').addEventListener('click', checkAllHandler);
+
             resolve();
-
-
         })
         .then( () => {
             document.querySelector('#content_wrap .overlay').classList.add('hidden');
@@ -204,7 +240,7 @@ window.addEventListener('load', function() {
         })
         .catch( error => {
             alert(error);
-        }); 
+        });
     } catch(error) {
         alert('Возникла непредвиденная ошибка! Обратитесь к администратору.');
         console.error(error);
