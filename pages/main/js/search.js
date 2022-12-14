@@ -57,13 +57,11 @@ window.addEventListener('load', function() {
 
         }
 
-        // Очистка карточки
         clearInput = () => {
             this.inputElements.input.value = '';
             this.inputElements.searchMessage.innerHTML = '';
         }
 
-        // Очистка карточки
         clearCard = () => {
             this.cardElements.email.innerHTML = '';
             this.cardElements.email.href = '';
@@ -84,7 +82,6 @@ window.addEventListener('load', function() {
             this.cardElements.keywords.innerHTML = '';
         }
 
-        // Загрузка данных в карточку
         _innerDataToCard = (person, department) => {
             if (!person || !department) return 1;
             let photoLink = '../../'+person.photo_link;
@@ -134,7 +131,6 @@ window.addEventListener('load', function() {
             return 0;
         }
 
-        // Очистка результатов поиска
         clearResultList = () => {
             while (this.resultElements.resultOutElement.firstChild) {
                 this.resultElements.resultOutElement.removeChild(this.resultElements.resultOutElement.firstChild);
@@ -143,33 +139,28 @@ window.addEventListener('load', function() {
             this.resultElements.noResultElement.classList.add('hidden');
             this.resultElements.resultOutElement.classList.add('hidden');
             this.resultElements.showMore.classList.add('hidden');
-            //this.resultList = [];
             this.lastShowed = 0;
             this.updateCounter(0, 0);
         };
 
-        // Начало загрузки (поиска)
         startLoad = () => {
             this.inputElements.overlay.classList.remove('hidden');
             this.cardElements.overlay.classList.remove('hidden');
             this.resultElements.overlay.classList.remove('hidden');
         };
 
-        // Конец загрузки (поиска)
         endLoad = () => {
             this.inputElements.overlay.classList.add('hidden');
             this.cardElements.overlay.classList.add('hidden');
             this.resultElements.overlay.classList.add('hidden');
         };
 
-        // Обновление счетчика найденных и показанных результатов
         updateCounter = (quantity, showed) => {
             this.showedCount = quantity;
             this.resultElements.counter.innerHTML = quantity;
             this.resultElements.showedCounter.innerHTML = showed;
         } 
 
-        // Возвращает разметку одного результата поиска
         _getResultHTML = (person) => {
             let photoLink = '../../'+person.photo_link;
             if (person.photo_link === '' || !person.photo_link) {
@@ -198,7 +189,6 @@ window.addEventListener('load', function() {
             </div>`;
         }
 
-        // Возвращает результаты поиска
         _getSearchResult = query => {
             let result = [];
 
@@ -270,7 +260,6 @@ window.addEventListener('load', function() {
             return 0;
         }
 
-        // Вывод результатов поиска в блок
         showResult = () => {
             const startShowingIndex = this.lastShowed;
             let endShowingIndex = startShowingIndex + this.pageWidth;
@@ -306,7 +295,6 @@ window.addEventListener('load', function() {
             this.resultElements.resultOutElement.addEventListener('click', this.showPersonDataHandler);
         }
 
-        // Функция поиска
         search = (e) => {
             e.preventDefault();
             if (this.inputElements.button.dataset.lock === 'true') return;
@@ -361,7 +349,6 @@ window.addEventListener('load', function() {
             });
         }
 
-        // Обработчик нажатия на любой из результатов поиска
         showPersonDataHandler = event => {
             event.preventDefault();
             if (this.cardElements.card.dataset.lock === 'true') return;
@@ -395,7 +382,6 @@ window.addEventListener('load', function() {
             .catch( error => {
                 console.log(error);
                 alert(error);
-                //this.inputElements.searchMessage.innerHTML = error;
             })
             .finally( () => {
                 this.cardElements.card.dataset.lock = '';
@@ -409,10 +395,8 @@ window.addEventListener('load', function() {
         const SearchElement = new Search(State);
         SearchElement.endLoad();
 
-        // Обработчик для кнопки посика
         SearchElement.inputElements.button.addEventListener('click', SearchElement.search);
 
-        // Обработчик для кнопки "Зазгрузить еще"
         SearchElement.resultElements.showMoreBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (SearchElement.resultElements.showMoreBtn.dataset.lock === 'true') return;
@@ -430,11 +414,9 @@ window.addEventListener('load', function() {
             .catch( error => {
                 console.log(error);
                 alert(error);
-                //this.inputElements.searchMessage.innerHTML = error;
             });
         });
 
-        // Фиксация карточки при прокрутке
         const html_element = document.querySelector('html');
         const contentWrap = document.querySelector('main');
         const cardElement = document.querySelector('.card');

@@ -76,7 +76,6 @@ window.addEventListener('load', function() {
         };
     };
 
-    //f Функция переключения кнопки с отображением результата (выкл-0/успех-1/загрузка-2)
     function switchButtonMode(button, state = 0) {
         const first_img = button.querySelector('.check');
         const last_img = button.querySelector('.spin');
@@ -92,7 +91,6 @@ window.addEventListener('load', function() {
         };
     };
 
-    //f Функция установки стилей и атрибутов заблокированной кнопки
     const buttonLock = (button, unvisible = false, style = true) => {
         button.dataset.lock = 'true';
         button.disabled = true;
@@ -104,7 +102,6 @@ window.addEventListener('load', function() {
         };
     };
 
-    //f Функция удаления стилей и атрибутов для разблокированной кнопки
     const buttonUnlock = (button, unvisible = true, style = true) => {
         button.dataset.lock = 'false';
         button.disabled = false;
@@ -268,7 +265,6 @@ window.addEventListener('load', function() {
                             });
                     };
 
-                    // Проверка корретности заполнения полей
                     let textRegexp;
                     switch (element.type) {
                         case 'tel':

@@ -25,33 +25,21 @@ window.addEventListener('load', function () {
             this.activeDepartment = undefined;
         };
 
-        // Сокрытие оверлея блока с контентом (элементов визализации загрузки)
-       /* _showContentOverlay = () => {
-            this.contentItems.overlay.classList.remove('hidden');
-            this.contentItems.content.classList.add('agile');
-        };*/
-
-        // Сокрытие оверлея блока с контентом (элементов визализации загрузки)
         _showContentOverlay = () => {
             this.contentItems.overlay.classList.remove('hidden');
-            //this.contentItems.content.classList.add('agile');
         };
 
-        // Сокрытие оверлея сайдбара (элементов визализации загрузки)
         _hideSidebarOverlay = () => {
             this.sidebarElements.overlay.classList.add('hidden');
             this.sidebarElements.sidebar.classList.remove('agile');
         };
 
-        // Сокрытие оверлея сайдбара (элементов визализации загрузки)
         _hideContentOverlay = () => {
             setTimeout(() => {
                 this.contentItems.overlay.classList.add('hidden');
             }, 0);
-            //this.contentItems.content.classList.remove('agile');
         };
 
-        // Возвращает HTML элемента списка подразделений
         _getSidebarItemHTML = department => {
             return `<div class="sidebar__item deplink" id="${department.memo}" data-memo="${department.memo}" data-id="${department.id}">
                 <span class="deplink__number">${department.number}</span>
@@ -59,7 +47,6 @@ window.addEventListener('load', function () {
             </div>`;
         }
 
-        // Возвращает HTML карточки сотрудника
         _getPersonHTML = person => {
             if (!person) return '';
             let photoLink = '../../'+person.photo_link;
@@ -116,7 +103,6 @@ window.addEventListener('load', function () {
             </div>`;
         }
 
-        // Возвращает HTML группц с подзаголовком
         _getGroupHTML = (group = {id:'', name:''}) => {
             const groupHTMLId = `group${group.id}`;
             return `<h3 class="metadata__subtitle" id="${groupHTMLId}">${group.name}</h3>
@@ -129,7 +115,6 @@ window.addEventListener('load', function () {
             return `<a href="#group${group.id}" class="metadata__link">${group.name}</a>`;
         }
 
-        // Возвращает массив подразделений с данными, достаточными для добавления в сайдбар
         getSidebarDepartmentsList = () => {
             let depList = [];
             for (const depMemo in this.staff) {
@@ -150,7 +135,6 @@ window.addEventListener('load', function () {
             return depList;
         };
 
-        // Очистка контента
         _clearContent = () => {
             this.contentItems.depName.innerHTML = '';
             this.contentItems.depShortname.innerHTML = '';
@@ -169,7 +153,6 @@ window.addEventListener('load', function () {
             };
         }
 
-        //Добавление данных в разметку
         _innerDataToContent = department => {
             this.contentItems.depName.innerHTML = department.name;
             this.contentItems.depShortname.innerHTML = department.short_name;
@@ -179,7 +162,6 @@ window.addEventListener('load', function () {
             this.contentItems.depDinnertime.innerHTML = department.dinner_time;
 
             const depStaff = department.staff;
-            // Ссылки групп
             const groups = department.groups;
             try {
                 if (groups.length === 0) {
@@ -228,7 +210,6 @@ window.addEventListener('load', function () {
             return 0;
         }
 
-        // Инициализация сайдбара со списком подразделений
         sidebarInit = () => {
             const departmentList = this.getSidebarDepartmentsList();
             new Promise( (resolve, reject) => {
@@ -237,11 +218,6 @@ window.addEventListener('load', function () {
                     return '';
                 });
                 if (!departmentHTMLList || departmentHTMLList === undefined || departmentHTMLList.length === 0) reject('Не удалось сформировать список подразделений, возникла ошибка!');
-                
-                //const departmentsHTML = departmentList.map( item => {
-                //    return this._getSidebarItemHTML(item);
-                //});
-                //if (!departmentsHTML || departmentsHTML.length === 0) reject('Не удалось сформировать список подразделений, возникла ошибка!');
 
                 for (let i = 0, l = departmentList.length; i < l; i++) {
                     const depHTML = this._getSidebarItemHTML(departmentList[i]);
@@ -261,7 +237,6 @@ window.addEventListener('load', function () {
             });
         }
 
-        // Обработчик нажатия на наименование отдела в сайдбаре
         clickDepartmentHandler = event => {
             event.preventDefault();
             if (this.sidebarElements.sidebar.dataset.lock === 'true') return;

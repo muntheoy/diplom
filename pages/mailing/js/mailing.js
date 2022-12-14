@@ -47,7 +47,6 @@ window.addEventListener('load', function() {
         }
     };
 
-    //f Функция переключения кнопки с отображением результата (выкл-0/успех-1/загрузка-2)
     function switchButtonMode(button, state = 0) {
         const first_img = button.querySelector('.check');
         const last_img = button.querySelector('.spin');
@@ -63,7 +62,6 @@ window.addEventListener('load', function() {
         };
     };
 
-    //f Функция установки стилей и атрибутов заблокированной кнопки
     const buttonLock = (button, unvisible = false, style = true) => {
         button.dataset.lock = 'true';
         button.disabled = true;
@@ -75,7 +73,6 @@ window.addEventListener('load', function() {
         };
     };
 
-    //f Функция удаления стилей и атрибутов для разблокированной кнопки
     const buttonUnlock = (button, unvisible = true, style = true) => {
         button.dataset.lock = 'false';
         button.disabled = false;
@@ -87,7 +84,6 @@ window.addEventListener('load', function() {
         };
     };
 
-    // Возврашает HTML элемента таблицы
     function getMailingItemHTML(person) {
         return `<tr>
             <td class="table__items mailing__table_1">
@@ -100,7 +96,6 @@ window.addEventListener('load', function() {
         </tr>`;
     };
 
-    // Возврашает HTML элемента таблицы
     function getMailingLeadersItemHTML(person) {
         return `<tr>
             <td class="table__items mailing__table_6">
@@ -112,7 +107,6 @@ window.addEventListener('load', function() {
         </tr>`;
     };
 
-    // Обработчик перехода к рассылке
     function goToMailingHandler(event) {
         event.preventDefault();
         const button = event.target.closest('.btn');
@@ -159,7 +153,6 @@ window.addEventListener('load', function() {
         });
     };
 
-    // Обработчик для кнопки "Выбрать все"
     const checkAllHandler = event => {
         event.preventDefault();
 
