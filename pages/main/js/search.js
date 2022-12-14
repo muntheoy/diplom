@@ -120,7 +120,7 @@ window.addEventListener('load', function() {
             this.cardElements.photoLink.href = photoLink;
             this.cardElements.photo.src = photoLink;
 
-            this.cardElements.fullname.innerHTML = `${person.surname} ${person.name} ${person.patronymic}`;
+            this.cardElements.fullname.innerHTML = `${person.surname}<br>${person.name} ${person.patronymic}`;
             this.cardElements.position.innerHTML = person.position;
             this.cardElements.department.innerHTML = department.name;
             this.cardElements.group.innerHTML = group.name;
