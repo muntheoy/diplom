@@ -135,7 +135,10 @@ window.addEventListener('load', function() {
                 reject('Вы не выбрали ни одного адресата!');
             } else {
                 const link = new Mail('', mailingList).getMail();
-                window.open(link);
+                const wind = window.open(link);
+                setTimeout(() => {
+                    wind.close();
+                }, 500);
                 resolve();
             };        
         })
