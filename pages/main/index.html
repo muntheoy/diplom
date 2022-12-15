@@ -12,21 +12,7 @@
 	<script defer src="../../assets/data/Data.v2.js"></script>
 	<script defer src="js/search.js"></script>
 </head>
-<body class="">
-	<script>
-		try {
-			const Theme = localStorage.getItem('theme');
-			console.log(Theme);
-			if (localStorage.getItem('theme') === 'dark') {
-				document.querySelector('body').classList.add('dark');
-			} else {
-				document.querySelector('body').classList.remove('dark');
-			};
-		} catch (error) {
-			console.error('Не удалось установить тему:', error);
-		};
-	</script>
-	
+<body class="">	
   	<!-- Шапка с навигационным меню -->
 	<header class="header" id="header">
 		<div class="container">
@@ -223,6 +209,18 @@
 		</div>
 	</div> <!-- /.container -->
 </footer> <!-- /.footer -->
-
+<script>
+	try {
+		const Theme = localStorage.getItem('theme');
+		console.log(Theme);
+		if (localStorage.getItem('theme') === 'dark') {
+			document.querySelector('body').classList.add('dark');
+		} else {
+			document.querySelector('body').classList.remove('dark');
+		};
+	} catch (error) {
+		console.error('Не удалось установить тему:', error);
+	};
+</script>
 </body>
 </html>

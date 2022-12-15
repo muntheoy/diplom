@@ -146,11 +146,33 @@
 	</button>
 	<div class="container">
 		<div class="footer-wrap">
-			<span class="footer__department">Научно-инновационный отдел</span> <!-- /.footer__department -->
-			<a class="footer__version" href="../../pages/versions/index.html">v 2.0.1 beta</a> <!-- /.footer__version -->
+			<div class="theme-box">
+				<button id="toggle_theme">
+					<i class="fa fa-adjust" title="Светлая тема"></i>
+					<i class="fa fa-adjust" style="transform: rotate(180deg);" title="Тёмная тема"></i>
+				</button>
+			</div>
+			<div class="version-box">
+				<span class="footer__department">Научно-инновационный отдел</span> <!-- /.footer__department -->
+				<a class="footer__version" href="../../pages/versions/index.html">v 2.0.1 beta</a> <!-- /.footer__version -->
+			</div>
+			<div class="inf-box"></div>
 		</div>
 	</div> <!-- /.container -->
 </footer> <!-- /.footer -->
+<script>
+	try {
+		const Theme = localStorage.getItem('theme');
+		console.log(Theme);
+		if (localStorage.getItem('theme') === 'dark') {
+			document.querySelector('body').classList.add('dark');
+		} else {
+			document.querySelector('body').classList.remove('dark');
+		};
+	} catch (error) {
+		console.error('Не удалось установить тему:', error);
+	};
+</script>
 
 </body>
 </html>
