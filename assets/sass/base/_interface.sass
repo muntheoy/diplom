@@ -25,6 +25,7 @@ body
 	font-family: Montserrat, "Open sans", sans-serif
 	padding: 0
 	position: relative
+
 .page
 	padding-top: 25px
 	padding-bottom: 75px
@@ -116,7 +117,7 @@ textarea
   padding: 6px 15px 6px 15px
   border-radius: 3px
   border: 1px solid #e5e5e5
-  transition: 0.3s ease-in-out
+  //transition: 0.3s ease-in-out
   font-size: 15px
   &:focus
     outline: none
@@ -256,6 +257,26 @@ a
 .preloader
   width: 80px
   height: 80px
+
+// Темная тема
+.dark
+    background-color: #1e1e1e
+    input[type="text"],
+    input[type="password"],
+    input[type="tel"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    input[type="radio"],
+    input[type="checkbox"],
+    select,
+    textarea
+      background-color: #333333
+      color: #ffffff
+    h1, h2, h3, h4, h5, h6, div, span, p, li, pre
+      color: #ffffff
+    .overlay
+      background-color: rgba(125, 125, 125, 0.85)
 
 @keyframes rotateElem
   0%

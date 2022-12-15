@@ -153,6 +153,42 @@
 	&__phone
 	&__email
 
+
+// Темная тема
+.dark
+	.card,
+	.search-wrap,
+	.result-wrap
+		background-color: #252525
+		border: 1px solid #383838
+		box-shadow: none
+		color: #dedede
+	.card
+		color: #dedede
+		&__table
+		&__title
+			color: #ffffff
+	.table
+		&__items
+			color: #dedede
+			border: 1px solid #696969
+		&__header-items		
+			color: #a7a7a7
+	.counter,
+	.result__message
+		color: #dedede
+	.person
+		border: 1px solid #4a4a4a
+		&:hover
+			background-color: #333333
+		&__name
+			color: #ffffff
+		&__position,
+		&__department,
+		&__phone,
+		&__email
+			color: #dedede
+
 	
 // Адаптив
 @media all and (max-width: 1420px)
@@ -211,11 +247,11 @@
 			margin: 10px 0 5px
 		&__table
 			font-size: 11px
-			.table__items
+			/*.table__items
 				color: #000000
 			.table__header-items
 				width: 110px
-				color: #838383
+				//color: #838383
 	
 	.search
 		width: calc(100% - 360px)
