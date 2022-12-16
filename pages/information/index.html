@@ -61,7 +61,7 @@
 <!-- Контент -->
 <main>
 	<div class="container">
-		<div class="content-wrap" id="content_wrap">
+		<div class="content-wrap content-section" id="content_wrap">
 			<h2 class="information__title title">Правила пользования</h2>
 			<p class="information__description description">Перед использование справочника подробно ознакомьтесь с правилами ведения телефонных переговоров</p>
 
@@ -112,10 +112,22 @@
 	</div> <!-- /.container -->
 </footer> <!-- /.footer -->
 <script>
+	function getCookie(name) {
+      let matches = document.cookie.match( new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
+	
 	try {
-		const Theme = localStorage.getItem('theme');
-		console.log(Theme);
-		if (localStorage.getItem('theme') === 'dark') {
+		let Theme = 'light';
+		if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
+			Theme = getCookie('theme');
+		} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
+			Theme = localStorage.getItem('theme');
+		};
+		
+		if (Theme === 'dark') {
 			document.querySelector('body').classList.add('dark');
 		} else {
 			document.querySelector('body').classList.remove('dark');

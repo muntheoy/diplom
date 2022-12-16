@@ -61,9 +61,9 @@
 <!-- Контент -->
 <main>
 	<div class="container">
-		<div class="content-wrap" id="content_wrap">
+		<div class="content-wrap content-section" id="content_wrap">
 			<h2 class="changing__title title">Внести изменения в справочник</h2>
-			<p class="changing__description">Выберите тип изменений и заполните все необходимые поля. <br>Обязательные поля отмечены звездочкой (*).</p>
+			<p class="changing__description description">Выберите тип изменений и заполните все необходимые поля. <br>Обязательные поля отмечены звездочкой (*).</p>
 			<form action="#" class="form changing__type" id="changing_type">
 				<div class="add-form__field field">
 					<label for="theme_form_input" class="field__label">Тип изменений</label>
@@ -87,9 +87,9 @@
 						</svg>
 					</div>
 				</div>
-
+				<a href="" class="hidden" id="mail_link"></a>
 				<div class="add-person" id="add_person">
-					<h3 class="changing__subtitle">Добавить сотрудника</h3>
+					<h3 class="changing__subtitle subtitle">Добавить сотрудника</h3>
 					<form action="#" class="form" id="add_form">
 						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Добавить сотрудника">
 						<div class="changing__field field">
@@ -108,7 +108,7 @@
 							<span class="field__message"></span>
 						</div>
 						<div class="changing__field field">
-							<label for="position" class="field__label">Должность</label>
+							<label for="position" class="field__label">Должность <span class="field__mark">*</span></label>
 							<input class="field__input" name="position" data-nameru="Должность" type="text" tabindex="5" required>
 							<span class="field__message"></span>
 						</div>
@@ -178,7 +178,7 @@
 				</div>
 	
 				<div class="edit-person hidden" id="edit_person">
-					<h3 class="changing__subtitle">Изменить данные</h3>
+					<h3 class="changing__subtitle subtitle">Изменить данные</h3>
 					<form action="#" class="form" id="add_form">
 						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Изменить данные">
 						<div class="changing__field field">
@@ -223,7 +223,7 @@
 				</div>
 	
 				<div class="delete-person hidden" id="delete_person">
-					<h3 class="changing__subtitle">Удалить сотрудника</h3>
+					<h3 class="changing__subtitle subtitle">Удалить сотрудника</h3>
 					<form action="#" class="form" id="add_form">
 						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Удалить сотрудника">
 						<div class="changing__field field">
@@ -270,7 +270,7 @@
 				</div>
 	
 				<div class="add-photo hidden" id="add_person_photo">
-					<h3 class="changing__subtitle">Добавить фото</h3>
+					<h3 class="changing__subtitle subtitle">Добавить фото</h3>
 					<form action="#" class="form" id="photo_form">
 						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Добавить фото">
 						<div class="changing__field field">
@@ -317,7 +317,7 @@
 				</div>
 	
 				<div class="errors hidden" id="errors_and_changes">
-					<h3 class="changing__subtitle">Сообщить об ошибке</h3>
+					<h3 class="changing__subtitle subtitle">Сообщить об ошибке</h3>
 					<form action="#" class="form" id="errors_form">
 						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Ошибки в работе справочника">
 						<div class="changing__field field">
@@ -339,7 +339,7 @@
 				</div>
 	
 				<div class="improvement hidden" id="improvement">
-					<h3 class="changing__subtitle">Сообщить об ошибке</h3>
+					<h3 class="changing__subtitle subtitle">Предложить улучшение</h3>
 					<form action="#" class="form" id="improvement_form">
 						<input type="hidden" name="theme" data-nameru="Тема письма" value="СПРАВОЧНИК: Предложение улучшения">
 						<div class="changing__field field">
@@ -387,10 +387,23 @@
 	</div> <!-- /.container -->
 </footer> <!-- /.footer -->
 <script>
+	function getCookie(name) {
+      let matches = document.cookie.match( new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
+	
 	try {
-		const Theme = localStorage.getItem('theme');
-		console.log(Theme);
-		if (localStorage.getItem('theme') === 'dark') {
+		let Theme = 'light';
+		if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
+			Theme = getCookie('theme');
+		} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
+			Theme = localStorage.getItem('theme');
+		};
+		
+		console.log('cookie: ', document.cookie);
+		if (Theme === 'dark') {
 			document.querySelector('body').classList.add('dark');
 		} else {
 			document.querySelector('body').classList.remove('dark');

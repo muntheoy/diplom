@@ -58,4 +58,13 @@ window.addEventListener('load', function() {
             console.error(error);
         };
     });
+
+    try {
+        this.setTimeout( () => {
+            document.querySelector('.overlay').classList.add('hidden');
+            document.querySelector('.overlay svg').classList.remove('spin');   
+        }, 100)
+    } catch (error) {
+        console.error(error);
+    };
 });

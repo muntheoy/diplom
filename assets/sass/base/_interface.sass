@@ -254,9 +254,18 @@ a
   left: 0
   background-color: rgba(255, 255, 255, 0.85)
   border-radius: 5px
+  z-index: 99
 .preloader
   width: 80px
   height: 80px
+
+.content-section
+  position: relative
+  padding: 25px
+  background-color: #ffffff
+  border-radius: 5px
+  bow-shadow: 0px 0px 5px 6px #dfdfdf
+  font-family: Montserrat, "Open sans", sans-serif
 
 // Темная тема
 .dark
@@ -273,10 +282,31 @@ a
     textarea
       background-color: #333333
       color: #ffffff
+      border: 1px solid #e5e5e5
     h1, h2, h3, h4, h5, h6, div, span, p, li, pre
       color: #ffffff
+    .content-section
+      background-color: #252525
+      border: 1px solid #383838
+      box-shadow: none
+      color: #dedede
     .overlay
-      background-color: rgba(125, 125, 125, 0.85)
+      background-color: rgba(85, 85, 85, 0.85)
+    
+    .field
+      &__label
+        color: #aaaaaa
+      &__message
+        color: #ff3a3a
+      &__mark
+        color: #ff3a3a
+
+    .title
+      color: #0b86d3
+    .subtitle
+      font-weight: 400
+    .description
+      color: #cccccc
 
 @keyframes rotateElem
   0%

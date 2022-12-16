@@ -315,7 +315,8 @@ window.addEventListener('load', function() {
                 console.log(response);
                 const theme = form.elements.theme.value;
                 const mail = new Mail(theme, ['KuznetsovGS@ckba.local', 'KuznetsovSS@ckba.local', 'KuzyevMS@ckba.local'], response).getMail();
-                window.open(mail);
+                //window.open(mail);
+                
             })
             .then( () => {
                 buttonUnlock(submitBtn);

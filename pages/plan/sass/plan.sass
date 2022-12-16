@@ -18,6 +18,7 @@
         margin: 0 auto
     &__img
         width: 100%
+        z-index: 2
     &__marker-img
         position: absolute
         top: 0
@@ -33,6 +34,10 @@
         &:hover
             fill-opacity: 0.4
             cursor: pointer
+    #plan
+        display: block
+    #plan_dark
+        display: none
 
 .factorynames
     width: 30%
@@ -54,6 +59,14 @@
             background-color: rgba(0, 133, 255, 0.4)
             cursor: pointer
 
+
+// Тёмная тема
+.dark
+    map
+    #plan
+        display: none
+    #plan_dark
+        display: block
 
 @media all and (max-width: 1600px)
     .map

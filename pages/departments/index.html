@@ -133,10 +133,22 @@
 	</div> <!-- /.container -->
 </footer> <!-- /.footer -->
 <script>
+	function getCookie(name) {
+      let matches = document.cookie.match( new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
+	
 	try {
-		const Theme = localStorage.getItem('theme');
-		console.log(Theme);
-		if (localStorage.getItem('theme') === 'dark') {
+		let Theme = 'light';
+		if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
+			Theme = getCookie('theme');
+		} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
+			Theme = localStorage.getItem('theme');
+		};
+		
+		if (Theme === 'dark') {
 			document.querySelector('body').classList.add('dark');
 		} else {
 			document.querySelector('body').classList.remove('dark');

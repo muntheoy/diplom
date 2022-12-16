@@ -61,9 +61,17 @@
 	<main>
 		<div class="container">
 			<div class="plan">
-				<div class="map">
+				<div class="map content-section">
+					<div class="overlay">
+						<div>
+							<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+								<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+							</svg>
+						</div>
+					</div>
 					<div class="map-wrap">
 						<img class="map__img" id="plan" src="../../assets/img/Plan/factory-plan.jpg" alt="План АО ЦКБА">
+						<img class="map__img" id="plan_dark" src="../../assets/img/Plan/factory-plan_white.png" alt="План АО ЦКБА">
 						<svg class="map__marker-img" id="marker_wrap" viewBox="0 0 3133 2745" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path class="map__marker"   id="building_1"  data-building="Корпус №1. Административно-инженерный" fill-rule="evenodd" clip-rule="evenodd" d="M290 1611H158V2468V2588H290H508V2468H290V1611Z" fill="#0085FF" fill-opacity="0"></path>
 							<rect class="map__marker"   id="building_2"  data-building="Корпус №2. Опытное производство с 2-мя нейтрализаторами" x="430" y="1902" width="650" height="422" fill="#0085FF"></rect>
@@ -161,10 +169,22 @@
 	</div> <!-- /.container -->
 </footer> <!-- /.footer -->
 <script>
+	function getCookie(name) {
+      let matches = document.cookie.match( new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
+	
 	try {
-		const Theme = localStorage.getItem('theme');
-		console.log(Theme);
-		if (localStorage.getItem('theme') === 'dark') {
+		let Theme = 'light';
+		if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
+			Theme = getCookie('theme');
+		} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
+			Theme = localStorage.getItem('theme');
+		};
+		
+		if (Theme === 'dark') {
 			document.querySelector('body').classList.add('dark');
 		} else {
 			document.querySelector('body').classList.remove('dark');

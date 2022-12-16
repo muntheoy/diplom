@@ -138,9 +138,9 @@ window.addEventListener('load', function() {
                 const wind = window.open(link);
                 setTimeout(() => {
                     wind.close();
-                }, 500);
+                }, 1000);
                 resolve();
-            };        
+            };   
         })
         .then( () => {
             buttonUnlock(button);
