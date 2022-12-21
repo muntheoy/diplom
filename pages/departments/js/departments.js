@@ -126,7 +126,7 @@ window.addEventListener('load', function () {
         }
         
         _getGroupLinkHTML = group => {
-            return `<a href="#group${group.id}" class="metadata__link">${group.name}</a>`;
+            return `<a href="#group${group.id}" class="links-block__link">${group.name}</a>`;
         }
 
         // Возвращает массив подразделений с данными, достаточными для добавления в сайдбар
@@ -162,7 +162,7 @@ window.addEventListener('load', function () {
             while (this.contentItems.groupsList.firstChild) {
                 this.contentItems.groupsList.removeChild(this.contentItems.groupsList.firstChild);
             };
-            this.contentItems.groupsList.classList.remove('hidden');
+            this.contentItems.groupsList.parentElement.classList.remove('hidden');
 
             while (this.contentItems.personal.firstChild) {
                 this.contentItems.personal.removeChild(this.contentItems.personal.firstChild);
@@ -183,7 +183,7 @@ window.addEventListener('load', function () {
             const groups = department.groups;
             try {
                 if (groups.length === 0) {
-                    this.contentItems.groupsList.classList.add('hidden');
+                    this.contentItems.groupsList.parentElement.classList.add('hidden');
 
                     const wrap = this._getGroupHTML({id: 0, name: ''});
                     this.contentItems.personal.insertAdjacentHTML('beforeend', wrap);
@@ -302,12 +302,12 @@ window.addEventListener('load', function () {
             })
             .then( () => {
                 this._hideContentOverlay();
+                this.sidebarElements.sidebar.dataset.lock = '';
+                this.sidebarElements.overlay.classList.add('hidden');
             })
             .catch( error => {
                 console.log(error);
                 alert(error);
-            })
-            .finally( () => {
                 this.sidebarElements.sidebar.dataset.lock = '';
                 this.sidebarElements.overlay.classList.add('hidden');
             });  
@@ -322,4 +322,20 @@ window.addEventListener('load', function () {
         alert('Возникла непредвиденная ошибка! Невозможно загрузить справочник. Не перезагружайте страницу и обратитесь к администратору по телефону 06-66 (э) или напишите на почту KuznetsovGS@ckba.local.');
         console.error(error);
     };
+
+    /*try {
+        const html_element = document.querySelector('html');
+        const rollElement = document.querySelector('.links-block');
+        window.addEventListener('scroll', () => {
+            console.log(html_element.scrollTop);
+            if (html_element.scrollTop > (html_element.offsetHeight / 2) ) {
+                const yPosition = html_element.scrollTop;
+                rollElement.style = `position: absolut; top: ${yPosition}px;`;
+            } else {
+                rollElement.style = '';
+            };
+        });
+    } catch (error) {
+        console.error(error);
+    };*/
 });

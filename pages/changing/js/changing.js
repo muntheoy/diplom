@@ -312,15 +312,15 @@ window.addEventListener('load', function() {
                 resolve(formData);
             })
             .then( (response) => {
-                console.log(response);
                 const theme = form.elements.theme.value;
                 const mail = new Mail(theme, ['KuznetsovGS@ckba.local', 'KuznetsovSS@ckba.local', 'KuzyevMS@ckba.local'], response).getMail();
-                //window.open(mail);
-                
+
+                window.location.href = mail;
             })
             .then( () => {
                 buttonUnlock(submitBtn);
                 switchButtonMode(submitBtn, 1);
+                endLoad();
             })
             .catch( error => {
                 buttonUnlock(submitBtn);
@@ -335,8 +335,6 @@ window.addEventListener('load', function() {
                 };
                 alert('Возникла непредвиденная ошибка! Обратитесь к администратору.');
                 console.error(error);
-            })
-            .finally( () => {
                 endLoad();
             });
         });

@@ -80,10 +80,10 @@ window.addEventListener('load', function() {
         button.dataset.lock = 'false';
         button.disabled = false;
         if (style) {
-        button.classList.remove('btn_lightGrey');
+            button.classList.remove('btn_lightGrey');
         };
         if (unvisible) {
-        button.classList.remove('hidden');
+            button.classList.remove('hidden');
         };
     };
 
@@ -135,10 +135,7 @@ window.addEventListener('load', function() {
                 reject('Вы не выбрали ни одного адресата!');
             } else {
                 const link = new Mail('', mailingList).getMail();
-                const wind = window.open(link);
-                setTimeout(() => {
-                    wind.close();
-                }, 1000);
+                window.location.href = link;
                 resolve();
             };   
         })

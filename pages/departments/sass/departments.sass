@@ -78,13 +78,39 @@
 		font-weight: 500
 	&__links-block
 		margin-bottom: 25px
-		background-color: #f7f7f7
-		padding: 10px
+
+.links-block
+	background-color: #f7f7f7
+	padding: 10px
+	position: relative
+	z-index: 50
+	&_narrow
+		
 	&__link
 		display: block
 		font-size: 14px
 		line-height: 1em
 		margin-bottom: 8px
+	&__roll
+		position: absolute
+		display: flex
+		justify-content: center
+		align-items: center
+		bottom: -30px
+		right: 0
+		min-width: 100px
+		border-bottom-left-radius: 5px
+		border-bottom-right-radius: 5px
+		background-color: #f7f7f7
+		padding: 7px 10px
+	&__text
+		font-size: 14px
+		font-weight: 500
+		margin-right: 5px
+	&__icon
+		font-size: 12px
+
+
 
 .personal
 	&__staffbox
@@ -99,6 +125,7 @@
 	box-shadow: 2px 2px 7px 0px #ebebeb
 	padding: 5px
 	border-radius: 5px
+	z-index: 0
 	&__personal-info
 		display: flex
 		align-items: flex-start

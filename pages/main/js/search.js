@@ -346,14 +346,17 @@ window.addEventListener('load', function() {
                     this.resultElements.noResultElement.classList.add('hidden');
                     if (this.resultList.length > this.pageWidth) this.resultElements.showMore.classList.remove('hidden');
                 };
+                
+                this.inputElements.input.dataset.lock = '';
+                this.resultElements.overlay.classList.add('hidden');
+                this.inputElements.button.classList.remove('btn_lightGrey');
+                this.resultElements.resultOutElement.firstElementChild.dispatchEvent(new Event('click',  {bubbles: true}));
             })
             .catch( error => {
                 console.error(error);
                 this.clearResultList();
                 this.clearCard();
                 this.inputElements.searchMessage.innerHTML = error;
-            })
-            .finally( () => {
                 this.inputElements.input.dataset.lock = '';
                 this.resultElements.overlay.classList.add('hidden');
                 this.inputElements.button.classList.remove('btn_lightGrey');
@@ -396,8 +399,11 @@ window.addEventListener('load', function() {
                 console.log(error);
                 alert(error);
                 //this.inputElements.searchMessage.innerHTML = error;
+                
+                this.cardElements.card.dataset.lock = '';
+                this.cardElements.overlay.classList.add('hidden');
             })
-            .finally( () => {
+            .then( () => {
                 this.cardElements.card.dataset.lock = '';
                 this.cardElements.overlay.classList.add('hidden');
             });  
