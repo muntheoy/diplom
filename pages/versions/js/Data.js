@@ -2,7 +2,7 @@ const Versions = [
     {
         version: '2.0.2 beta',
         date_release:'26.12.2022',
-        description: '<p>Версия 2.0.1 исправлены ошибки совместимости со тсарыми версиями браузеров Chrome и Firefox.</p>',
+        description: '<p>В версии 2.0.2 исправлены ошибки совместимости со старыми версиями браузеров Chrome и Firefox.</p>',
     },
     {
         version: '2.0.1 beta',
