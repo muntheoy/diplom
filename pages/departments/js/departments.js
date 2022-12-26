@@ -135,18 +135,16 @@ window.addEventListener('load', function () {
             for (const depMemo in this.staff) {
                 const dep = this.staff[depMemo];
 
-                depList = [
-                    ...depList,
-                    {
-                        id:         dep.id,
-                        memo:       dep.memo,
-                        name:       dep.name,
-                        short_name: dep.short_name,
-                        number:     dep.number,
-                        staffCount: Object.keys( dep.staff ).length,
-                    },
-                ];
+                depList.push({
+                    id:         dep.id,
+                    memo:       dep.memo,
+                    name:       dep.name,
+                    short_name: dep.short_name,
+                    number:     dep.number,
+                    staffCount: Object.keys( dep.staff ).length,
+                });
             };
+            debugger
             return depList;
         };
 
@@ -191,11 +189,8 @@ window.addEventListener('load', function () {
                         document.querySelector('#staff_group0').insertAdjacentHTML('beforeend', this._getPersonHTML(depStaff[personMemo]));
                     };
                 } else {
-                    const groups = [
-                        { id: '1', name: 'Руководство подразделения', },
-                        ...department.groups,
-                        { id: '0', name: 'Без группы', }
-                    ];
+                    let groups = [{ id: '1', name: 'Руководство подразделения', }];
+                    groups = groups.concat(department.groups, [{ id: '0', name: 'Без группы', }]);
 
                     for (let i = 0, l = groups.length; i < l; i++) {
                         let groupPersonal = [];
