@@ -57,10 +57,7 @@ window.addEventListener('load', function () {
     };
 
     function setCookie(name, value, options = {}) {
-      options = {
-        path: '/',
-        ...options
-      };
+      options.path = '/';
   
       if (options.expires) {
         options.expires = options.expires.toUTCString();

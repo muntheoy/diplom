@@ -69,8 +69,7 @@ window.addEventListener('load', function() {
             this.cardElements.email.href = '';
 
             this.cardElements.photoLink.href = '../../assets/img/Staff/man.jpg';
-            this.cardElements.photo.src = '../../assets/img/Staff/man.jpg';
-
+            this.cardElements.photo.src = '../../assets/img/Staff/man.jpg'; 
             this.cardElements.fullname.innerHTML = '';
             this.cardElements.position.innerHTML = '';
             this.cardElements.department.innerHTML = '';
@@ -250,16 +249,17 @@ window.addEventListener('load', function() {
 
                     for (let i = 0; i < stringForChecking.length; i++) {
                         if ( !compare.test(stringForChecking[i]) ) continue;
-                        result = [
-                            ...result, 
-                            {
-                                ...person, 
-                                depShortName: department.short_name,
-                                depMemo: department.memo,
-                                depId: department.id,
-                                depNumber: department.number,
-                            }
-                        ];
+                        result.push(
+                            Object.assign(
+                                person, 
+                                {
+                                    depShortName: department.short_name,
+                                    depMemo: department.memo,
+                                    depId: department.id,
+                                    depNumber: department.number,
+                                }
+                            )
+                        );
                         break;
                     };
                     
@@ -286,10 +286,7 @@ window.addEventListener('load', function() {
                     break;
                 };
 
-                showList = [
-                    ...showList,
-                    this.resultList[i]
-                ];
+                showList.push(this.resultList[i])
             };
 
             this.lastShowed = endShowingIndex;
@@ -345,12 +342,12 @@ window.addEventListener('load', function() {
                     this.resultElements.resultOutElement.classList.remove('hidden');
                     this.resultElements.noResultElement.classList.add('hidden');
                     if (this.resultList.length > this.pageWidth) this.resultElements.showMore.classList.remove('hidden');
+                    this.resultElements.resultOutElement.firstElementChild.dispatchEvent(new Event('click',  {bubbles: true}));
                 };
                 
                 this.inputElements.input.dataset.lock = '';
                 this.resultElements.overlay.classList.add('hidden');
                 this.inputElements.button.classList.remove('btn_lightGrey');
-                this.resultElements.resultOutElement.firstElementChild.dispatchEvent(new Event('click',  {bubbles: true}));
             })
             .catch( error => {
                 console.error(error);
@@ -360,7 +357,6 @@ window.addEventListener('load', function() {
                 this.inputElements.input.dataset.lock = '';
                 this.resultElements.overlay.classList.add('hidden');
                 this.inputElements.button.classList.remove('btn_lightGrey');
-                this.resultElements.resultOutElement.firstElementChild.dispatchEvent(new Event('click',  {bubbles: true}));
             });
         }
 
@@ -392,7 +388,10 @@ window.addEventListener('load', function() {
                 const person = department.staff[personMemo];
                 if (!person || typeof person !== 'object') reject('Не удалось получить данные сотрудника. Обратитесь к администратору.');
                 
-                if (this._innerDataToCard(person, {...department, staff: {}}) !== 0) reject('При загрузке данных возникла непредвиденная ошибка. Обратитесь к администратору.');
+                let cuer_dep = Object.assign({}, department);
+                cuer_dep.staff = {};
+
+                if (this._innerDataToCard(person, cuer_dep) !== 0) reject('При загрузке данных возникла непредвиденная ошибка. Обратитесь к администратору.');
                 resolve();
             })
             .catch( error => {
