@@ -433,7 +433,6 @@ window.addEventListener('load', function () {
 
                     if (!result || result === undefined) reject('В процессе поиска возникла ошибка'); 
 
-                    console.log(result);
                     resolve(result);
             })
             .then( response => {
@@ -443,25 +442,38 @@ window.addEventListener('load', function () {
                 } else {
                     const subtitleList = document.querySelectorAll('.metadata__subtitle');
 
-                    for (let i = 0, l = subtitleList.length; i < l; i++) {
-                        const group = subtitleList[i].id;
-                        const groupElement = document.querySelector('#staff_'+group);
+                    if (subtitleList.length === 1) {
+                        const cardList = document.querySelectorAll('.card');
+                        for (let i = 0, l = cardList.length; i < l; i++) {
+                            const compareCard = response[ Object.keys(response)[0] ]?.filter( item => {
+                                return item === cardList[i].dataset.memo;
+                            });
 
-                        if (Object.keys(response).includes(group) ) {
-                            const cardList = groupElement.querySelectorAll('.card');
-                            for (let i = 0, l = cardList.length; i < l; i++) {
-                                const compareCard = response[group].filter( item => {
-                                    return item === cardList[i].dataset.memo;
-                                });
-
-                                if (compareCard.length <= 0) cardList[i].classList.add('hidden');
-                            };
-                            continue;
+                            if (compareCard.length <= 0) cardList[i].classList.add('hidden');
                         };
+                    } else {
+                        for (let i = 0, l = subtitleList.length; i < l; i++) {
+                            const group = subtitleList[i].id;
+                            const groupElement = document.querySelector('#staff_'+group);
 
-                        subtitleList[i].classList.add('hidden');                        
-                        groupElement.classList.add('hidden');
+                            if (Object.keys(response).includes(group) ) {
+                                const cardList = groupElement.querySelectorAll('.card');
+                                for (let i = 0, l = cardList.length; i < l; i++) {
+                                    const compareCard = response[group].filter( item => {
+                                        return item === cardList[i].dataset.memo;
+                                    });
+
+                                    if (compareCard.length <= 0) cardList[i].classList.add('hidden');
+                                };
+                                continue;
+                            };
+
+                            subtitleList[i].classList.add('hidden');                        
+                            groupElement.classList.add('hidden');
+                        };
                     };
+
+                    
                 };
             })
             .catch( error => {
