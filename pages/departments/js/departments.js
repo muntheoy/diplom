@@ -19,6 +19,11 @@ window.addEventListener('load', function () {
                 depWorktime: document.querySelector('#dep_worktime'),
                 depDinnertime: document.querySelector('#dep_dinnertime'),
                 groupsList: document.querySelector('#groups_list'),
+                searchInput: document.querySelector('#search_input'),
+                searchBtn: document.querySelector('#search_btn'),
+                clearBtn: document.querySelector('#clear_btn'),
+                searchMessage: document.querySelector('#search_message'),
+                noresult: document.querySelector('#noresult'),
                 personal: document.querySelector('#personal'),
             };
 
@@ -144,7 +149,7 @@ window.addEventListener('load', function () {
                     staffCount: Object.keys( dep.staff ).length,
                 });
             };
-            debugger
+            
             return depList;
         };
 
@@ -156,6 +161,13 @@ window.addEventListener('load', function () {
             this.contentItems.depQuantity.innerHTML = '';
             this.contentItems.depWorktime.innerHTML = '';
             this.contentItems.depDinnertime.innerHTML = '';
+
+            this.contentItems.searchInput.value = '';
+            this.contentItems.searchInput.dataset.dep = '';
+
+            this.contentItems.noresult.classList.add('hidden');
+            this.contentItems.personal.classList.remove('hidden');
+            this.contentItems.searchMessage.innerHTML = '';
 
             while (this.contentItems.groupsList.firstChild) {
                 this.contentItems.groupsList.removeChild(this.contentItems.groupsList.firstChild);
@@ -215,6 +227,7 @@ window.addEventListener('load', function () {
                         });
                     };
                 };
+                this.contentItems.searchInput.dataset.dep = department.memo;
             } 
             catch (error) {
                 alert('Не удалось загрузить список сотрудников!');
@@ -249,6 +262,30 @@ window.addEventListener('load', function () {
             .then( () => {
                 this._hideSidebarOverlay();
                 this.sidebarElements.departmentsList.firstElementChild.dispatchEvent( new Event('click', {bubbles: true}) );
+                try {
+                    this.contentItems.searchBtn.addEventListener('click', this.searchHandler);
+                    this.contentItems.searchInput.addEventListener('submit', this.searchHandler);
+                    this.contentItems.searchInput.addEventListener('keydown', event => {
+                        if (event.key === 'Enter') {
+                            event.preventDefault()
+                            this.searchHandler();
+                        } else if (event.key === 'Escape') {
+                            this.resetDepSearch();
+                        } else {
+                            const input = event.target;
+                            if ( input.value === '') {
+                                this.resetDepSearch(event);
+                            } else if (input.value !== '' && input.dataset.query === '0') {
+                                this.contentItems.searchInput.dataset.query = '0';
+                                this.contentItems.clearBtn.classList.remove('hidden');
+                            };
+                        }
+                    });
+                    this.contentItems.clearBtn.addEventListener('click', this.resetDepSearch);
+                } catch(error) { 
+                    this.contentItems.searchMessage.innerHTML = 'Возникла непредвиденная ошибка!';
+                    console.error(error);
+                };
             })
             .catch( error => {
                 alert(error);
@@ -307,6 +344,175 @@ window.addEventListener('load', function () {
                 this.sidebarElements.overlay.classList.add('hidden');
             });  
         }
+
+        // Поиск
+        search = (query, depMemo = null) => {
+            let result = {};
+
+            if (!depMemo || depMemo === null) return result;
+        
+            query = query.replace('\\', '');
+            query = query.replace('/', '');
+        
+            const personal = this.staff[depMemo].staff;
+            if (!personal || personal.lenght === 0) return result;
+
+            for (let personMemo in personal) {
+                let person = personal[personMemo],
+                    compare = new RegExp(query, 'i');
+                            
+                let stringForChecking = [
+                    `${person.name.replace('ё', 'е')} ${person.patronymic.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `,
+                    `${person.name} ${person.patronymic.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `,
+                    `${person.name.replace('ё', 'е')} ${person.patronymic} ${person.surname.replace('ё', 'е')} `,
+                    `${person.name.replace('ё', 'е')} ${person.patronymic.replace('ё', 'е')} ${person.surname} `,
+        
+                    `${person.name} ${person.patronymic} ${person.surname} `,
+                    `${person.name.replace('ё', 'е')} ${person.surname} `,
+                    `${person.name} ${person.surname.replace('ё', 'е')} `,
+                    `${person.name.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `,
+                    `${person.name} ${person.surname} `,
+        
+                    `${person.surname.replace('ё', 'е')} ${person.name} `,
+                    `${person.surname} ${person.name.replace('ё', 'е')} `,
+                    `${person.surname.replace('ё', 'е')} ${person.name.replace('ё', 'е')} `,
+                    `${person.surname} ${person.name} `,
+        
+                    `${person.work_phone} `,
+                    `${person.work_phone.replace('-', ' ')} `,
+                    `${person.work_phone.replace('-', '')} `,
+        
+                    `${person.location} `,
+                    `${person.location.replace('№', '')} `,
+        
+                    `${personMemo}`
+                ];
+        
+                for (let i = 0; i < stringForChecking.length; i++) {
+                    if ( !compare.test(stringForChecking[i]) ) continue;
+
+                    const group = 'group'+person.group;
+                    if (!result[group] || result[group] === undefined) result[group] = [];
+                    result[group].push(person.memo);
+                    break;
+                };
+                            
+            };
+            return result;
+        }
+
+        // Поиск
+        searchHandler = event => {
+            if (this.contentItems.searchInput.dataset.lock === 'true') return;
+            new Promise( (resolve, reject) => {
+                    // Сброс карточек и заголовков
+                    const subtitleList = document.querySelectorAll('.metadata__subtitle');
+                    const staffboxList = document.querySelectorAll('.personal__staffbox');
+                    const cardsList = document.querySelectorAll('.card');
+
+                    for (let i = 0, l = subtitleList.length; i < l; i++) {
+                        subtitleList[i].classList.remove('hidden');
+                    };
+
+                    for (let i = 0, l = staffboxList.length; i < l; i++) {
+                        staffboxList[i].classList.remove('hidden');
+                    };
+
+                    for (let i = 0, l = cardsList.length; i < l; i++) {
+                        cardsList[i].classList.remove('hidden');
+                    };
+
+                    // Поиск
+                    const query = this.contentItems.searchInput.value;
+
+                    if (!query || query === '') reject('Задан пустой запрос');
+                    if (query.length < 3) reject('Введите более двух символов');
+
+                    const depMemo = this.contentItems.searchInput.dataset.dep;
+                    const result = this.search(query, depMemo);
+
+                    if (!result || result === undefined) reject('В процессе поиска возникла ошибка'); 
+
+                    console.log(result);
+                    resolve(result);
+            })
+            .then( response => {
+                if (Object.keys(response).length <= 0) {
+                    this.contentItems.noresult.classList.remove('hidden');
+                    this.contentItems.personal.classList.add('hidden');
+                } else {
+                    const subtitleList = document.querySelectorAll('.metadata__subtitle');
+
+                    for (let i = 0, l = subtitleList.length; i < l; i++) {
+                        const group = subtitleList[i].id;
+                        const groupElement = document.querySelector('#staff_'+group);
+
+                        if (Object.keys(response).includes(group) ) {
+                            const cardList = groupElement.querySelectorAll('.card');
+                            for (let i = 0, l = cardList.length; i < l; i++) {
+                                const compareCard = response[group].filter( item => {
+                                    return item === cardList[i].dataset.memo;
+                                });
+
+                                if (compareCard.length <= 0) cardList[i].classList.add('hidden');
+                            };
+                            continue;
+                        };
+
+                        subtitleList[i].classList.add('hidden');                        
+                        groupElement.classList.add('hidden');
+                    };
+                };
+            })
+            .catch( error => {
+                if (typeof error === 'string') {
+                    this.contentItems.searchMessage.innerHTML = error;
+                } else {
+                    this.resetDepSearch();
+                    this.contentItems.searchMessage.innerHTML = 'В процессе поиска возникла критическая ошибка!';
+                    console.error(error);
+                };
+            });
+        }
+        
+        resetDepSearch = event => {
+            this.contentItems.searchInput.dataset.lock = 'true';
+            new Promise( (resolve, reject) => {
+                this.contentItems.searchInput.value = '';
+
+                this.contentItems.noresult.classList.add('hidden');
+                this.contentItems.personal.classList.remove('hidden');
+
+                const subtitleList = document.querySelectorAll('.metadata__subtitle');
+                const staffboxList = document.querySelectorAll('.personal__staffbox');
+                const cardsList = document.querySelectorAll('.card');
+
+                for (let i = 0, l = subtitleList.length; i < l; i++) {
+                    subtitleList[i].classList.remove('hidden');
+                };
+
+                for (let i = 0, l = staffboxList.length; i < l; i++) {
+                    staffboxList[i].classList.remove('hidden');
+                };
+
+                for (let i = 0, l = cardsList.length; i < l; i++) {
+                    cardsList[i].classList.remove('hidden');
+                };
+
+                this.contentItems.searchMessage.innerHTML = '';
+                resolve();
+            })
+            .then( () => {
+                this.contentItems.searchInput.value = '';
+                this.contentItems.searchInput.dataset.query = '0';
+                this.contentItems.clearBtn.classList.add('hidden');
+                this.contentItems.searchInput.dataset.lock = '';
+            })
+            .catch(error => {  
+                this.contentItems.searchMessage.innerHTML = 'Возникла непредвиденная ошибка!';
+                console.error(error); 
+            });
+        }
     };
 
     try {
@@ -318,19 +524,4 @@ window.addEventListener('load', function () {
         console.error(error);
     };
 
-    /*try {
-        const html_element = document.querySelector('html');
-        const rollElement = document.querySelector('.links-block');
-        window.addEventListener('scroll', () => {
-            console.log(html_element.scrollTop);
-            if (html_element.scrollTop > (html_element.offsetHeight / 2) ) {
-                const yPosition = html_element.scrollTop;
-                rollElement.style = `position: absolut; top: ${yPosition}px;`;
-            } else {
-                rollElement.style = '';
-            };
-        });
-    } catch (error) {
-        console.error(error);
-    };*/
 });

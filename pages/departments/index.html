@@ -109,7 +109,24 @@
 						</div-->
 					</div>
 				</div>
+				<div class="search">
+					<form class="search__search-form search-form" action="pages/search/actions/search_init.php" method="POST">
+						<div class="search-form__wrap">
+						  	<input type="text" class="search-form__input" placeholder="Введите запрос" id="search_input" name="query" data-dep="" data-lock="0" autocomplete="off" value="">
+						  	<button class="search-form__btn search-form__btn_submit" id="search_btn" type="button">
+								<i class="fa fa-search"></i>
+							</button>
+						  	<button class="search-form__btn search-form__btn_clear hidden" id="clear_btn" type="button">
+								<i class="fa fa-close"></i>
+							</button>
+						</div>
+						<span class="field__message" id="search_message"></span>
+					</form>
+				</div>
 				<div class="personal" id="personal">
+				</div>
+				<div class="noresult hidden" id="noresult">
+					Ничего не найдено
 				</div>
 			</div><!-- .content -->
 		</div><!-- .wrap -->
