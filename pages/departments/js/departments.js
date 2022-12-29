@@ -405,35 +405,35 @@ window.addEventListener('load', function () {
         searchHandler = event => {
             if (this.contentItems.searchInput.dataset.lock === 'true') return;
             new Promise( (resolve, reject) => {
-                    // Сброс карточек и заголовков
-                    const subtitleList = document.querySelectorAll('.metadata__subtitle');
-                    const staffboxList = document.querySelectorAll('.personal__staffbox');
-                    const cardsList = document.querySelectorAll('.card');
+                // Сброс карточек и заголовков
+                const subtitleList = document.querySelectorAll('.metadata__subtitle');
+                const staffboxList = document.querySelectorAll('.personal__staffbox');
+                const cardsList = document.querySelectorAll('.card');
 
-                    for (let i = 0, l = subtitleList.length; i < l; i++) {
-                        subtitleList[i].classList.remove('hidden');
-                    };
+                for (let i = 0, l = subtitleList.length; i < l; i++) {
+                    subtitleList[i].classList.remove('hidden');
+                };
 
-                    for (let i = 0, l = staffboxList.length; i < l; i++) {
-                        staffboxList[i].classList.remove('hidden');
-                    };
+                for (let i = 0, l = staffboxList.length; i < l; i++) {
+                    staffboxList[i].classList.remove('hidden');
+                };
 
-                    for (let i = 0, l = cardsList.length; i < l; i++) {
-                        cardsList[i].classList.remove('hidden');
-                    };
+                for (let i = 0, l = cardsList.length; i < l; i++) {
+                    cardsList[i].classList.remove('hidden');
+                };
 
-                    // Поиск
-                    const query = this.contentItems.searchInput.value;
+                // Поиск
+                const query = this.contentItems.searchInput.value;
 
-                    if (!query || query === '') reject('Задан пустой запрос');
-                    if (query.length < 3) reject('Введите более двух символов');
+                if (!query || query === '') reject('Задан пустой запрос');
+                if (query.length < 3) reject('Введите более двух символов');
 
-                    const depMemo = this.contentItems.searchInput.dataset.dep;
-                    const result = this.search(query, depMemo);
+                const depMemo = this.contentItems.searchInput.dataset.dep;
+                const result = this.search(query, depMemo);
 
-                    if (!result || result === undefined) reject('В процессе поиска возникла ошибка'); 
+                if (!result || result === undefined) reject('В процессе поиска возникла ошибка'); 
 
-                    resolve(result);
+                resolve(result);
             })
             .then( response => {
                 if (Object.keys(response).length <= 0) {

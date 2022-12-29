@@ -23,6 +23,7 @@ window.addEventListener('load', function() {
                 workTime:    document.querySelector('#work_time'),
                 dinnerTime:  document.querySelector('#dinner_time'),
                 keywords:    document.querySelector('#keywords'),
+                updateTime:  document.querySelector('#update_time'),
                 email:       document.querySelector('#email'),
             };
             this.resultElements = {
@@ -80,6 +81,7 @@ window.addEventListener('load', function() {
             this.cardElements.location.innerHTML = '';
             this.cardElements.workTime.innerHTML = '';
             this.cardElements.dinnerTime.innerHTML = '';
+            this.cardElements.updateTime.innerHTML = '';
             this.cardElements.keywords.innerHTML = '';
         }
 
@@ -113,6 +115,18 @@ window.addEventListener('load', function() {
 
             if (!group || typeof group !== 'object') return 1;
 
+            let updateTime = '';
+            if (person.update_time && typeof person.update_time === 'string' && person.update_time !== '') {
+                const timestamp = Date.parse(person.update_time);
+                const date = new Date(timestamp);
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                const hour = date.getHours();
+                const minutes = date.getMinutes();
+                updateTime = `${day}.${month}.${year} ${(hour<10)? '0'+hour: hour}:${(minutes<10)? '0'+minutes: minutes}`;
+            };
+
             this.cardElements.email.innerHTML = person.email;
             this.cardElements.email.href = 'mailto:' + person.email;
 
@@ -129,6 +143,7 @@ window.addEventListener('load', function() {
             this.cardElements.location.innerHTML = person.location;
             this.cardElements.workTime.innerHTML = department.work_time;
             this.cardElements.dinnerTime.innerHTML = department.dinner_time;
+            this.cardElements.updateTime.innerHTML = updateTime;
             this.cardElements.keywords.innerHTML = person.key_words;
             return 0;
         }
