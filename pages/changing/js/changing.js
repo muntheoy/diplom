@@ -81,14 +81,14 @@ window.addEventListener('load', function() {
         const first_img = button.querySelector('.check');
         const last_img = button.querySelector('.spin');
         if (state === 0) {
-        first_img.classList.add('hidden');
-        last_img.classList.add('hidden');
+            first_img.classList.add('hidden');
+            last_img.classList.add('hidden');
         } else if (state === 1) {
-        first_img.classList.remove('hidden');
-        last_img.classList.add('hidden');
+            first_img.classList.remove('hidden');
+            last_img.classList.add('hidden');
         } else if (state === 2) {
-        first_img.classList.add('hidden');
-        last_img.classList.remove('hidden');
+            first_img.classList.add('hidden');
+            last_img.classList.remove('hidden');
         };
     };
 
@@ -109,10 +109,10 @@ window.addEventListener('load', function() {
         button.dataset.lock = 'false';
         button.disabled = false;
         if (style) {
-        button.classList.remove('btn_lightGrey');
+            button.classList.remove('btn_lightGrey');
         };
         if (unvisible) {
-        button.classList.remove('hidden');
+            button.classList.remove('hidden');
         };
     };
 
