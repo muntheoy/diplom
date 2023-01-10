@@ -124,7 +124,7 @@ window.addEventListener('load', function() {
                 const year = date.getFullYear();
                 const hour = date.getHours();
                 const minutes = date.getMinutes();
-                updateTime = `${day}.${month}.${year} ${(hour<10)? '0'+hour: hour}:${(minutes<10)? '0'+minutes: minutes}`;
+                updateTime = `${(day<10)? '0'+day :day}.${(month<10)? '0'+month :month}.${year} ${(hour<10)? '0'+hour: hour}:${(minutes<10)? '0'+minutes: minutes}`;
             };
 
             this.cardElements.email.innerHTML = person.email;
@@ -207,7 +207,7 @@ window.addEventListener('load', function() {
                 <div class="person__contacts-block">
                     <p class="person__department">(${person.depNumber}) ${person.depShortName}</p>
                     <p class="person__phone">${person.work_phone}</p>
-                    <p class="person__email"><a href="mailto:${person.email}">${person.email}</a></p>
+                    <p class="person__email">${person.email}</p>
                 </div>
             </div>`;
         }
