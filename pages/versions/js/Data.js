@@ -1,7 +1,7 @@
 const Versions = [
     {
         version: '2.1.1',
-        date_release:'--.--.2023',
+        date_release:'11.01.2023',
         description: '<p>Исправление ошибок и оптимизация.</p>',
     },
     {
