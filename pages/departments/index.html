@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
 	<link rel="stylesheet" href="css/departments.css">
+	<link rel="stylesheet" href="../../assets/libs/animate.min.css">
 	<script defer src="../../assets/js/main.js"></script>
 	<script defer src="../../assets/data/Data.v2.js"></script>
 	<script defer src="js/departments.js"></script>
@@ -170,6 +171,76 @@
 		console.error('Не удалось установить тему:', error);
 	};
 </script>
+
+<div class="bottom-layer hidden" id="bottom_layer">
+	<div class="popup animate__animated" id="person_card_popup">
+		<!--div class="overlay hidden">
+			<div>
+				<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+					<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+				</svg>
+			</div>
+		</div-->
+		<button class="popup__close" id="popup_close">
+			<i class="fa fa-close"></i>
+		</button>
+		<div class="popup__wrap">
+
+			<div class="popup__main-content popup__container">
+				<div class="popup__photo-block">
+					<img src="" alt="" class="popup__photo" id="popup_photo">
+				</div>
+				<div class="popup__name-block">
+					<h2 class="popup__fullname" id="popup_fullname"></h2>
+					<p class="popup__position" id="popup_position"></p>
+				</div>
+			</div>
+
+			<div class="popup__contacts-content popup__container">
+				<p class="popup__department" id="popup_department">Отдел 710 Военного представительства Министерства обороны Российской Федерации</p>
+				<p class="popup__group" id="popup_group">Бюро инновационного развития</p>
+				<div class="popup__time-wrap">
+					<div class="popup__worktime popup__time hidden" id="popup_worktime">
+						<i class="fa fa-clock-o"></i>
+						<span></span>
+					</div>
+					<div class="popup__dinnertime popup__time hidden" id="popup_dinnertime">
+						<i class="fa fa-coffee"></i>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="popup__contacts-content popup__container hidden" id="popup_contacts">
+				<div class="popup__dinnertime popup__contacts hidden" id="popup_phone">
+					<i class="fa fa-phone"></i>
+					<span></span>
+				</div>
+				<div class="popup__dinnertime popup__contacts hidden" id="popup_townphone">
+					<i class="fa fa-tty"></i>
+					<span></span>
+				</div>
+				<div class="popup__dinnertime popup__contacts hidden" id="popup_mobile">
+					<i class="fa fa-mobile"></i>
+					<span></span>
+				</div>
+				<div class="popup__dinnertime popup__contacts hidden" id="popup_email">
+					<i class="fa fa-envelope-o"></i>
+					<a href=""></a>
+				</div>
+				<div class="popup__dinnertime popup__contacts hidden" id="popup_location">
+					<i class="fa fa-map-marker"></i>
+					<span></span>
+				</div>
+			</div>
+
+			<div class="popup__meta-content popup__container hidden" id="popup_meta">
+				<p class="popup__updatetime hidden" id="popup_updatetime"></p>
+				<p class="popup__keywords hidden" id="popup_keywords"></p>
+			</div>
+		</div>
+	</div>
+</div>
 
 </body>
 </html>

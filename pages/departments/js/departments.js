@@ -81,7 +81,7 @@ window.addEventListener('load', function () {
                                     </div>`;
             return `<div class="card" id="${person.memo}" data-memo="${person.memo}" data-id="${person.id}">
                 <div class="card__personal-info">
-                    <a href="${photoLink}" target="_blank">
+                    <a class="img_link" href="${photoLink}" target="_blank">
                         <div class="card__photo-box">
                             <img src="${photoLink}" alt="Фото сотрудника" class="card__photo">
                             ${(person.photo_link !== '' && person.photo_link)? showBigPhotoBlock: ''}
@@ -163,6 +163,7 @@ window.addEventListener('load', function () {
             this.contentItems.depDinnertime.innerHTML = '';
 
             this.contentItems.searchInput.value = '';
+            this.contentItems.clearBtn.classList.add('hidden');
             this.contentItems.searchInput.dataset.dep = '';
 
             this.contentItems.noresult.classList.add('hidden');
@@ -256,7 +257,12 @@ window.addEventListener('load', function () {
                     this.sidebarElements.departmentsList.insertAdjacentHTML('beforeend', depHTML);
                 };
 
+                // Установка обработчика для поисковой строки
                 this.sidebarElements.sidebar.addEventListener('click', this.clickDepartmentHandler);
+
+                // Установка обработчика для карточек
+                this.contentItems.personal.addEventListener('mouseup', this.openCardHandler);
+
                 resolve();
             })
             .then( () => {
@@ -525,7 +531,236 @@ window.addEventListener('load', function () {
                 console.error(error); 
             });
         }
+
+        // Обработчик открытия карточки
+        openCardHandler = event => {
+            if (event.target.tagName === 'A') return;
+            if (event.target.closest('.img_link') !== null) return;
+
+            //if (this.contentItems.personal.dataset.lock === 'true') return;
+            //this.contentItems.personal.dataset.lock = 'true';
+
+            const popup = new Popup();
+            popup.reset();
+
+            new Promise( (resolve, reject) => {    
+                const curCard = event.target.closest('.card');
+                if (curCard === null) return;
+
+                const personMemo = curCard.dataset.memo;
+                if (!personMemo || personMemo === '') reject('Не удалось получить идентификатор сотрудника. Перезагрузите страницу или обратитесь к администратору.');
+    
+                const depMemo = this.contentItems.searchInput.dataset.dep;
+                if (!depMemo || depMemo === '') reject('Не удалось получить идентификатор подразделения. Перезагрузите страницу или обратитесь к администратору.');
+                
+                const department = this.staff[depMemo];
+                if (!department || typeof department !== 'object') reject('Не удалось получить данные. Перезагрузите страницу или обратитесь к администратору.');
+                
+                const person = department.staff[personMemo];
+                if (!person || typeof person !== 'object') reject('Не удалось получить данные. Перезагрузите страницу или обратитесь к администратору.');
+
+                person.department = department.name;
+                person.workTime = department.work_time;
+                person.dinnerTime = department.dinner_time;
+
+                if (person.group === '1') {
+                    person.groupName = 'Руководство подразделения';
+                } else if (person.group === '0') {
+                    person.groupName = 'Без группы';
+                } else {
+                    const group = department.groups.filter( item => {return item.id === person.group});
+                    if (!group || group.lenght === 0) {
+                        person.groupName = 'Без группы';
+                    } else {
+                        person.groupName = group[0].name;
+                    };
+                };
+                                
+                resolve(person);
+            })
+            .then( response => {
+                popup.innerInfo(response);                
+            })
+            .then( () => {
+                popup.show();
+                this.contentItems.personal.dataset.lock = '';
+
+                //document.querySelector('html').style = 'overflow-y: hidden;';
+            })
+            .catch( error => {
+                if (typeof error === 'string') {
+                    alert(error);
+                } else {
+                    alert('Возникла непредвиденная ошибка! Перезагрузите страницу.');
+                    console.log(error);
+                };
+                popup.reset();
+                this.contentItems.personal.dataset.lock = '';
+            });
+        };
     };
+
+    class Popup {
+        constructor() {
+            this.popupElement = document.querySelector('#person_card_popup');
+            this.bottomLayer = document.querySelector('#bottom_layer');
+            this.overlay = document.querySelector('#person_card_popup .overlay');
+            this.closeBtn = document.querySelector('#popup_close');
+            this.cardElements = {
+                photo: document.querySelector('#popup_photo'),
+                fullname: document.querySelector('#popup_fullname'),
+                position: document.querySelector('#popup_position'),
+                department: document.querySelector('#popup_department'),
+                group: document.querySelector('#popup_group'),
+                workTime: document.querySelector('#popup_worktime'),
+                dinnerTime: document.querySelector('#popup_dinnertime'),
+
+                popupContacts: document.querySelector('#popup_contacts'),
+                phone: document.querySelector('#popup_phone'),
+                townPhone: document.querySelector('#popup_townphone'),
+                mobile: document.querySelector('#popup_mobile'),
+                email: document.querySelector('#popup_email'),
+                location: document.querySelector('#popup_location'),
+
+                popupMeta: document.querySelector('#popup_meta'),
+                keywords: document.querySelector('#popup_keywords'),
+                updatetime: document.querySelector('#popup_updatetime'),
+            }
+
+            //const htmlElement = document.querySelector('html');
+
+            this.bottomLayer.addEventListener('click', event => {
+                if (event.target.id !== this.bottomLayer.id) return;
+                this.hide();
+                //htmlElement.style = '';
+            });
+
+            this.closeBtn.addEventListener('click', event => {
+                if (event.target.closest('button').id !== this.closeBtn.id) return;
+                this.hide();
+                //htmlElement.style = '';
+            });
+
+            window.addEventListener('keydown', event => {
+                if (event.key !== 'Escape') return;
+                this.hide();
+                //htmlElement.style = '';
+            });
+        }
+
+        innerInfo = person => {
+            let photoLink = '../../'+person.photo_link;
+            if (person.photo_link === '' || !person.photo_link) {
+                switch(person.sex) {
+                    case 'nosex': photoLink = '../../assets/img/Staff/tech-build.jpg'; break;
+                    case 'woman': photoLink = '../../assets/img/Staff/woman.jpg'; break;
+                    case 'man': 
+                    default: photoLink = '../../assets/img/Staff/man.jpg'; break;
+                }
+            };
+
+            this.cardElements.photo.src = photoLink;
+            this.cardElements.fullname.innerHTML = `${person.surname}<br>${person.name}<br>${person.patronymic}`;
+            this.cardElements.position.innerHTML = person.position;
+
+            console.log(person);
+            this.cardElements.department.innerHTML = person.department;
+            this.cardElements.group.innerHTML = person.groupName;
+            if (person.workTime && person.workTime !== '') {
+                this.cardElements.workTime.querySelector('span').innerHTML = person.workTime;
+                this.cardElements.workTime.classList.remove('hidden');
+            };
+            if (person.dinnerTime && person.dinnerTime !== '') {
+                this.cardElements.dinnerTime.querySelector('span').innerHTML = person.dinnerTime;
+                this.cardElements.dinnerTime.classList.remove('hidden');
+            };
+
+            if (person.work_phone || person.townPhone || person.mobile || person.email || person.location) this.cardElements.popupContacts.classList.remove('hidden');
+            if (person.work_phone && person.work_phone !== '') {
+                this.cardElements.phone.querySelector('span').innerHTML = person.work_phone;
+                this.cardElements.phone.classList.remove('hidden');
+            };
+            if (person.town_phone && person.town_phone !== '') {
+                this.cardElements.townPhone.querySelector('span').innerHTML = person.town_phone;
+                this.cardElements.townPhone.classList.remove('hidden');
+            };
+            if (person.mobile_phone && person.mobile_phone !== '') {
+                this.cardElements.mobile.querySelector('span').innerHTML = person.mobile_phone;
+                this.cardElements.mobile.classList.remove('hidden');
+            };
+            if (person.location && person.location !== '') {
+                this.cardElements.location.querySelector('span').innerHTML = person.location;
+                this.cardElements.location.classList.remove('hidden');
+            };
+            if (person.email && person.email !== '') {
+                const emailElement = this.cardElements.email.querySelector('a')
+                emailElement.innerHTML = person.email;
+                emailElement.href = `mailto:${person.email}`;
+                this.cardElements.email.classList.remove('hidden');
+            };
+
+            if (person.key_words || person.update_time) this.cardElements.popupMeta.classList.remove('hidden');
+            if (person.key_words && person.key_words !== '') {
+                this.cardElements.keywords.innerHTML = person.key_words;
+                this.cardElements.keywords.classList.remove('hidden');
+            };
+            if (person.update_time && typeof person.update_time === 'string' && person.update_time !== '') {
+                let updateTime = '';
+                const timestamp = Date.parse(person.update_time);
+                const date = new Date(timestamp);
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                const hour = date.getHours();
+                const minutes = date.getMinutes();
+                updateTime = `Обновлено: ${(day<10)? '0'+day :day}.${(month<10)? '0'+month :month}.${year} ${(hour<10)? '0'+hour: hour}:${(minutes<10)? '0'+minutes: minutes}`;
+                this.cardElements.updatetime.innerHTML = updateTime;
+                this.cardElements.updatetime.classList.remove('hidden');
+            };
+        }
+
+        reset = () => {
+            this.cardElements.photo.src = '';
+            this.cardElements.fullname.innerHTML = '';
+            this.cardElements.position.innerHTML = '';
+            this.cardElements.department.innerHTML = '';
+            this.cardElements.group.innerHTML = '';
+            
+            this.cardElements.workTime.classList.add('hidden');
+            this.cardElements.dinnerTime.classList.add('hidden');
+            
+            this.cardElements.popupContacts.classList.add('hidden');
+            this.cardElements.phone.classList.add('hidden');
+            this.cardElements.townPhone.classList.add('hidden');
+            this.cardElements.mobile.classList.add('hidden');
+            this.cardElements.location.classList.add('hidden');
+
+            const emailElement = this.cardElements.email.querySelector('a')
+            emailElement.innerHTML = '';
+            emailElement.href = '';
+            this.cardElements.email.classList.add('hidden');
+
+            this.cardElements.popupMeta.classList.add('hidden');
+            this.cardElements.keywords.classList.add('hidden');
+            this.cardElements.updatetime.classList.add('hidden');
+        }
+
+        show = () => {
+            this.bottomLayer.classList.remove('hidden');
+            this.popupElement.classList.remove('animate__fadeOut', 'hidden');
+            this.popupElement.classList.add('animate__fadeIn');
+        }
+
+        hide = () => {
+            this.popupElement.classList.remove('animate__fadeIn');
+            this.popupElement.classList.add('animate__fadeOut');
+            setTimeout( () => {
+                this.popupElement.classList.add('hidden');
+                this.bottomLayer.classList.add('hidden');
+            }, 300);
+        }
+    };
+
 
     try {
         const DepartmentsObj = new Departments(State); 

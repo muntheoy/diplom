@@ -207,7 +207,7 @@ window.addEventListener('load', function() {
                 <div class="person__contacts-block">
                     <p class="person__department">(${person.depNumber}) ${person.depShortName}</p>
                     <p class="person__phone">${person.work_phone}</p>
-                    <p class="person__email">${person.email}</p>
+                    <p class="person__email"><a href="mailto:${person.email}">${person.email}</a></p>
                 </div>
             </div>`;
         }
@@ -377,6 +377,8 @@ window.addEventListener('load', function() {
 
         // Обработчик нажатия на любой из результатов поиска
         showPersonDataHandler = event => {
+            if (event.target.tagName === 'A') return;
+            
             event.preventDefault();
             if (this.cardElements.card.dataset.lock === 'true') return;
 
