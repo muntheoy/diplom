@@ -344,7 +344,7 @@ window.addEventListener('load', function () {
                 this.sidebarElements.overlay.classList.add('hidden');
             })
             .catch( error => {
-                console.log(error);
+                console.error(error);
                 alert(error);
                 this.sidebarElements.sidebar.dataset.lock = '';
                 this.sidebarElements.overlay.classList.add('hidden');
@@ -592,7 +592,7 @@ window.addEventListener('load', function () {
                     alert(error);
                 } else {
                     alert('Возникла непредвиденная ошибка! Перезагрузите страницу.');
-                    console.log(error);
+                    console.error(error);
                 };
                 popup.reset();
                 this.contentItems.personal.dataset.lock = '';
@@ -663,7 +663,6 @@ window.addEventListener('load', function () {
             this.cardElements.fullname.innerHTML = `${person.surname}<br>${person.name}<br>${person.patronymic}`;
             this.cardElements.position.innerHTML = person.position;
 
-            console.log(person);
             this.cardElements.department.innerHTML = person.department;
             this.cardElements.group.innerHTML = person.groupName;
             if (person.workTime && person.workTime !== '') {
@@ -701,7 +700,7 @@ window.addEventListener('load', function () {
 
             if (person.key_words || person.update_time) this.cardElements.popupMeta.classList.remove('hidden');
             if (person.key_words && person.key_words !== '') {
-                this.cardElements.keywords.innerHTML = person.key_words;
+                this.cardElements.keywords.innerHTML = 'Ключевые слова: '+person.key_words;
                 this.cardElements.keywords.classList.remove('hidden');
             };
             if (person.update_time && typeof person.update_time === 'string' && person.update_time !== '') {

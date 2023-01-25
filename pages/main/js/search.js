@@ -378,6 +378,7 @@ window.addEventListener('load', function() {
         // Обработчик нажатия на любой из результатов поиска
         showPersonDataHandler = event => {
             if (event.target.tagName === 'A') return;
+            if (event.target.closest('.img_link') !== null) return;
             
             event.preventDefault();
             if (this.cardElements.card.dataset.lock === 'true') return;
