@@ -10,7 +10,8 @@ window.addEventListener('load', function() {
             this.cardElements = {
                 card:        document.querySelector('.card'),
                 overlay:     document.querySelector('.card .overlay'),
-                photoLink:   document.querySelector('#photo_link'),
+
+                /*photoLink:   document.querySelector('#photo_link'),
                 photo:       document.querySelector('#photo'),
                 fullname:    document.querySelector('#fullname'),
                 position:    document.querySelector('#position'),
@@ -24,7 +25,27 @@ window.addEventListener('load', function() {
                 dinnerTime:  document.querySelector('#dinner_time'),
                 keywords:    document.querySelector('#keywords'),
                 updateTime:  document.querySelector('#update_time'),
-                email:       document.querySelector('#email'),
+                email:       document.querySelector('#email'),*/
+
+                photoLink:   document.querySelector('#photo_link'),
+                photo: document.querySelector('#photo'),
+                fullname: document.querySelector('#fullname'),
+                position: document.querySelector('#position'),
+                department: document.querySelector('#department'),
+                group: document.querySelector('#group'),
+                workTime: document.querySelector('#worktime'),
+                dinnerTime: document.querySelector('#dinnertime'),
+
+                cardContacts: document.querySelector('#contacts'),
+                phone: document.querySelector('#phone'),
+                townPhone: document.querySelector('#townphone'),
+                mobile: document.querySelector('#mobile'),
+                email: document.querySelector('#email'),
+                location: document.querySelector('#location'),
+
+                cardMeta: document.querySelector('#meta'),
+                keywords: document.querySelector('#keywords'),
+                updateTime: document.querySelector('#updatetime'),
             };
             this.resultElements = {
                 resultOutElement:    document.querySelector('#result_out'),
@@ -36,6 +57,7 @@ window.addEventListener('load', function() {
                 counter:             document.querySelector('#result_counter'),
                 showedCounter:       document.querySelector('#showed_result'),
             };
+            
             this.resultList = undefined;
             this.pageWidth = 25;
             this.lastShowed = 0;
@@ -66,29 +88,39 @@ window.addEventListener('load', function() {
 
         // Очистка карточки
         clearCard = () => {
-            this.cardElements.email.innerHTML = '';
-            this.cardElements.email.href = '';
+            this.cardElements.card.classList.add('card_loading');
 
-            this.cardElements.photoLink.href = '../../assets/img/Staff/man.jpg';
-            this.cardElements.photo.src = '../../assets/img/Staff/man.jpg'; 
-            this.cardElements.fullname.innerHTML = '';
-            this.cardElements.position.innerHTML = '';
-            this.cardElements.department.innerHTML = '';
-            this.cardElements.group.innerHTML = '';
-            this.cardElements.workPhone.innerHTML = '';
-            this.cardElements.townPhone.innerHTML = '';
-            this.cardElements.mobilePhone.innerHTML = '';
-            this.cardElements.location.innerHTML = '';
-            this.cardElements.workTime.innerHTML = '';
-            this.cardElements.dinnerTime.innerHTML = '';
-            this.cardElements.updateTime.innerHTML = '';
-            this.cardElements.keywords.innerHTML = '';
+            this.cardElements.photo.src = '../../assets/img/Staff/man.jpg';
+            this.cardElements.fullname.innerHTML = '-<br>-<br>-';
+            this.cardElements.position.innerHTML = '-<br>-';
+            this.cardElements.department.innerHTML = '-';
+            this.cardElements.group.innerHTML = '-';
+            
+            this.cardElements.workTime.querySelector('span').innerHTML = '-';
+            this.cardElements.workTime.classList.remove('hidden');
+            this.cardElements.dinnerTime.querySelector('span').innerHTML = '-';
+            this.cardElements.dinnerTime.classList.remove('hidden');
+            
+            this.cardElements.cardContacts.classList.add('hidden');
+            this.cardElements.phone.classList.add('hidden');
+            this.cardElements.townPhone.classList.add('hidden');
+            this.cardElements.mobile.classList.add('hidden');
+            this.cardElements.location.classList.add('hidden');
+
+            const emailElement = this.cardElements.email.querySelector('a')
+            emailElement.innerHTML = '';
+            emailElement.href = '';
+            this.cardElements.email.classList.add('hidden');
+
+            this.cardElements.cardMeta.classList.add('hidden');
+            this.cardElements.keywords.classList.add('hidden');
+            this.cardElements.updateTime.classList.add('hidden');
         }
 
         // Загрузка данных в карточку
         _innerDataToCard = (person, department) => {
             if (!person || !department) return 1;
-            let photoLink = '../../'+person.photo_link;
+            /*let photoLink = '../../'+person.photo_link;
             if (person.photo_link === '' || !person.photo_link) {
                 switch(person.sex) {
                     case 'nosex': photoLink = '../../assets/img/Staff/tech-build.jpg'; break;
@@ -145,7 +177,113 @@ window.addEventListener('load', function() {
             this.cardElements.dinnerTime.innerHTML = department.dinner_time;
             this.cardElements.updateTime.innerHTML = updateTime;
             this.cardElements.keywords.innerHTML = person.key_words;
+            return 0;*/
+
+            /*
+             * 
+             * 
+             * 
+             * 
+             * 
+             */
+
+            let photoLink = '../../'+person.photo_link;
+            if (person.photo_link === '' || !person.photo_link) {
+                switch(person.sex) {
+                    case 'nosex': photoLink = '../../assets/img/Staff/tech-build.jpg'; break;
+                    case 'woman': photoLink = '../../assets/img/Staff/woman.jpg'; break;
+                    case 'man': 
+                    default: photoLink = '../../assets/img/Staff/man.jpg'; break;
+                }
+            };
+
+            let group = {
+                id: '0', 
+                name: 'Без группы', 
+                boss_memo: '',
+            };
+
+            switch (person.group) {
+                case '1': group = {id: '1', name: '', boss_memo: ''};
+                    break;
+                case '0': break;
+                default: group = department.groups.filter( (item) => {
+                    return item.id === person.group;
+                })[0];
+            };
+
+            if (!group || typeof group !== 'object') return 1;
+
+            this.cardElements.photo.src = photoLink;
+            this.cardElements.photoLink.href = photoLink;
+            this.cardElements.fullname.innerHTML = `${person.surname}<br>${person.name}<br>${person.patronymic}`;
+            this.cardElements.position.innerHTML = person.position;
+
+            this.cardElements.department.innerHTML = department.name;
+            this.cardElements.group.innerHTML = group.name;
+
+            if (department.work_time && department.work_time !== '') {
+                this.cardElements.workTime.querySelector('span').innerHTML = department.work_time;
+                this.cardElements.workTime.classList.remove('hidden');
+            };
+            if (department.dinner_time && department.dinner_time !== '') {
+                this.cardElements.dinnerTime.querySelector('span').innerHTML = department.dinner_time;
+                this.cardElements.dinnerTime.classList.remove('hidden');
+            };
+
+            if (person.work_phone || person.townPhone || person.mobile || person.email || person.location) this.cardElements.cardContacts.classList.remove('hidden');
+            if (person.work_phone && person.work_phone !== '') {
+                this.cardElements.phone.querySelector('span').innerHTML = person.work_phone;
+                this.cardElements.phone.classList.remove('hidden');
+            };
+            if (person.town_phone && person.town_phone !== '') {
+                this.cardElements.townPhone.querySelector('span').innerHTML = person.town_phone;
+                this.cardElements.townPhone.classList.remove('hidden');
+            };
+            if (person.mobile_phone && person.mobile_phone !== '') {
+                this.cardElements.mobile.querySelector('span').innerHTML = person.mobile_phone;
+                this.cardElements.mobile.classList.remove('hidden');
+            };
+            if (person.location && person.location !== '') {
+                this.cardElements.location.querySelector('span').innerHTML = person.location;
+                this.cardElements.location.classList.remove('hidden');
+            };
+            if (person.email && person.email !== '') {
+                const emailElement = this.cardElements.email.querySelector('a')
+                emailElement.innerHTML = person.email;
+                emailElement.href = `mailto:${person.email}`;
+                this.cardElements.email.classList.remove('hidden');
+            };
+
+            if (person.key_words || person.update_time) this.cardElements.cardMeta.classList.remove('hidden');
+            if (person.key_words && person.key_words !== '') {
+                this.cardElements.keywords.innerHTML = 'Ключевые слова: '+person.key_words;
+                this.cardElements.keywords.classList.remove('hidden');
+            };
+            if (person.update_time && typeof person.update_time === 'string' && person.update_time !== '') {
+                let updateTime = '';
+                const timestamp = Date.parse(person.update_time);
+                const date = new Date(timestamp);
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                const hour = date.getHours();
+                const minutes = date.getMinutes();
+                updateTime = `Обновлено: ${(day<10)? '0'+day :day}.${(month<10)? '0'+month :month}.${year} ${(hour<10)? '0'+hour: hour}:${(minutes<10)? '0'+minutes: minutes}`;
+                this.cardElements.updateTime.innerHTML = updateTime;
+                this.cardElements.updateTime.classList.remove('hidden');
+            };
+
             return 0;
+
+            /*
+             * 
+             * 
+             * 
+             * 
+             * 
+             */
+
         }
 
         // Очистка результатов поиска
@@ -201,7 +339,7 @@ window.addEventListener('load', function() {
                     </a>
                 </div>
                 <div class="person__info-block">
-                    <h4 class="person__name">${person.surname} ${person.name} ${person.patronymic}</h4>
+                    <h4 class="person__name">${person.surname}<br>${person.name} ${person.patronymic}</h4>
                     <span class="person__position">${person.position}</span>
                 </div>
                 <div class="person__contacts-block">
@@ -413,7 +551,7 @@ window.addEventListener('load', function() {
                 resolve();
             })
             .catch( error => {
-                console.log(error);
+                console.error(error);
                 alert(error);
                 //this.inputElements.searchMessage.innerHTML = error;
                 
@@ -422,6 +560,7 @@ window.addEventListener('load', function() {
             })
             .then( () => {
                 this.cardElements.card.dataset.lock = '';
+                this.cardElements.card.classList.remove('card_loading');
                 this.cardElements.overlay.classList.add('hidden');
             });  
         }

@@ -9,19 +9,21 @@
 .search-wrap,
 .result-wrap
 	position: relative
-	padding: 25px
-	background-color: #ffffff
 	border-radius: 10px
-	box-shadow: 0px 0px 5px 6px #dfdfdf
 	font-family: Montserrat, "Open sans", sans-serif
+.search-wrap,
+.result-wrap
+	box-shadow: 0px 0px 5px 6px #dfdfdf
+	background-color: #ffffff
+	padding: 25px
+
 
 .result-wrap
 	min-height: calc(100vh - 207px)
 
 // Карточка сотрудника
-.card
+/*.card
 	width: 500px
-
 	// Блок с фото, именем и должностью
 	&__title-wrap
 		display: flex
@@ -29,13 +31,13 @@
 		margin-bottom: 10px
 
 	&__photo-block
-		width: 150px
+		width: 130px
 		margin-right: 10px
 	&__photo
 		width: 100%
 
 	&__title-block
-		width: calc(100% - 150px)
+		width: calc(100% - 130px)
 	&__title
 		font-family: Montserrat, "Open sans", sans-serif
 		font-size: 26px
@@ -61,6 +63,122 @@
 		.table__header-items
 			width: 150px
 			color: #838383
+
+///////
+
+.card
+	position: relative
+	width: 500px
+	//border-radius: 5px
+	//background-color: #ffffff
+	&__wrap
+		width: 100%
+		height: 100%
+		//padding: 25px
+	&__close
+		border: none
+		background: none
+		position: absolute
+		top: 3px
+		right: 3px
+		color: #000000
+		padding: 7px 8px
+		font-size: 16px
+	&__container
+		padding: 25px
+		background-color: #ffffff
+		box-shadow: 0px 0px 5px 6px #dfdfdf
+		border-radius: 10px
+		margin-bottom: 10px
+		&:last-child
+			margin-bottom: 0
+
+	&__main-content
+		display: flex
+		align-items: flex-start
+	&__photo-block
+		width: 150px
+		margin-right: 25px
+	&__photo
+		display: block
+		width: 100%
+	&__name-block
+		width: calc(100% - 175px)
+	&__fullname
+		font-size: 30px
+		line-height: 1.2em
+		margin-bottom: 20px
+	&__position
+		font-size: 18px
+		line-height: 1.1em
+	
+	&__department
+		font-size: 18px
+		font-weight: 500
+		margin-bottom: 10px
+	&__group
+		font-size: 16px
+		margin-bottom: 10px
+	&__time-wrap
+		display: flex
+		align-items: center
+	&__time
+		display: flex
+		align-items: center
+		font-size: 16px
+		width: 50%
+		font-weight: 500
+		color: #555555
+		i
+			font-size: 20px
+			margin-right: 10px
+			color: #a3a3a3
+	#mobile i
+		font-size: 22px
+	&__worktime
+		margin-right: 10px
+	&__dinnertime
+	&__contacts
+		margin-top: 10px
+		display: flex
+		align-items: center
+		font-weight: 500
+		&:first-child
+			margin-top: 0
+		i
+			width: 25px
+			text-align: center
+			font-size: 18px
+			margin-right: 10px
+			color: #a3a3a3
+	
+	&__meta-content
+		font-size: 12px
+		color: #bdbdbd
+		p
+			margin-top: 5px
+			&:first-child
+				margin-top: 0
+	&__keywords
+	&__updatetime
+
+
+.card_loading
+	.card
+		&__photo-block
+			background-color: #efefef
+		&__photo
+			opacity: 0
+		&__fullname,
+		&__position,
+		&__department,
+		&__group,
+		&__time span
+			width: 100%
+			color: #efefef
+			background-color: #efefef
+
+///////
 
 // Поиск
 .search-wrap
@@ -159,18 +277,40 @@
 
 // Темная тема
 .dark
-	.card,
+	.card__container,
 	.search-wrap,
 	.result-wrap
 		background-color: #252525
 		border: 1px solid #383838
 		box-shadow: none
 		color: #dedede
+
 	.card
-		color: #dedede
-		&__table
-		&__title
+		&__container
+			background-color: #252525
+			border: 1px solid #383838
+		&__close
 			color: #ffffff
+		&__contacts,
+		&__time
+			font-weight: 400
+		&__meta-content p
+			font-size: 12px
+			color: #bdbdbd
+
+	.card_loading
+		.card
+			&__photo-block
+				background-color: #333333
+			&__fullname,
+			&__position,
+			&__department,
+			&__group,
+			&__time span
+				width: 100%
+				color: #333333
+				background-color: #333333
+
 	.table
 		&__items
 			color: #dedede
@@ -194,6 +334,18 @@
 
 	
 // Адаптив
+@media all and (max-width: 1600px)
+	.result
+		&__out
+			padding: 0
+	.person
+		&__info-block
+			width: 300px
+		&__name
+			line-height: 1em
+		&__contacts-block
+			font-size: 14px
+
 @media all and (max-width: 1420px)
 	.result
 		&__out
@@ -213,12 +365,18 @@
 		width: 450px
 		&__photo-block
 			width: 120px
+		&__name-block
+			width: calc(100% - 120px)
+		&__fullname
+			line-height: 1.1em
+		&__position
+			font-size: 16px
 	.person
 		padding: 5px 5px 3px 5px
 		&__name
 			font-size: 16px
 		&__position
-			font-size: 12px
+			font-size: 11px
 			line-height: 1em
 		&__info-block
 			width: 215px
@@ -230,7 +388,7 @@
 		width: calc(100% - 460px)
 
 @media all and (max-width: 960px)
-	.card,
+	.card__container,
 	.search-wrap,
 	.result-wrap
 		position: relative
@@ -240,21 +398,32 @@
 		width: 350px
 		&__photo-block
 			width: 110px
-		&__title-block
-			width: calc(100% - 110px)
-		&__title
-			font-size: 20px
+			margin-right: 15px
+		&__name-block
+			width: calc( 100% - 125px )
+		&__fullname
+			font-size: 24px
+			line-height: 1.1em
 			margin-bottom: 10px
-		&__subtitle
-			font-size: 14px
-			margin: 10px 0 5px
-		&__table
+		&__position
+			font-size: 16px
+		&__department
+			font-size: 16px
+		&__group
+			font-size: 15px
+		&__time
+			font-size: 15px
+			i
+				font-size: 18px
+		&__contacts
+			margin-bottom: 8px
+			span, a
+				font-size: 15px
+			i
+				font-size: 16px
+			
+		&__meta-content
 			font-size: 11px
-			/*.table__items
-				color: #000000
-			.table__header-items
-				width: 110px
-				//color: #838383
 	
 	.search
 		width: calc(100% - 360px)
@@ -269,7 +438,7 @@
 		&__photo-block
 			margin-right: 10px
 		&__info-block
-			width: 180px
+			width: 150px
 			margin-right: 8px
 		&__contacts-block
 			font-size: 10px
@@ -280,7 +449,7 @@
 
 
 @media all and (max-width: 680px)
-	.card,
+	.card__container,
 	.search-wrap,
 	.result-wrap
 		position: relative
@@ -290,19 +459,14 @@
 		width: 300px
 		&__photo-block
 			width: 90px
-		&__title-block
+			margin-right: 5px
+		&__name-block
 			width: calc(100% - 90px)
-		&__title
+		&__fullname
 			font-size: 18px
 			margin-bottom: 5px
-		&__subtitle
-			font-size: 13px
 		&__position
 			font-size: 12px
-		&__table
-			font-size: 10px
-			.table__header-items
-				width: 100px
 	
 	.search
 		width: calc(100% - 310px)
@@ -332,7 +496,7 @@
 		font-size: 12px
 
 @media all and (max-width: 640px)
-	.card,
+	.card__container,
 	.search-wrap,
 	.result-wrap
 		padding: 8px
@@ -341,12 +505,12 @@
 		width: 260px
 		&__photo-block
 			width: 80px
-		&__title-block
+		&__name-block
 			width: calc(100% - 80px)
-		&__title
+		&__fullname
 			font-size: 16px
 			margin-bottom: 5px
-		&__subtitle
+		&__position
 			font-size: 13px
 
 	.search

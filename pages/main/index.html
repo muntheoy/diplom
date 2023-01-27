@@ -54,13 +54,70 @@
 	<main>
 		<div class="container">
 			<div class="wrap" id="content_wrap">
-				<div class="card">
+				<div class="card card_loading">
 					<div class="overlay">
 						<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
 							<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
 						</svg>
 					</div>
-					<div class="card__title-wrap">
+
+					<div class="card__main-content card__container">
+						<div class="card__photo-block">
+							<a id="photo_link" href="../../assets/img/Staff/man.jpg" target="_blank">
+								<img src="../../assets/img/Staff/man.jpg" alt="" class="card__photo" id="photo">
+							</a>
+						</div>
+						<div class="card__name-block">
+							<h2 class="card__fullname" id="fullname">-<br>-<br>-</h2>
+							<p class="card__position" id="position">-<br>-</p>
+						</div>
+					</div>
+		
+					<div class="card__contacts-content card__container">
+						<p class="card__department" id="department">-</p>
+						<p class="card__group" id="group">-</p>
+						<div class="card__time-wrap">
+							<div class="card__worktime card__time" id="worktime">
+								<i class="fa fa-clock-o"></i>
+								<span>-</span>
+							</div>
+							<div class="card__dinnertime card__time" id="dinnertime">
+								<i class="fa fa-coffee"></i>
+								<span>-</span>
+							</div>
+						</div>
+					</div>
+		
+					<div class="card__contacts-content card__container hidden" id="contacts">
+						<div class="card__dinnertime card__contacts hidden" id="phone">
+							<i class="fa fa-phone"></i>
+							<span>06-66 э</span>
+						</div>
+						<div class="card__dinnertime card__contacts hidden" id="townphone">
+							<i class="fa fa-tty"></i>
+							<span>53-98-50</span>
+						</div>
+						<div class="card__dinnertime card__contacts hidden" id="mobile">
+							<i class="fa fa-mobile"></i>
+							<span></span>
+						</div>
+						<div class="card__dinnertime card__contacts hidden" id="email">
+							<i class="fa fa-envelope-o"></i>
+							<a href="">KuznetsovGS@ckba.local</a>
+						</div>
+						<div class="card__dinnertime card__contacts hidden" id="location">
+							<i class="fa fa-map-marker"></i>
+							<span>Корпус №1, кабинет 233</span>
+						</div>
+					</div>
+		
+					<div class="card__meta-content hidden" id="meta">
+						<p class="card__updatetime hidden" id="updatetime">Обновлено: 28.12.2022 16:15</p>
+						<p class="card__keywords hidden" id="keywords">Ключевые слова: администратор, справочник, бланки документов</p>
+					</div>
+
+
+					<!--div class="card__title-wrap">
 						<div class="card__photo-block">
 							<a id="photo_link" href="../../assets/img/Staff/man.jpg" target="_blank">
 								<img class="card__photo" id="photo" src="../../assets/img/Staff/man.jpg" alt="">
@@ -126,7 +183,7 @@
 								<td class="table__items" id="update_time"></td>
 							</tr>
 						</table>
-					</div>
+					</div-->
 				</div>
 				<div class="search">
 					<div class="search-wrap">
@@ -198,7 +255,7 @@
 			</div>
 			<div class="version-box">
 				<span class="footer__department">Научно-инновационный отдел</span> <!-- /.footer__department -->
-				<a class="footer__version" href="../../pages/versions/index.html">v 2.1.1</a> <!-- /.footer__version -->
+				<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a> <!-- /.footer__version -->
 			</div>
 			<div class="inf-box"></div>
 		</div>
