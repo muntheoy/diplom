@@ -314,6 +314,32 @@ a
   100%
     transform: rotate(360deg)
 
+@media all and (min-width: 2100px)
+  *::-webkit-scrollbar
+      width: 10px
+
+  .container
+    width: 2000px
+
+  input[type="text"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="number"],
+  input[type="date"],
+  input[type="radio"],
+  input[type="checkbox"],
+  select,
+  textarea,
+  .btn
+    padding: 9px 20px 9px 20px
+    font-size: 18px
+    line-height: 1em
+    border-radius: 8px
+
+  main
+    padding: 15px 0 75px 0
+
 @media all and (max-width: 1600px)
   .container
     width: 1200px

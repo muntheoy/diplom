@@ -21,50 +21,6 @@
 .result-wrap
 	min-height: calc(100vh - 207px)
 
-// Карточка сотрудника
-/*.card
-	width: 500px
-	// Блок с фото, именем и должностью
-	&__title-wrap
-		display: flex
-		align-items: flex-start
-		margin-bottom: 10px
-
-	&__photo-block
-		width: 130px
-		margin-right: 10px
-	&__photo
-		width: 100%
-
-	&__title-block
-		width: calc(100% - 130px)
-	&__title
-		font-family: Montserrat, "Open sans", sans-serif
-		font-size: 26px
-		font-weight: 500
-		margin-bottom: 15px
-		line-height: 1.2
-	&__position
-		font-size: 14px
-		line-height: 1.2
-
-	// Блок с данными
-	&__info-wrap
-		width: 100%
-	
-	&__subtitle
-		font-size: 15px
-		font-weight: 600	
-		margin: 15px 0 5px
-	&__table
-		font-size: 14px
-		.table__items
-			color: #000000
-		.table__header-items
-			width: 150px
-			color: #838383
-
-///////
 
 .card
 	position: relative
@@ -177,8 +133,6 @@
 			width: 100%
 			color: #efefef
 			background-color: #efefef
-
-///////
 
 // Поиск
 .search-wrap
@@ -334,6 +288,94 @@
 
 	
 // Адаптив
+@media all and (min-width: 2100px)
+	.search-wrap,
+	.result-wrap
+		box-shadow: 0px 0px 10px 10px #dfdfdf
+		padding: 30px
+	.card
+		width: 700px
+		&__container
+			margin-bottom: 15px
+			padding: 30px
+		&__photo-block
+			width: 230px
+		&__name-block
+			width: calc(100% - 230px)
+		&__fullname
+			font-size: 42px
+			line-height: 1.1em
+			margin-bottom: 20px
+		&__position
+			font-size: 24px
+		&__department
+			font-size: 24px
+			margin-bottom: 15px
+		&__group
+			font-size: 22px
+			margin-bottom: 15px
+		&__time
+			font-size: 20px
+			i
+				font-size: 24px
+				margin-right: 15px
+				color: #a3a3a3
+		#mobile i
+			font-size: 26px
+		&__worktime
+			margin-right: 10px
+		&__dinnertime
+		&__contacts
+			margin-top: 15px
+			font-size: 20px
+			&:first-child
+				margin-top: 0
+			i
+				width: 30px
+				font-size: 22px
+		
+		&__meta-content
+			font-size: 15px
+
+	.search
+		width: calc(100% - 715px)	
+
+	.search-wrap
+		margin-bottom: 15px
+
+	.result
+		&__counter
+			margin-bottom: 30px
+		&__message
+			font-size: 20px
+			margin: 45px 0
+		&__out
+			padding: 0 125px
+	.counter
+		font-size: 18px
+	.person
+		padding: 10px 10px 8px 10px
+		border-radius: 6px
+
+		&__photo
+			width: 80px
+		&__name
+			margin-top: -5px
+			font-size: 28px
+			margin-bottom: 8px
+		&__info-block
+			width: 480px
+		&__position
+			color: #838383
+			font-size: 18px
+
+		&__contacts-block p
+			font-size: 22px
+				
+		&__department
+		&__phone
+		&__email
+
 @media all and (max-width: 1600px)
 	.result
 		&__out
