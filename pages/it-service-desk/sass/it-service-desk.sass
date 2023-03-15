@@ -67,6 +67,33 @@
         &__people
             color: #ffffff
 
+@media all and (min-width: 2100px)
+    .content-wrap 
+        min-height: calc(100vh - 180px)
+        padding: 30px
+        box-shadow: 0px 0px 10px 10px #dfdfdf
+
+    .service-desk
+        width: 1200px
+        &__description
+            width: 800px
+            margin: 0 auto 50px
+        &__card-box
+            column-gap: 20px
+            row-gap: 50px
+
+    .card
+        width: 100%
+        &__name
+            font-size: 24px
+            margin-bottom: 10px
+        &__people,
+        &__email
+            font-size: 21px
+            margin-bottom: 10px
+        &__phone
+            font-size: 21px
+
 @media all and (max-width: 800px)
     .service-desk
         width: 600px

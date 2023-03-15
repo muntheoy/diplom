@@ -68,6 +68,20 @@
     #plan_dark
         display: block
 
+@media all and (min-width: 2100px)
+    .map
+        min-height: calc(100vh - 180px)
+        box-shadow: 0px 0px 10px 10px #dfdfdf
+        padding: 30px
+    .factorynames
+        &__title
+            font-size: 22px
+            margin-bottom: 15px
+        &__items
+            font-size: 20px
+            padding: 5px
+            border-radius: 5px
+
 @media all and (max-width: 1600px)
     .map
         &-wrap

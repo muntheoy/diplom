@@ -39,7 +39,7 @@
 .spliter
     padding: 10px 0
 
-.import
+/*.import
   &__file-container
     position: relative
     width: 100%
@@ -87,6 +87,34 @@
   
 
   
+@media all and (min-width: 2100px) 
+  .content-wrap 
+      min-height: calc(100vh - 180px)
+      padding: 30px
+      box-shadow: 0px 0px 10px 10px #dfdfdf
+
+  .changing
+      &__title,
+      &__subtitle,
+      &__description
+          text-align: center
+      &__subtitle
+          margin-bottom: 15px
+      &__description
+          margin-bottom: 35px
+      &__type
+          margin: 0 auto 30px auto
+          width: 800px
+      &__forms-block
+          width: 800px
+      &__form
+      &__field
+          margin-bottom: 20px
+      &__btn
+          margin: 0 auto
+      &__message
+          font-size: 16px
+
 @media all and (max-width: 700px)
   .changing
     &__title

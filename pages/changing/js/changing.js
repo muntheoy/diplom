@@ -331,6 +331,7 @@ window.addEventListener('load', function() {
                         errElem.classList.add('input_error');
                         errElem.closest('.field').querySelector('.field__message').innerHTML = errItem.message;
                     };
+                    endLoad();
                     return;
                 };
                 alert('Возникла непредвиденная ошибка! Обратитесь к администратору.');
