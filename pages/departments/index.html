@@ -14,7 +14,7 @@
 	<script defer src="js/departments.js"></script>
 </head>
 <body>
-  <!-- Шапка с навигационным меню -->
+	
   <header class="header" id="header">
 	<div class="container">
 		<div class="header-wrap">
@@ -29,7 +29,7 @@
 						</div>
 					</div>
 				</div>
-			</a><!-- logo -->
+			</a>
 			<nav class="navbar">
 				<ul class="navbar__list">
 					<li class="navbar__items" data-partition-menu="search"  onselectstart="return false" onmousedown="return false">
@@ -45,10 +45,10 @@
 						<a href="../../pages/help/index.html">Помощь</a> 
 					</li>
 				</ul>
-			</nav><!-- navbar -->
-		</div><!-- header-wrap -->
-	</div><!-- container -->
-</header><!-- header -->
+			</nav>
+		</div>
+	</div>
+</header>
 
 <main>
 	<div class="container">
@@ -65,8 +65,8 @@
 					<div class="sidebar-wrap" id="departments_list">
 						
 					</div>
-				</div><!-- .sidebar -->
-			</div><!-- .sidebar-box -->
+				</div>
+			</div>
 			<div class="content agile">
 				<div class="overlay">
 					<div>
@@ -95,10 +95,6 @@
 					</table>
 					<div class="metadata__links-block links-block">
 						<div class="links-block__list" id="groups_list"></div>
-						<!--div class="links-block__roll" id="roll_btn">
-							<p class="links-block__text">Группы</p>
-							<i class="links-block__icon fa fa-chevron-down"></i>
-						</div-->
 					</div>
 				</div>
 				<div class="search">
@@ -120,12 +116,11 @@
 				<div class="noresult hidden" id="noresult">
 					Ничего не найдено
 				</div>
-			</div><!-- .content -->
-		</div><!-- .wrap -->
-	</div><!-- .container -->
+			</div>
+		</div>
+	</div>
 </main>
 
-<!-- Футер -->
 <footer class="footer">
 	<button class="scroll-btn hidden" id="scroll_btn">
 		<i class="fa fa-arrow-up"></i>
@@ -139,13 +134,13 @@
 				</button>
 			</div>
 			<div class="version-box">
-				<span class="footer__department">Научно-инновационный отдел</span> <!-- /.footer__department -->
-				<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a> <!-- /.footer__version -->
+				<span class="footer__department">Научно-инновационный отдел</span>
+				<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a>
 			</div>
 			<div class="inf-box"></div>
 		</div>
-	</div> <!-- /.container -->
-</footer> <!-- /.footer -->
+	</div>
+</footer>
 <script>
 	function getCookie(name) {
       let matches = document.cookie.match( new RegExp(
@@ -174,13 +169,6 @@
 
 <div class="bottom-layer hidden" id="bottom_layer">
 	<div class="popup animate__animated" id="person_card_popup">
-		<!--div class="overlay hidden">
-			<div>
-				<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-					<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
-				</svg>
-			</div>
-		</div-->
 		<button class="popup__close" id="popup_close">
 			<i class="fa fa-close"></i>
 		</button>

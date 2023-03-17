@@ -13,7 +13,6 @@
 	<script defer src="js/support.js"></script>
 </head>
 <body>
- <!-- Шапка с навигационным меню -->
  <header class="header" id="header">
 	<div class="container">
 		<div class="header-wrap">
@@ -28,7 +27,7 @@
 						</div>
 					</div>
 				</div>
-			</a><!-- logo -->
+			</a>
 			<nav class="navbar">
 				<ul class="navbar__list">
 					<li class="navbar__items" data-partition-menu="search"  onselectstart="return false" onmousedown="return false">
@@ -37,9 +36,6 @@
 					<li class="navbar__items" data-partition-menu="department" onselectstart="return false" onmousedown="return false">
 						<a href="../../pages/departments/index.html">Подразделения</a> 
 					</li>
-					<!-- <li class="navbar__items" data-partition-menu="information" onselectstart="return false" onmousedown="return false">
-						<a href="../../pages/information/index.html">Информация</a> 
-					</li> -->
 					<li class="navbar__items" data-partition-menu="plan" onselectstart="return false" onmousedown="return false">
 						<a href="../../pages/plan/index.html">План</a> 
 					</li>
@@ -47,12 +43,11 @@
 						<a href="../../pages/help/index.html">Помощь</a> 
 					</li>
 				</ul>
-			</nav><!-- navbar -->
-		</div><!-- header-wrap -->
-	</div><!-- container -->
-</header><!-- header -->
+			</nav>
+		</div>
+	</div>
+</header>
 
-<!-- Контент -->
 <main>
 	<div class="container">
 		<div class="content-wrap content-section" id="content_wrap">
@@ -79,7 +74,6 @@
 	</div>
 </main>
 
-<!-- Футер -->
 <footer class="footer">
 	<button class="scroll-btn hidden" id="scroll_btn">
 		<i class="fa fa-arrow-up"></i>
@@ -93,13 +87,14 @@
 				</button>
 			</div>
 			<div class="version-box">
-				<span class="footer__department">Научно-инновационный отдел</span> <!-- /.footer__department -->
-				<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a> <!-- /.footer__version -->
+				<span class="footer__department">Научно-инновационный отдел</span>
+				<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a>
 			</div>
 			<div class="inf-box"></div>
 		</div>
-	</div> <!-- /.container -->
-</footer> <!-- /.footer -->
+	</div>
+</footer>
+
 <script>
 	function getCookie(name) {
       let matches = document.cookie.match( new RegExp(

@@ -1,338 +1,186 @@
-window.addEventListener('load', function() {
-    class Search {
-        constructor (staff) {
-            this.inputElements = {
-                input:   document.querySelector('#search_input'),
-                overlay: document.querySelector('.search-wrap .overlay'),
-                button:  document.querySelector('#search_btn'),
-                searchMessage:  document.querySelector('#search_message'),
-            };
-            this.cardElements = {
-                card:        document.querySelector('.card'),
-                overlay:     document.querySelector('.card .overlay'),
-
-                /*photoLink:   document.querySelector('#photo_link'),
-                photo:       document.querySelector('#photo'),
-                fullname:    document.querySelector('#fullname'),
-                position:    document.querySelector('#position'),
-                department:  document.querySelector('#department'),
-                group:       document.querySelector('#group'),
-                workPhone:   document.querySelector('#work_phone'),
-                townPhone:   document.querySelector('#town_phone'),
-                mobilePhone: document.querySelector('#mobile_phone'),
-                location:    document.querySelector('#location'),
-                workTime:    document.querySelector('#work_time'),
-                dinnerTime:  document.querySelector('#dinner_time'),
-                keywords:    document.querySelector('#keywords'),
-                updateTime:  document.querySelector('#update_time'),
-                email:       document.querySelector('#email'),*/
-
-                photoLink:   document.querySelector('#photo_link'),
-                photo: document.querySelector('#photo'),
-                fullname: document.querySelector('#fullname'),
-                position: document.querySelector('#position'),
-                department: document.querySelector('#department'),
-                group: document.querySelector('#group'),
-                workTime: document.querySelector('#worktime'),
-                dinnerTime: document.querySelector('#dinnertime'),
-
-                cardContacts: document.querySelector('#contacts'),
-                phone: document.querySelector('#phone'),
-                townPhone: document.querySelector('#townphone'),
-                mobile: document.querySelector('#mobile'),
-                email: document.querySelector('#email'),
-                location: document.querySelector('#location'),
-
-                cardMeta: document.querySelector('#meta'),
-                keywords: document.querySelector('#keywords'),
-                updateTime: document.querySelector('#updatetime'),
-            };
-            this.resultElements = {
-                resultOutElement:    document.querySelector('#result_out'),
-                noResultElement:     document.querySelector('#no_result'),
-                startMessageElement: document.querySelector('#start_message'),
-                showMore:            document.querySelector('#show_more'),
-                showMoreBtn:         document.querySelector('#show_more_btn'),
-                overlay:             document.querySelector('.result-wrap .overlay'),
-                counter:             document.querySelector('#result_counter'),
-                showedCounter:       document.querySelector('#showed_result'),
-            };
-            
-            this.resultList = undefined;
-            this.pageWidth = 25;
-            this.lastShowed = 0;
-            this.staff = State;
-
-            this.inputElements.button
-        }
-
-        reset = () => {
-            return new Promise( (resolve, reject) => {
-                this.startLoad();
-                this.clearInput();
-                this.clearCard();
-                this.clearResultList();
-                resolve();
-            })
-            .then( () => {
-                this.endLoad();
-            })
-
-        }
-
-        // Очистка карточки
-        clearInput = () => {
-            this.inputElements.input.value = '';
-            this.inputElements.searchMessage.innerHTML = '';
-        }
-
-        // Очистка карточки
-        clearCard = () => {
-            this.cardElements.card.classList.add('card_loading');
-
-            this.cardElements.photo.src = '../../assets/img/Staff/man.jpg';
-            this.cardElements.fullname.innerHTML = '-<br>-<br>-';
-            this.cardElements.position.innerHTML = '-<br>-';
-            this.cardElements.department.innerHTML = '-';
-            this.cardElements.group.innerHTML = '-';
-            
-            this.cardElements.workTime.querySelector('span').innerHTML = '-';
-            this.cardElements.workTime.classList.remove('hidden');
-            this.cardElements.dinnerTime.querySelector('span').innerHTML = '-';
-            this.cardElements.dinnerTime.classList.remove('hidden');
-            
-            this.cardElements.cardContacts.classList.add('hidden');
-            this.cardElements.phone.classList.add('hidden');
-            this.cardElements.townPhone.classList.add('hidden');
-            this.cardElements.mobile.classList.add('hidden');
-            this.cardElements.location.classList.add('hidden');
-
-            const emailElement = this.cardElements.email.querySelector('a')
-            emailElement.innerHTML = '';
-            emailElement.href = '';
-            this.cardElements.email.classList.add('hidden');
-
-            this.cardElements.cardMeta.classList.add('hidden');
-            this.cardElements.keywords.classList.add('hidden');
-            this.cardElements.updateTime.classList.add('hidden');
-        }
-
-        // Загрузка данных в карточку
-        _innerDataToCard = (person, department) => {
-            if (!person || !department) return 1;
-            /*let photoLink = '../../'+person.photo_link;
-            if (person.photo_link === '' || !person.photo_link) {
-                switch(person.sex) {
-                    case 'nosex': photoLink = '../../assets/img/Staff/tech-build.jpg'; break;
-                    case 'woman': photoLink = '../../assets/img/Staff/woman.jpg'; break;
-                    case 'man': 
-                    default: photoLink = '../../assets/img/Staff/man.jpg'; break;
-                }
-            };
-
-            let group = {
-                id: '0', 
-                name: 'Без группы', 
-                boss_memo: '',
-            };
-
-            switch (person.group) {
-                case '1': group = {id: '1', name: '', boss_memo: ''};
-                    break;
-                case '0': break;
-                default: group = department.groups.filter( (item) => {
-                    return item.id === person.group;
-                })[0];
-            };
-
-            if (!group || typeof group !== 'object') return 1;
-
-            let updateTime = '';
-            if (person.update_time && typeof person.update_time === 'string' && person.update_time !== '') {
-                const timestamp = Date.parse(person.update_time);
-                const date = new Date(timestamp);
-                const day = date.getDate();
-                const month = date.getMonth() + 1;
-                const year = date.getFullYear();
-                const hour = date.getHours();
-                const minutes = date.getMinutes();
-                updateTime = `${(day<10)? '0'+day :day}.${(month<10)? '0'+month :month}.${year} ${(hour<10)? '0'+hour: hour}:${(minutes<10)? '0'+minutes: minutes}`;
-            };
-
-            this.cardElements.email.innerHTML = person.email;
-            this.cardElements.email.href = 'mailto:' + person.email;
-
-            this.cardElements.photoLink.href = photoLink;
-            this.cardElements.photo.src = photoLink;
-
-            this.cardElements.fullname.innerHTML = `${person.surname}<br>${person.name} ${person.patronymic}`;
-            this.cardElements.position.innerHTML = person.position;
-            this.cardElements.department.innerHTML = department.name;
-            this.cardElements.group.innerHTML = group.name;
-            this.cardElements.workPhone.innerHTML = person.work_phone;
-            this.cardElements.townPhone.innerHTML = person.town_phone;
-            this.cardElements.mobilePhone.innerHTML = person.mobile_phone;
-            this.cardElements.location.innerHTML = person.location;
-            this.cardElements.workTime.innerHTML = department.work_time;
-            this.cardElements.dinnerTime.innerHTML = department.dinner_time;
-            this.cardElements.updateTime.innerHTML = updateTime;
-            this.cardElements.keywords.innerHTML = person.key_words;
-            return 0;*/
-
-            /*
-             * 
-             * 
-             * 
-             * 
-             * 
-             */
-
-            let photoLink = '../../'+person.photo_link;
-            if (person.photo_link === '' || !person.photo_link) {
-                switch(person.sex) {
-                    case 'nosex': photoLink = '../../assets/img/Staff/tech-build.jpg'; break;
-                    case 'woman': photoLink = '../../assets/img/Staff/woman.jpg'; break;
-                    case 'man': 
-                    default: photoLink = '../../assets/img/Staff/man.jpg'; break;
-                }
-            };
-
-            let group = {
-                id: '0', 
-                name: 'Без группы', 
-                boss_memo: '',
-            };
-
-            switch (person.group) {
-                case '1': group = {id: '1', name: '', boss_memo: ''};
-                    break;
-                case '0': break;
-                default: group = department.groups.filter( (item) => {
-                    return item.id === person.group;
-                })[0];
-            };
-
-            if (!group || typeof group !== 'object') return 1;
-
-            this.cardElements.photo.src = photoLink;
-            this.cardElements.photoLink.href = photoLink;
-            this.cardElements.fullname.innerHTML = `${person.surname}<br>${person.name}<br>${person.patronymic}`;
-            this.cardElements.position.innerHTML = person.position;
-
-            this.cardElements.department.innerHTML = department.name;
-            this.cardElements.group.innerHTML = group.name;
-
-            if (department.work_time && department.work_time !== '') {
-                this.cardElements.workTime.querySelector('span').innerHTML = department.work_time;
-                this.cardElements.workTime.classList.remove('hidden');
-            };
-            if (department.dinner_time && department.dinner_time !== '') {
-                this.cardElements.dinnerTime.querySelector('span').innerHTML = department.dinner_time;
-                this.cardElements.dinnerTime.classList.remove('hidden');
-            };
-
-            if (person.work_phone || person.townPhone || person.mobile || person.email || person.location) this.cardElements.cardContacts.classList.remove('hidden');
-            if (person.work_phone && person.work_phone !== '') {
-                this.cardElements.phone.querySelector('span').innerHTML = person.work_phone;
-                this.cardElements.phone.classList.remove('hidden');
-            };
-            if (person.town_phone && person.town_phone !== '') {
-                this.cardElements.townPhone.querySelector('span').innerHTML = person.town_phone;
-                this.cardElements.townPhone.classList.remove('hidden');
-            };
-            if (person.mobile_phone && person.mobile_phone !== '') {
-                this.cardElements.mobile.querySelector('span').innerHTML = person.mobile_phone;
-                this.cardElements.mobile.classList.remove('hidden');
-            };
-            if (person.location && person.location !== '') {
-                this.cardElements.location.querySelector('span').innerHTML = person.location;
-                this.cardElements.location.classList.remove('hidden');
-            };
-            if (person.email && person.email !== '') {
-                const emailElement = this.cardElements.email.querySelector('a')
-                emailElement.innerHTML = person.email;
-                emailElement.href = `mailto:${person.email}`;
-                this.cardElements.email.classList.remove('hidden');
-            };
-
-            if (person.key_words || person.update_time) this.cardElements.cardMeta.classList.remove('hidden');
-            if (person.key_words && person.key_words !== '') {
-                this.cardElements.keywords.innerHTML = 'Ключевые слова: '+person.key_words;
-                this.cardElements.keywords.classList.remove('hidden');
-            };
-            if (person.update_time && typeof person.update_time === 'string' && person.update_time !== '') {
-                let updateTime = '';
-                const timestamp = Date.parse(person.update_time);
-                const date = new Date(timestamp);
-                const day = date.getDate();
-                const month = date.getMonth() + 1;
-                const year = date.getFullYear();
-                const hour = date.getHours();
-                const minutes = date.getMinutes();
-                updateTime = `Обновлено: ${(day<10)? '0'+day :day}.${(month<10)? '0'+month :month}.${year} ${(hour<10)? '0'+hour: hour}:${(minutes<10)? '0'+minutes: minutes}`;
-                this.cardElements.updateTime.innerHTML = updateTime;
-                this.cardElements.updateTime.classList.remove('hidden');
-            };
-
-            return 0;
-
-            /*
-             * 
-             * 
-             * 
-             * 
-             * 
-             */
-
-        }
-
-        // Очистка результатов поиска
-        clearResultList = () => {
-            while (this.resultElements.resultOutElement.firstChild) {
-                this.resultElements.resultOutElement.removeChild(this.resultElements.resultOutElement.firstChild);
-            };
-            this.resultElements.startMessageElement.classList.remove('hidden');
-            this.resultElements.noResultElement.classList.add('hidden');
-            this.resultElements.resultOutElement.classList.add('hidden');
-            this.resultElements.showMore.classList.add('hidden');
-            //this.resultList = [];
-            this.lastShowed = 0;
-            this.updateCounter(0, 0);
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+window.addEventListener('load', function () {
+  class Search {
+    constructor(staff) {
+      _defineProperty(this, "reset", () => {
+        return new Promise((resolve, reject) => {
+          this.startLoad();
+          this.clearInput();
+          this.clearCard();
+          this.clearResultList();
+          resolve();
+        }).then(() => {
+          this.endLoad();
+        });
+      });
+      _defineProperty(this, "clearInput", () => {
+        this.inputElements.input.value = '';
+        this.inputElements.searchMessage.innerHTML = '';
+      });
+      _defineProperty(this, "clearCard", () => {
+        this.cardElements.card.classList.add('card_loading');
+        this.cardElements.photo.src = '../../assets/img/Staff/man.jpg';
+        this.cardElements.fullname.innerHTML = '-<br>-<br>-';
+        this.cardElements.position.innerHTML = '-<br>-';
+        this.cardElements.department.innerHTML = '-';
+        this.cardElements.group.innerHTML = '-';
+        this.cardElements.workTime.querySelector('span').innerHTML = '-';
+        this.cardElements.workTime.classList.remove('hidden');
+        this.cardElements.dinnerTime.querySelector('span').innerHTML = '-';
+        this.cardElements.dinnerTime.classList.remove('hidden');
+        this.cardElements.cardContacts.classList.add('hidden');
+        this.cardElements.phone.classList.add('hidden');
+        this.cardElements.townPhone.classList.add('hidden');
+        this.cardElements.mobile.classList.add('hidden');
+        this.cardElements.location.classList.add('hidden');
+        const emailElement = this.cardElements.email.querySelector('a');
+        emailElement.innerHTML = '';
+        emailElement.href = '';
+        this.cardElements.email.classList.add('hidden');
+        this.cardElements.cardMeta.classList.add('hidden');
+        this.cardElements.keywords.classList.add('hidden');
+        this.cardElements.updateTime.classList.add('hidden');
+      });
+      _defineProperty(this, "_innerDataToCard", (person, department) => {
+        if (!person || !department) return 1;
+        let photoLink = '../../' + person.photo_link;
+        if (person.photo_link === '' || !person.photo_link) {
+          switch (person.sex) {
+            case 'nosex':
+              photoLink = '../../assets/img/Staff/tech-build.jpg';
+              break;
+            case 'woman':
+              photoLink = '../../assets/img/Staff/woman.jpg';
+              break;
+            case 'man':
+            default:
+              photoLink = '../../assets/img/Staff/man.jpg';
+              break;
+          }
         };
-
-        // Начало загрузки (поиска)
-        startLoad = () => {
-            this.inputElements.overlay.classList.remove('hidden');
-            this.cardElements.overlay.classList.remove('hidden');
-            this.resultElements.overlay.classList.remove('hidden');
+        let group = {
+          id: '0',
+          name: 'Без группы',
+          boss_memo: ''
         };
-
-        // Конец загрузки (поиска)
-        endLoad = () => {
-            this.inputElements.overlay.classList.add('hidden');
-            this.cardElements.overlay.classList.add('hidden');
-            this.resultElements.overlay.classList.add('hidden');
-        };
-
-        // Обновление счетчика найденных и показанных результатов
-        updateCounter = (quantity, showed) => {
-            this.showedCount = quantity;
-            this.resultElements.counter.innerHTML = quantity;
-            this.resultElements.showedCounter.innerHTML = showed;
-        } 
-
-        // Возвращает разметку одного результата поиска
-        _getResultHTML = (person) => {
-            let photoLink = '../../'+person.photo_link;
-            if (person.photo_link === '' || !person.photo_link) {
-                switch(person.sex) {
-                    case 'nosex': photoLink = '../../assets/img/Staff/tech-build.jpg'; break;
-                    case 'woman': photoLink = '../../assets/img/Staff/woman.jpg'; break;
-                    case 'man': 
-                    default: photoLink = '../../assets/img/Staff/man.jpg'; break;
-                }
+        switch (person.group) {
+          case '1':
+            group = {
+              id: '1',
+              name: '',
+              boss_memo: ''
             };
-            return `<div class="result__person person" id="${person.memo}"data-memo="${person.memo}" data-id="${person.id}" data-depmemo="${person.depMemo}" data-depid="${person.depId}">
+            break;
+          case '0':
+            break;
+          default:
+            group = department.groups.filter(item => {
+              return item.id === person.group;
+            })[0];
+        };
+        if (!group || typeof group !== 'object') return 1;
+        this.cardElements.photo.src = photoLink;
+        this.cardElements.photoLink.href = photoLink;
+        this.cardElements.fullname.innerHTML = `${person.surname}<br>${person.name}<br>${person.patronymic}`;
+        this.cardElements.position.innerHTML = person.position;
+        this.cardElements.department.innerHTML = department.name;
+        this.cardElements.group.innerHTML = group.name;
+        if (department.work_time && department.work_time !== '') {
+          this.cardElements.workTime.querySelector('span').innerHTML = department.work_time;
+          this.cardElements.workTime.classList.remove('hidden');
+        };
+        if (department.dinner_time && department.dinner_time !== '') {
+          this.cardElements.dinnerTime.querySelector('span').innerHTML = department.dinner_time;
+          this.cardElements.dinnerTime.classList.remove('hidden');
+        };
+        if (person.work_phone || person.townPhone || person.mobile || person.email || person.location) this.cardElements.cardContacts.classList.remove('hidden');
+        if (person.work_phone && person.work_phone !== '') {
+          this.cardElements.phone.querySelector('span').innerHTML = person.work_phone;
+          this.cardElements.phone.classList.remove('hidden');
+        };
+        if (person.town_phone && person.town_phone !== '') {
+          this.cardElements.townPhone.querySelector('span').innerHTML = person.town_phone;
+          this.cardElements.townPhone.classList.remove('hidden');
+        };
+        if (person.mobile_phone && person.mobile_phone !== '') {
+          this.cardElements.mobile.querySelector('span').innerHTML = person.mobile_phone;
+          this.cardElements.mobile.classList.remove('hidden');
+        };
+        if (person.location && person.location !== '') {
+          this.cardElements.location.querySelector('span').innerHTML = person.location;
+          this.cardElements.location.classList.remove('hidden');
+        };
+        if (person.email && person.email !== '') {
+          const emailElement = this.cardElements.email.querySelector('a');
+          emailElement.innerHTML = person.email;
+          emailElement.href = `mailto:${person.email}`;
+          this.cardElements.email.classList.remove('hidden');
+        };
+        if (person.key_words || person.update_time) this.cardElements.cardMeta.classList.remove('hidden');
+        if (person.key_words && person.key_words !== '') {
+          this.cardElements.keywords.innerHTML = 'Ключевые слова: ' + person.key_words;
+          this.cardElements.keywords.classList.remove('hidden');
+        };
+        if (person.update_time && typeof person.update_time === 'string' && person.update_time !== '') {
+          let updateTime = '';
+          const timestamp = Date.parse(person.update_time);
+          const date = new Date(timestamp);
+          const day = date.getDate();
+          const month = date.getMonth() + 1;
+          const year = date.getFullYear();
+          const hour = date.getHours();
+          const minutes = date.getMinutes();
+          updateTime = `Обновлено: ${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year} ${hour < 10 ? '0' + hour : hour}:${minutes < 10 ? '0' + minutes : minutes}`;
+          this.cardElements.updateTime.innerHTML = updateTime;
+          this.cardElements.updateTime.classList.remove('hidden');
+        };
+        return 0;
+      });
+      _defineProperty(this, "clearResultList", () => {
+        while (this.resultElements.resultOutElement.firstChild) {
+          this.resultElements.resultOutElement.removeChild(this.resultElements.resultOutElement.firstChild);
+        };
+        this.resultElements.startMessageElement.classList.remove('hidden');
+        this.resultElements.noResultElement.classList.add('hidden');
+        this.resultElements.resultOutElement.classList.add('hidden');
+        this.resultElements.showMore.classList.add('hidden');
+        this.lastShowed = 0;
+        this.updateCounter(0, 0);
+      });
+      _defineProperty(this, "startLoad", () => {
+        this.inputElements.overlay.classList.remove('hidden');
+        this.cardElements.overlay.classList.remove('hidden');
+        this.resultElements.overlay.classList.remove('hidden');
+      });
+      _defineProperty(this, "endLoad", () => {
+        this.inputElements.overlay.classList.add('hidden');
+        this.cardElements.overlay.classList.add('hidden');
+        this.resultElements.overlay.classList.add('hidden');
+      });
+      _defineProperty(this, "updateCounter", (quantity, showed) => {
+        this.showedCount = quantity;
+        this.resultElements.counter.innerHTML = quantity;
+        this.resultElements.showedCounter.innerHTML = showed;
+      });
+      _defineProperty(this, "_getResultHTML", person => {
+        let photoLink = '../../' + person.photo_link;
+        if (person.photo_link === '' || !person.photo_link) {
+          switch (person.sex) {
+            case 'nosex':
+              photoLink = '../../assets/img/Staff/tech-build.jpg';
+              break;
+            case 'woman':
+              photoLink = '../../assets/img/Staff/woman.jpg';
+              break;
+            case 'man':
+            default:
+              photoLink = '../../assets/img/Staff/man.jpg';
+              break;
+          }
+        };
+        return `<div class="result__person person" id="${person.memo}"data-memo="${person.memo}" data-id="${person.id}" data-depmemo="${person.depMemo}" data-depid="${person.depId}">
                 <div class="person__photo-block">
                     <a href="${photoLink}" target="_blank">
                         <img class="person__photo" src="${photoLink}" alt="Фото сотрудника">
@@ -348,270 +196,221 @@ window.addEventListener('load', function() {
                     <p class="person__email"><a href="mailto:${person.email}">${person.email}</a></p>
                 </div>
             </div>`;
-        }
-
-        // Возвращает результаты поиска
-        _getSearchResult = query => {
-            let result = [];
-
-            query = query.replace('\\', '');
-            query = query.replace('/', '');
-
-            for (let departmentMemo in this.staff) {
-                const department = this.staff[departmentMemo];
-                const departmentPersonal = this.staff[departmentMemo].staff;
-                for (let personMemo in departmentPersonal) {
-                    let person = departmentPersonal[personMemo],
-                        compare = new RegExp(query, 'i');
-                    
-                    let stringForChecking = [
-                        `${person.name.replace('ё', 'е')} ${person.patronymic.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `,
-                        `${person.name} ${person.patronymic.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `,
-                        `${person.name.replace('ё', 'е')} ${person.patronymic} ${person.surname.replace('ё', 'е')} `,
-                        `${person.name.replace('ё', 'е')} ${person.patronymic.replace('ё', 'е')} ${person.surname} `,
-
-                        `${person.name} ${person.patronymic} ${person.surname} `,
-                        `${person.name.replace('ё', 'е')} ${person.surname} `,
-                        `${person.name} ${person.surname.replace('ё', 'е')} `,
-                        `${person.name.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `,
-                        `${person.name} ${person.surname} `,
-
-                        `${person.surname.replace('ё', 'е')} ${person.name} `,
-                        `${person.surname} ${person.name.replace('ё', 'е')} `,
-                        `${person.surname.replace('ё', 'е')} ${person.name.replace('ё', 'е')} `,
-                        `${person.surname} ${person.name} `,
-
-                        `${department.name} `,
-                        `${department.short_name} `,
-                        `${department.memo} `,
-
-                        `${person.key_words} `,
-
-                        `${person.work_phone} `,
-                        `${person.work_phone.replace('-', ' ')} `,
-                        `${person.work_phone.replace('-', '')} `,
-
-                        `${person.group.replace('№', '')} `,
-                        `${person.position.replace('ё', 'е')} `,
-
-                        `${person.location} `,
-                        `${person.location.replace('№', '')} `,
-
-                        `${personMemo}`
-                    ];
-
-                    for (let i = 0; i < stringForChecking.length; i++) {
-                        if ( !compare.test(stringForChecking[i]) ) continue;
-                        result.push(
-                            Object.assign(
-                                person, 
-                                {
-                                    depShortName: department.short_name,
-                                    depMemo: department.memo,
-                                    depId: department.id,
-                                    depNumber: department.number,
-                                }
-                            )
-                        );
-                        break;
-                    };
-                    
-                };
+      });
+      _defineProperty(this, "_getSearchResult", query => {
+        let result = [];
+        query = query.replace('\\', '');
+        query = query.replace('/', '');
+        for (let departmentMemo in this.staff) {
+          const department = this.staff[departmentMemo];
+          const departmentPersonal = this.staff[departmentMemo].staff;
+          for (let personMemo in departmentPersonal) {
+            let person = departmentPersonal[personMemo],
+              compare = new RegExp(query, 'i');
+            let stringForChecking = [`${person.name.replace('ё', 'е')} ${person.patronymic.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `, `${person.name} ${person.patronymic.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `, `${person.name.replace('ё', 'е')} ${person.patronymic} ${person.surname.replace('ё', 'е')} `, `${person.name.replace('ё', 'е')} ${person.patronymic.replace('ё', 'е')} ${person.surname} `, `${person.name} ${person.patronymic} ${person.surname} `, `${person.name.replace('ё', 'е')} ${person.surname} `, `${person.name} ${person.surname.replace('ё', 'е')} `, `${person.name.replace('ё', 'е')} ${person.surname.replace('ё', 'е')} `, `${person.name} ${person.surname} `, `${person.surname.replace('ё', 'е')} ${person.name} `, `${person.surname} ${person.name.replace('ё', 'е')} `, `${person.surname.replace('ё', 'е')} ${person.name.replace('ё', 'е')} `, `${person.surname} ${person.name} `, `${department.name} `, `${department.short_name} `, `${department.memo} `, `${person.key_words} `, `${person.work_phone} `, `${person.work_phone.replace('-', ' ')} `, `${person.work_phone.replace('-', '')} `, `${person.group.replace('№', '')} `, `${person.position.replace('ё', 'е')} `, `${person.location} `, `${person.location.replace('№', '')} `, `${personMemo}`];
+            for (let i = 0; i < stringForChecking.length; i++) {
+              if (!compare.test(stringForChecking[i])) continue;
+              result.push(Object.assign(person, {
+                depShortName: department.short_name,
+                depMemo: department.memo,
+                depId: department.id,
+                depNumber: department.number
+              }));
+              break;
             };
-            this.resultList = result;
-
-            return 0;
+          };
+        };
+        this.resultList = result;
+        return 0;
+      });
+      _defineProperty(this, "showResult", () => {
+        const startShowingIndex = this.lastShowed;
+        let endShowingIndex = startShowingIndex + this.pageWidth;
+        let showList = [];
+        this.resultElements.showMore.classList.add('hidden');
+        let endResultLisctCheck = false;
+        for (let i = startShowingIndex; i < endShowingIndex; i++) {
+          if (!this.resultList[i]) {
+            endShowingIndex = i;
+            endResultLisctCheck = true;
+            break;
+          };
+          showList.push(this.resultList[i]);
+        };
+        this.lastShowed = endShowingIndex;
+        for (let i = 0, l = showList.length; i < l; i++) {
+          const personHTML = this._getResultHTML(showList[i]);
+          this.resultElements.resultOutElement.insertAdjacentHTML('beforeend', personHTML);
         }
-
-        // Вывод результатов поиска в блок
-        showResult = () => {
-            const startShowingIndex = this.lastShowed;
-            let endShowingIndex = startShowingIndex + this.pageWidth;
-            let showList = [];
-
-            this.resultElements.showMore.classList.add('hidden');
-            let endResultLisctCheck = false;
-            
-            for (let i = startShowingIndex; i < endShowingIndex; i++) {
-                if (!this.resultList[i]) {
-                    endShowingIndex = i;
-                    endResultLisctCheck = true;
-                    break;
-                };
-
-                showList.push(this.resultList[i])
-            };
-
-            this.lastShowed = endShowingIndex;
-            for (let i = 0, l = showList.length; i < l; i++) {
-                const personHTML = this._getResultHTML(showList[i]);
-                this.resultElements.resultOutElement.insertAdjacentHTML('beforeend', personHTML);
-            };
-            this.updateCounter(this.resultList.length, endShowingIndex);
-            
-            setTimeout( () => {
-                if (!endResultLisctCheck) this.resultElements.showMore.classList.remove('hidden');
-            }, 0);
-
-            this.resultElements.resultOutElement.addEventListener('click', this.showPersonDataHandler);
-        }
-
-        // Функция поиска
-        search = (e) => {
-            e.preventDefault();
-            if (this.inputElements.button.dataset.lock === 'true') return;
-            this.inputElements.input.dataset.lock = 'true';
-            this.resultElements.overlay.classList.remove('hidden');
-            this.inputElements.button.classList.add('btn_lightGrey');
-
-            new Promise( (resolve, reject) => {
-                if(!this.inputElements.input) reject('Невозможно считать поисковой запрос! Перезагрузите страницу.');
-
-                const query = this.inputElements.input.value;
-                if (!query || query.length === 0) reject('Задан пустой поисковой запрос!');
-                if (query.length < 3) reject('Введите более 2-х символов.');
-
-                if (!this.staff) reject('Данные недоступны! Сообщите о проблеме администратору.');
-
-                this._getSearchResult(query);
-                if (this.resultList !== undefined) {
-                    resolve();
-                } else {
-                    reject('Возникла непредвиденная ошибка! Обратитесь к администратору.');
-                };
-            })
-            .then( () => {
-                this.clearResultList();
-                this.clearCard();
-                this.inputElements.searchMessage.innerHTML = '';
-                this.showResult();
-
-                this.resultElements.startMessageElement.classList.add('hidden');
-
-                if (this.resultList.length === 0) {
-                    this.resultElements.resultOutElement.classList.add('hidden');
-                    this.resultElements.noResultElement.classList.remove('hidden');
-                } else {
-                    this.resultElements.resultOutElement.classList.remove('hidden');
-                    this.resultElements.noResultElement.classList.add('hidden');
-                    if (this.resultList.length > this.pageWidth) this.resultElements.showMore.classList.remove('hidden');
-                    this.resultElements.resultOutElement.firstElementChild.dispatchEvent(new Event('click',  {bubbles: true}));
-                };
-                
-                this.inputElements.input.dataset.lock = '';
-                this.resultElements.overlay.classList.add('hidden');
-                this.inputElements.button.classList.remove('btn_lightGrey');
-            })
-            .catch( error => {
-                console.error(error);
-                this.clearResultList();
-                this.clearCard();
-                this.inputElements.searchMessage.innerHTML = error;
-                this.inputElements.input.dataset.lock = '';
-                this.resultElements.overlay.classList.add('hidden');
-                this.inputElements.button.classList.remove('btn_lightGrey');
-            });
-        }
-
-        // Обработчик нажатия на любой из результатов поиска
-        showPersonDataHandler = event => {
-            if (event.target.tagName === 'A') return;
-            if (event.target.closest('.img_link') !== null) return;
-            
-            event.preventDefault();
-            if (this.cardElements.card.dataset.lock === 'true') return;
-
-            this.cardElements.overlay.classList.remove('hidden');
-            this.cardElements.card.dataset.lock = 'true';
-
-            new Promise( (resolve, reject) => {
-                const targetEvent = event.target.closest('.person');
-                if (!targetEvent) {
-                    resolve();
-                    return;
-                };
-
-                this.clearCard();
-                
-                const personMemo = targetEvent.dataset.memo;
-                const departmentMemo = targetEvent.dataset.depmemo;
-
-                if (!personMemo || personMemo === '') reject('Не удалось получить идентификатор сотрудника. Обратитесь к администратору.');
-                if (!departmentMemo || departmentMemo === '') reject('Не удалось получить идентификатор подразделения. Обратитесь к администратору.');
-
-                const department = this.staff[departmentMemo];
-                if (!department || typeof department !== 'object') reject('Не удалось получить данные подразделения. Обратитесь к администратору.');
-                const person = department.staff[personMemo];
-                if (!person || typeof person !== 'object') reject('Не удалось получить данные сотрудника. Обратитесь к администратору.');
-                
-                let cuer_dep = Object.assign({}, department);
-                cuer_dep.staff = {};
-
-                if (this._innerDataToCard(person, cuer_dep) !== 0) reject('При загрузке данных возникла непредвиденная ошибка. Обратитесь к администратору.');
-                resolve();
-            })
-            .catch( error => {
-                console.error(error);
-                alert(error);
-                //this.inputElements.searchMessage.innerHTML = error;
-                
-                this.cardElements.card.dataset.lock = '';
-                this.cardElements.overlay.classList.add('hidden');
-            })
-            .then( () => {
-                this.cardElements.card.dataset.lock = '';
-                this.cardElements.card.classList.remove('card_loading');
-                this.cardElements.overlay.classList.add('hidden');
-            });  
-        }
-    };
-
-
-    try {
-        const SearchElement = new Search(State);
-        SearchElement.endLoad();
-
-        // Обработчик для кнопки посика
-        SearchElement.inputElements.button.addEventListener('click', SearchElement.search);
-
-        // Обработчик для кнопки "Зазгрузить еще"
-        SearchElement.resultElements.showMoreBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (SearchElement.resultElements.showMoreBtn.dataset.lock === 'true') return;
-            new Promise( (resolve, reject) => {
-                SearchElement.resultElements.showMoreBtn.dataset.lock = 'true';
-                SearchElement.resultElements.showMoreBtn.classList.add('btn_lightGrey');
-
-                SearchElement.showResult();
-                resolve();
-            })
-            .then( () => {
-                SearchElement.resultElements.showMoreBtn.dataset.lock = '';
-                SearchElement.resultElements.showMoreBtn.classList.remove('btn_lightGrey');
-            })
-            .catch( error => {
-                console.log(error);
-                alert(error);
-                //this.inputElements.searchMessage.innerHTML = error;
-            });
+        ;
+        this.updateCounter(this.resultList.length, endShowingIndex);
+        setTimeout(() => {
+          if (!endResultLisctCheck) this.resultElements.showMore.classList.remove('hidden');
+        }, 0);
+        this.resultElements.resultOutElement.addEventListener('click', this.showPersonDataHandler);
+      });
+      _defineProperty(this, "search", e => {
+        e.preventDefault();
+        if (this.inputElements.button.dataset.lock === 'true') return;
+        this.inputElements.input.dataset.lock = 'true';
+        this.resultElements.overlay.classList.remove('hidden');
+        this.inputElements.button.classList.add('btn_lightGrey');
+        new Promise((resolve, reject) => {
+          if (!this.inputElements.input) reject('Невозможно считать поисковой запрос! Перезагрузите страницу.');
+          const query = this.inputElements.input.value;
+          if (!query || query.length === 0) reject('Задан пустой поисковой запрос!');
+          if (query.length < 3) reject('Введите более 2-х символов.');
+          if (!this.staff) reject('Данные недоступны! Сообщите о проблеме администратору.');
+          this._getSearchResult(query);
+          if (this.resultList !== undefined) {
+            resolve();
+          } else {
+            reject('Возникла непредвиденная ошибка! Обратитесь к администратору.');
+          };
+        }).then(() => {
+          this.clearResultList();
+          this.clearCard();
+          this.inputElements.searchMessage.innerHTML = '';
+          this.showResult();
+          this.resultElements.startMessageElement.classList.add('hidden');
+          if (this.resultList.length === 0) {
+            this.resultElements.resultOutElement.classList.add('hidden');
+            this.resultElements.noResultElement.classList.remove('hidden');
+          } else {
+            this.resultElements.resultOutElement.classList.remove('hidden');
+            this.resultElements.noResultElement.classList.add('hidden');
+            if (this.resultList.length > this.pageWidth) this.resultElements.showMore.classList.remove('hidden');
+            this.resultElements.resultOutElement.firstElementChild.dispatchEvent(new Event('click', {
+              bubbles: true
+            }));
+          };
+          this.inputElements.input.dataset.lock = '';
+          this.resultElements.overlay.classList.add('hidden');
+          this.inputElements.button.classList.remove('btn_lightGrey');
+        }).catch(error => {
+          console.error(error);
+          this.clearResultList();
+          this.clearCard();
+          this.inputElements.searchMessage.innerHTML = error;
+          this.inputElements.input.dataset.lock = '';
+          this.resultElements.overlay.classList.add('hidden');
+          this.inputElements.button.classList.remove('btn_lightGrey');
         });
-
-        // Фиксация карточки при прокрутке
-        const html_element = document.querySelector('html');
-        const contentWrap = document.querySelector('main');
-        const cardElement = document.querySelector('.card');
-        window.addEventListener('scroll', () => {
-            if (html_element.scrollTop > contentWrap.offsetTop) {
-                const yPosition = html_element.scrollTop + 10;
-                cardElement.style = `position: sticky; top: ${yPosition}px;`;
-            } else {
-                cardElement.style = '';
-            };
+      });
+      _defineProperty(this, "showPersonDataHandler", event => {
+        if (event.target.tagName === 'A') return;
+        if (event.target.closest('.img_link') !== null) return;
+        event.preventDefault();
+        if (this.cardElements.card.dataset.lock === 'true') return;
+        this.cardElements.overlay.classList.remove('hidden');
+        this.cardElements.card.dataset.lock = 'true';
+        new Promise((resolve, reject) => {
+          const targetEvent = event.target.closest('.person');
+          if (!targetEvent) {
+            resolve();
+            return;
+          };
+          this.clearCard();
+          const personMemo = targetEvent.dataset.memo;
+          const departmentMemo = targetEvent.dataset.depmemo;
+          if (!personMemo || personMemo === '') reject('Не удалось получить идентификатор сотрудника. Обратитесь к администратору.');
+          if (!departmentMemo || departmentMemo === '') reject('Не удалось получить идентификатор подразделения. Обратитесь к администратору.');
+          const department = this.staff[departmentMemo];
+          if (!department || typeof department !== 'object') reject('Не удалось получить данные подразделения. Обратитесь к администратору.');
+          const person = department.staff[personMemo];
+          if (!person || typeof person !== 'object') reject('Не удалось получить данные сотрудника. Обратитесь к администратору.');
+          let cuer_dep = Object.assign({}, department);
+          cuer_dep.staff = {};
+          if (this._innerDataToCard(person, cuer_dep) !== 0) reject('При загрузке данных возникла непредвиденная ошибка. Обратитесь к администратору.');
+          resolve();
+        }).catch(error => {
+          console.error(error);
+          alert(error);
+          this.cardElements.card.dataset.lock = '';
+          this.cardElements.overlay.classList.add('hidden');
+        }).then(() => {
+          this.cardElements.card.dataset.lock = '';
+          this.cardElements.card.classList.remove('card_loading');
+          this.cardElements.overlay.classList.add('hidden');
         });
+      });
+      this.inputElements = {
+        input: document.querySelector('#search_input'),
+        overlay: document.querySelector('.search-wrap .overlay'),
+        button: document.querySelector('#search_btn'),
+        searchMessage: document.querySelector('#search_message')
+      };
+      this.cardElements = {
+        card: document.querySelector('.card'),
+        overlay: document.querySelector('.card .overlay'),
+        photoLink: document.querySelector('#photo_link'),
+        photo: document.querySelector('#photo'),
+        fullname: document.querySelector('#fullname'),
+        position: document.querySelector('#position'),
+        department: document.querySelector('#department'),
+        group: document.querySelector('#group'),
+        workTime: document.querySelector('#worktime'),
+        dinnerTime: document.querySelector('#dinnertime'),
+        cardContacts: document.querySelector('#contacts'),
+        phone: document.querySelector('#phone'),
+        townPhone: document.querySelector('#townphone'),
+        mobile: document.querySelector('#mobile'),
+        email: document.querySelector('#email'),
+        location: document.querySelector('#location'),
+        cardMeta: document.querySelector('#meta'),
+        keywords: document.querySelector('#keywords'),
+        updateTime: document.querySelector('#updatetime')
+      };
+      this.resultElements = {
+        resultOutElement: document.querySelector('#result_out'),
+        noResultElement: document.querySelector('#no_result'),
+        startMessageElement: document.querySelector('#start_message'),
+        showMore: document.querySelector('#show_more'),
+        showMoreBtn: document.querySelector('#show_more_btn'),
+        overlay: document.querySelector('.result-wrap .overlay'),
+        counter: document.querySelector('#result_counter'),
+        showedCounter: document.querySelector('#showed_result')
+      };
+      this.resultList = undefined;
+      this.pageWidth = 25;
+      this.lastShowed = 0;
+      this.staff = State;
+      this.inputElements.button;
     }
-    catch (error) {
-        alert('Возникла непредвиденная ошибка! Невозможно загрузить справочник. Не перезагружайте страницу и обратитесь к администратору по телефону 06-66 (э) или напишите на почту KuznetsovGS@ckba.local.');
-        console.error(error);
-    };
-
+  };
+  try {
+    const SearchElement = new Search(State);
+    SearchElement.endLoad();
+    SearchElement.inputElements.button.addEventListener('click', SearchElement.search);
+    SearchElement.resultElements.showMoreBtn.addEventListener('click', e => {
+      e.preventDefault();
+      if (SearchElement.resultElements.showMoreBtn.dataset.lock === 'true') return;
+      new Promise((resolve, reject) => {
+        SearchElement.resultElements.showMoreBtn.dataset.lock = 'true';
+        SearchElement.resultElements.showMoreBtn.classList.add('btn_lightGrey');
+        SearchElement.showResult();
+        resolve();
+      }).then(() => {
+        SearchElement.resultElements.showMoreBtn.dataset.lock = '';
+        SearchElement.resultElements.showMoreBtn.classList.remove('btn_lightGrey');
+      }).catch(error => {
+        console.log(error);
+        alert(error);
+      });
+    });
+    const html_element = document.querySelector('html');
+    const contentWrap = document.querySelector('main');
+    const cardElement = document.querySelector('.card');
+    window.addEventListener('scroll', () => {
+      if (html_element.scrollTop > contentWrap.offsetTop) {
+        const yPosition = html_element.scrollTop + 10;
+        cardElement.style = `position: sticky; top: ${yPosition}px;`;
+      } else {
+        cardElement.style = '';
+      };
+    });
+  } catch (error) {
+    alert('Возникла непредвиденная ошибка! Невозможно загрузить справочник. Не перезагружайте страницу и обратитесь к администратору по телефону 06-66 (э) или напишите на почту KuznetsovGS@ckba.local.');
+    console.error(error);
+  };
 });
