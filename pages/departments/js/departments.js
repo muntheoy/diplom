@@ -2,6 +2,133 @@ function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key i
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 window.addEventListener('load', function () {
+  function createMockState() {
+    // MOCK DATA
+    const mockData = {
+      departments: [{
+        id: '1',
+        name: 'Leadership',
+        short_name: 'Leadership',
+        memo: 'leadership',
+        number: '0'
+      }, {
+        id: '2',
+        name: 'IT Department',
+        short_name: 'IT',
+        memo: 'department_it',
+        number: '101'
+      }, {
+        id: '3',
+        name: 'HR Department',
+        short_name: 'HR',
+        memo: 'department_hr',
+        number: '102'
+      }],
+      staff: [{
+        id: '101',
+        memo: 'ivanovii',
+        name: 'Ivanov Ivan Ivanovich',
+        position: 'Director',
+        department_id: '1',
+        phone: '00-01',
+        email: 'ivanov@example.com',
+        sex: 'man',
+        photo_link: ''
+      }, {
+        id: '102',
+        memo: 'petrovps',
+        name: 'Petrov Petr Sergeevich',
+        position: 'Head of IT',
+        department_id: '2',
+        phone: '10-01',
+        email: 'petrov@example.com',
+        sex: 'man',
+        photo_link: ''
+      }, {
+        id: '103',
+        memo: 'sidorovaav',
+        name: 'Sidorova Anna Viktorovna',
+        position: 'Frontend Developer',
+        department_id: '2',
+        phone: '10-02',
+        email: 'sidorova@example.com',
+        sex: 'woman',
+        photo_link: ''
+      }, {
+        id: '104',
+        memo: 'smirnovad',
+        name: 'Smirnova Anna Dmitrievna',
+        position: 'Head of HR',
+        department_id: '3',
+        phone: '20-01',
+        email: 'smirnova@example.com',
+        sex: 'woman',
+        photo_link: ''
+      }]
+    };
+    const departmentsMap = {};
+    const state = {};
+    for (let i = 0; i < mockData.departments.length; i++) {
+      const department = mockData.departments[i];
+      departmentsMap[department.id] = department;
+      state[department.memo] = {
+        id: department.id,
+        memo: department.memo,
+        name: department.name,
+        short_name: department.short_name,
+        number: department.number,
+        boss_memo: '',
+        work_time: '08:00 - 17:00',
+        dinner_time: '12:30 - 13:30',
+        key_words: '',
+        groups: [],
+        staff: {},
+        archive: {}
+      };
+    }
+    for (let i = 0; i < mockData.staff.length; i++) {
+      const person = mockData.staff[i];
+      const department = departmentsMap[person.department_id];
+      if (!department) continue;
+      const departmentState = state[department.memo];
+      const nameParts = person.name.trim().split(/\s+/);
+      const personMemo = person.memo || `person${person.id}`;
+      departmentState.staff[personMemo] = {
+        id: person.id,
+        memo: personMemo,
+        surname: nameParts[0] || '',
+        name: nameParts[1] || '',
+        patronymic: nameParts.slice(2).join(' '),
+        position: person.position,
+        photo_link: person.photo_link,
+        group: departmentState.boss_memo === '' ? '1' : '0',
+        work_phone: person.phone,
+        town_phone: '',
+        mobile_phone: '',
+        email: person.email,
+        location: '',
+        key_words: '',
+        update_time: '',
+        sex: person.sex
+      };
+      if (departmentState.boss_memo === '') {
+        departmentState.boss_memo = personMemo;
+      }
+    }
+    return state;
+  }
+  const AppState = typeof State !== 'undefined' && State ? State : createMockState();
+  function hidePageLoader() {
+    const loaderList = document.querySelectorAll('.loader, .overlay');
+    for (let i = 0; i < loaderList.length; i++) {
+      const loader = loaderList[i];
+      const spinner = loader.querySelector('svg, .preloader, .spin');
+      if (!spinner) continue;
+      loader.classList.add('hidden');
+      spinner.classList.remove('spin');
+    }
+  }
+  hidePageLoader();
   class Departments {
     constructor(staff) {
       _defineProperty(this, "_showContentOverlay", () => {
@@ -18,9 +145,9 @@ window.addEventListener('load', function () {
       });
       _defineProperty(this, "_getSidebarItemHTML", department => {
         return `<div class="sidebar__item deplink" id="${department.memo}" data-memo="${department.memo}" data-id="${department.id}">
-                <span class="deplink__number">${department.number}</span>
-                <div class="deplink__shortname" title="${department.name}">${department.short_name} (${department.staffCount})</div>
-            </div>`;
+            <div class="deplink__name" title="${department.name}">${department.short_name}</div>
+            <span class="deplink__count"><i class="fa fa-users" aria-hidden="true"></i> ${department.staffCount}</span>
+        </div>`;
       });
       _defineProperty(this, "_getPersonHTML", person => {
         if (!person) return '';
@@ -39,49 +166,23 @@ window.addEventListener('load', function () {
               break;
           }
         };
-        let showBigPhotoBlock = `<div class="card__view-photo">
-                                        <i class="fa fa-search-plus"></i>
-                                    </div>`;
+        const phoneHTML = person.work_phone ? `<p class="card__phone">${person.work_phone}</p>` : '';
+        const emailHTML = person.email ? `<p class="card__email"><a href="mailto:${person.email}">${person.email}</a></p>` : '';
         return `<div class="card" id="${person.memo}" data-memo="${person.memo}" data-id="${person.id}">
-                <div class="card__personal-info">
-                    <a class="img_link" href="${photoLink}" target="_blank">
-                        <div class="card__photo-box">
-                            <img src="${photoLink}" alt="Фото сотрудника" class="card__photo">
-                            ${person.photo_link !== '' && person.photo_link ? showBigPhotoBlock : ''}
-                        </div>
-                    </a>
-                    <div class="card__main-info">
-                        <h4 class="card__fullname">${person.surname}<br>${person.name} ${person.patronymic}</h4>
-                        <p class="card__position">${person.position}</p>
-                    </div>
+            <a class="img_link" href="${photoLink}" target="_blank">
+                <div class="card__photo-box">
+                    <img src="${photoLink}" alt="Фото сотрудника" class="card__photo">
                 </div>
-                <div class="card__contacts">
-                    <table class="card__table">
-                        <tr>
-                            <td class="card__table-items card__table-headers">Телефон:</td>
-                            <td class="card__table-items">${person.work_phone}</td>
-                        </tr>
-                        <tr>
-                            <td class="card__table-items card__table-headers">Городской:</td>
-                            <td class="card__table-items">${person.town_phone}</td>
-                        </tr>
-                        <tr>
-                            <td class="card__table-items card__table-headers">Сотовый:</td>
-                            <td class="card__table-items">${person.mobile_phone}</td>
-                        </tr>
-                        <tr>
-                            <td class="card__table-items card__table-headers">E-mail:</td>
-                            <td class="card__table-items">
-                                <a href="mailto:${person.email}">${person.email}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="card__table-items card__table-headers">Местоположение:</td>
-                            <td class="card__table-items">${person.location}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>`;
+            </a>
+            <div class="card__main-info">
+                <h4 class="card__fullname">${person.surname} ${person.name} ${person.patronymic}</h4>
+                <p class="card__position">${person.position}</p>
+            </div>
+            <div class="card__contacts">
+                ${phoneHTML}
+                ${emailHTML}
+            </div>
+        </div>`;
       });
       _defineProperty(this, "_getGroupHTML", (group = {
         id: '',
@@ -204,9 +305,17 @@ window.addEventListener('load', function () {
           resolve();
         }).then(() => {
           this._hideSidebarOverlay();
-          this.sidebarElements.departmentsList.firstElementChild.dispatchEvent(new Event('click', {
-            bubbles: true
-          }));
+          const _urlParams = new URLSearchParams(window.location.search);
+          const _targetDep = _urlParams.get('dep');
+          let _startEl = this.sidebarElements.departmentsList.firstElementChild;
+          if (_targetDep) {
+            const _matchEl = this.sidebarElements.departmentsList.querySelector('[data-memo="' + _targetDep + '"]');
+            if (_matchEl) {
+              _startEl = _matchEl;
+              setTimeout(function() { _startEl.scrollIntoView({block: 'nearest'}); }, 150);
+            }
+          }
+          if (_startEl) _startEl.dispatchEvent(new Event('click', {bubbles: true}));
           try {
             this.contentItems.searchBtn.addEventListener('click', this.searchHandler);
             this.contentItems.searchInput.addEventListener('submit', this.searchHandler);
@@ -612,7 +721,8 @@ window.addEventListener('load', function () {
     }
   };
   try {
-    const DepartmentsObj = new Departments(State);
+    // const DepartmentsObj = new Departments(State);
+    const DepartmentsObj = new Departments(AppState);
     DepartmentsObj.sidebarInit();
   } catch (error) {
     alert('Возникла непредвиденная ошибка! Невозможно загрузить справочник. Не перезагружайте страницу и обратитесь к администратору по телефону 06-66 (э) или напишите на почту KuznetsovGS@ckba.local.');

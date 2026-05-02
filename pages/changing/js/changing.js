@@ -4,6 +4,133 @@ function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key i
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 window.addEventListener('load', function () {
+  function createMockState() {
+    // MOCK DATA
+    const mockData = {
+      departments: [{
+        id: '1',
+        name: 'Leadership',
+        short_name: 'Leadership',
+        memo: 'leadership',
+        number: '0'
+      }, {
+        id: '2',
+        name: 'IT Department',
+        short_name: 'IT',
+        memo: 'department_it',
+        number: '101'
+      }, {
+        id: '3',
+        name: 'HR Department',
+        short_name: 'HR',
+        memo: 'department_hr',
+        number: '102'
+      }],
+      staff: [{
+        id: '101',
+        memo: 'ivanovii',
+        name: 'Ivanov Ivan Ivanovich',
+        position: 'Director',
+        department_id: '1',
+        phone: '00-01',
+        email: 'ivanov@example.com',
+        sex: 'man',
+        photo_link: ''
+      }, {
+        id: '102',
+        memo: 'petrovps',
+        name: 'Petrov Petr Sergeevich',
+        position: 'Head of IT',
+        department_id: '2',
+        phone: '10-01',
+        email: 'petrov@example.com',
+        sex: 'man',
+        photo_link: ''
+      }, {
+        id: '103',
+        memo: 'sidorovaav',
+        name: 'Sidorova Anna Viktorovna',
+        position: 'Frontend Developer',
+        department_id: '2',
+        phone: '10-02',
+        email: 'sidorova@example.com',
+        sex: 'woman',
+        photo_link: ''
+      }, {
+        id: '104',
+        memo: 'smirnovad',
+        name: 'Smirnova Anna Dmitrievna',
+        position: 'Head of HR',
+        department_id: '3',
+        phone: '20-01',
+        email: 'smirnova@example.com',
+        sex: 'woman',
+        photo_link: ''
+      }]
+    };
+    const departmentsMap = {};
+    const state = {};
+    for (let i = 0; i < mockData.departments.length; i++) {
+      const department = mockData.departments[i];
+      departmentsMap[department.id] = department;
+      state[department.memo] = {
+        id: department.id,
+        memo: department.memo,
+        name: department.name,
+        short_name: department.short_name,
+        number: department.number,
+        boss_memo: '',
+        work_time: '08:00 - 17:00',
+        dinner_time: '12:30 - 13:30',
+        key_words: '',
+        groups: [],
+        staff: {},
+        archive: {}
+      };
+    }
+    for (let i = 0; i < mockData.staff.length; i++) {
+      const person = mockData.staff[i];
+      const department = departmentsMap[person.department_id];
+      if (!department) continue;
+      const departmentState = state[department.memo];
+      const nameParts = person.name.trim().split(/\s+/);
+      const personMemo = person.memo || `person${person.id}`;
+      departmentState.staff[personMemo] = {
+        id: person.id,
+        memo: personMemo,
+        surname: nameParts[0] || '',
+        name: nameParts[1] || '',
+        patronymic: nameParts.slice(2).join(' '),
+        position: person.position,
+        photo_link: person.photo_link,
+        group: departmentState.boss_memo === '' ? '1' : '0',
+        work_phone: person.phone,
+        town_phone: '',
+        mobile_phone: '',
+        email: person.email,
+        location: '',
+        key_words: '',
+        update_time: '',
+        sex: person.sex
+      };
+      if (departmentState.boss_memo === '') {
+        departmentState.boss_memo = personMemo;
+      }
+    }
+    return state;
+  }
+  const AppState = typeof State !== 'undefined' && State ? State : createMockState();
+  function hidePageLoader() {
+    const loaderList = document.querySelectorAll('.loader, .overlay');
+    for (let i = 0; i < loaderList.length; i++) {
+      const loader = loaderList[i];
+      const spinner = loader.querySelector('svg, .preloader, .spin');
+      if (!spinner) continue;
+      loader.classList.add('hidden');
+      spinner.classList.remove('spin');
+    }
+  }
+  hidePageLoader();
   class Mail {
     constructor(_theme = '', to = ['KuznetsovGS@ckba.local'], _fields = []) {
       _defineProperty(this, "setTheme", theme => {
@@ -103,8 +230,10 @@ window.addEventListener('load', function () {
   function addFormInit() {
     const depInput = document.querySelector('#add_department');
     const delDepInput = document.querySelector('#delete_department');
-    for (let depMemo in State) {
-      const curDep = State[depMemo];
+    // for (let depMemo in State) {
+    for (let depMemo in AppState) {
+      // const curDep = State[depMemo];
+      const curDep = AppState[depMemo];
       depInput.insertAdjacentHTML('beforeend', `<option value="${curDep['memo']}">${curDep['name']}</option>`);
       delDepInput.insertAdjacentHTML('beforeend', `<option value="${curDep['memo']}">${curDep['name']}</option>`);
     };
@@ -119,7 +248,8 @@ window.addEventListener('load', function () {
           groupSelect.insertAdjacentHTML('beforeend', '<option value="0">Не найдено</option>');
           resolve();
         };
-        const department = State[depInput.value];
+        // const department = State[depInput.value];
+        const department = AppState[depInput.value];
         if (department.groups.length !== 0) {
           groupSelect.insertAdjacentHTML('beforeend', '<option value="0" selected>Без группы</option>');
           for (let group of department.groups) {

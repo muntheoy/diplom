@@ -12,36 +12,30 @@
 	<script defer src="../../assets/data/Data.v2.js"></script>
 	<script defer src="js/search.js"></script>
 </head>
-<body class="">	
-	
+<body class="">
+
 	<header class="header" id="header">
 		<div class="container">
 			<div class="header-wrap">
 				<a class="logo" href="../../pages/main/index.html">
 					<span class="logo__img-block">
-						<img class="logo__img" src="../../assets/img/Header/logo-ckba.png" onselectstart="return false">
+						<img class="logo__img" src="../../assets/img/Header/logo-ckba.svg" onselectstart="return false">
 					</span>
-					<div class="logo__info-block">
-						<span class="logo__factory-discription" onselectstart="return false" onmousedown="return false">АО "ЦКБА"</span>
-						<div class="logo__factory-name" onselectstart="return false" onmousedown="return false">СПРАВОЧНИК
-							<div class="logo__version">
-							</div>
-						</div>
-					</div>
+					<div class="logo__info-block"></div>
 				</a>
 				<nav class="navbar">
 					<ul class="navbar__list">
-						<li class="navbar__items navbar__items_active" data-partition-menu="search"  onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/main/index.html">Поиск</a> 
+						<li class="navbar__items navbar__items_active" data-partition-menu="search" onselectstart="return false" onmousedown="return false">
+							<a href="../../pages/main/index.html">Поиск</a>
 						</li>
 						<li class="navbar__items" data-partition-menu="department" onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/departments/index.html">Подразделения</a> 
+							<a href="../../pages/departments/index.html">Подразделения</a>
 						</li>
 						<li class="navbar__items" data-partition-menu="plan" onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/plan/index.html">План</a> 
+							<a href="../../pages/plan/index.html">План</a>
 						</li>
 						<li class="navbar__items" data-partition-menu="help" onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/help/index.html">Помощь</a> 
+							<a href="../../pages/help/index.html">Помощь</a>
 						</li>
 					</ul>
 				</nav>
@@ -51,14 +45,48 @@
 
 	<main>
 		<div class="container">
+
+			<!-- Hero: поиск -->
+			<div class="search-hero">
+				<div class="search-wrap">
+					<div class="overlay">
+						<svg class="spin" xmlns="http://www.w3.org/2000/svg" style="margin:auto;display:block;shape-rendering:auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+							<circle cx="50" cy="50" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+						</svg>
+					</div>
+					<h1 class="search-hero__title">Поиск сотрудников</h1>
+					<p class="search-hero__subtitle">Найдите коллегу по имени, отделу или телефону — в корпоративной сети.</p>
+					<form class="search__search-form search-form" action="pages/search/actions/search_init.php" method="POST">
+						<div class="search-form__wrap">
+							<span class="search-form__icon-left"><i class="fa fa-search"></i></span>
+							<input type="text" class="search-form__input" placeholder="Начните вводить имя, подразделение или телефон..." id="search_input" name="query" data-dep="" data-look="0" autocomplete="off" value="" autofocus="true">
+							<button class="search-form__submit btn" id="search_btn" type="submit">
+								<i class="fa fa-search"></i>
+								<span>Найти</span>
+							</button>
+						</div>
+						<span class="field__message" id="search_message"></span>
+					</form>
+					<div class="search-hero__stats">
+						<span class="search-hero__stat">Сотрудников в базе: <strong id="stat_staff_count">—</strong></span>
+						<span class="search-hero__stat-sep">·</span>
+						<span class="search-hero__stat">Подразделений: <strong id="stat_dept_count">—</strong></span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Основной контент -->
 			<div class="wrap" id="content_wrap">
+
+				<!-- Карточка сотрудника -->
 				<div class="card card_loading">
 					<div class="overlay">
-						<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+						<svg class="spin" xmlns="http://www.w3.org/2000/svg" style="margin:auto;display:block;shape-rendering:auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
 							<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
 						</svg>
 					</div>
 
+					<!-- Фото + имя -->
 					<div class="card__main-content card__container">
 						<div class="card__photo-block">
 							<a id="photo_link" href="../../assets/img/Staff/man.jpg" target="_blank">
@@ -70,80 +98,101 @@
 							<p class="card__position" id="position">-<br>-</p>
 						</div>
 					</div>
-		
+
+					<!-- Подразделение + рабочее время -->
 					<div class="card__contacts-content card__container">
-						<p class="card__department" id="department">-</p>
-						<p class="card__group" id="group">-</p>
-						<div class="card__time-wrap">
-							<div class="card__worktime card__time" id="worktime">
+						<div class="card__dept-row">
+							<div class="card__contact-icon">
+								<i class="fa fa-building-o"></i>
+							</div>
+							<div class="card__contact-body">
+								<div class="card__contact-label">ПОДРАЗДЕЛЕНИЕ</div>
+								<p class="card__department" id="department">-</p>
+								<p class="card__group" id="group">-</p>
+							</div>
+						</div>
+						<a class="card__dept-link" href="../../pages/departments/index.html">Перейти в подразделение <i class="fa fa-external-link"></i></a>
+						<div class="card__contact-row" id="worktime">
+							<div class="card__contact-icon">
 								<i class="fa fa-clock-o"></i>
+							</div>
+							<div class="card__contact-body">
+								<div class="card__contact-label">РАБОЧИЕ ЧАСЫ</div>
 								<span>-</span>
 							</div>
-							<div class="card__dinnertime card__time" id="dinnertime">
+						</div>
+						<div class="card__contact-row" id="dinnertime">
+							<div class="card__contact-icon">
 								<i class="fa fa-coffee"></i>
+							</div>
+							<div class="card__contact-body">
+								<div class="card__contact-label">ОБЕД</div>
 								<span>-</span>
 							</div>
 						</div>
 					</div>
-		
+
+					<!-- Контакты (скрыты до выбора сотрудника) -->
 					<div class="card__contacts-content card__container hidden" id="contacts">
-						<div class="card__dinnertime card__contacts hidden" id="phone">
-							<i class="fa fa-phone"></i>
-							<span>06-66 э</span>
+						<div class="card__contacts card__contact-row hidden" id="phone">
+							<div class="card__contact-icon"><i class="fa fa-phone"></i></div>
+							<div class="card__contact-body">
+								<div class="card__contact-label">ТЕЛЕФОН</div>
+								<span>06-66 э</span>
+							</div>
 						</div>
-						<div class="card__dinnertime card__contacts hidden" id="townphone">
-							<i class="fa fa-tty"></i>
-							<span>53-98-50</span>
+						<div class="card__contacts card__contact-row hidden" id="townphone">
+							<div class="card__contact-icon"><i class="fa fa-tty"></i></div>
+							<div class="card__contact-body">
+								<div class="card__contact-label">ГОР. ТЕЛЕФОН</div>
+								<span>53-98-50</span>
+							</div>
 						</div>
-						<div class="card__dinnertime card__contacts hidden" id="mobile">
-							<i class="fa fa-mobile"></i>
-							<span></span>
+						<div class="card__contacts card__contact-row hidden" id="mobile">
+							<div class="card__contact-icon"><i class="fa fa-mobile" style="font-size:22px;"></i></div>
+							<div class="card__contact-body">
+								<div class="card__contact-label">МОБИЛЬНЫЙ</div>
+								<span></span>
+							</div>
 						</div>
-						<div class="card__dinnertime card__contacts hidden" id="email">
-							<i class="fa fa-envelope-o"></i>
-							<a href="">KuznetsovGS@ckba.local</a>
+						<div class="card__contacts card__contact-row hidden" id="email">
+							<div class="card__contact-icon"><i class="fa fa-envelope-o"></i></div>
+							<div class="card__contact-body">
+								<div class="card__contact-label">ПОЧТА</div>
+								<a href=""></a>
+							</div>
 						</div>
-						<div class="card__dinnertime card__contacts hidden" id="location">
-							<i class="fa fa-map-marker"></i>
-							<span>Корпус №1, кабинет 233</span>
+						<div class="card__contacts card__contact-row hidden" id="location">
+							<div class="card__contact-icon"><i class="fa fa-map-marker"></i></div>
+							<div class="card__contact-body">
+								<div class="card__contact-label">РАСПОЛОЖЕНИЕ</div>
+								<span>Корпус №1, кабинет 233</span>
+							</div>
 						</div>
 					</div>
-		
+
+					<!-- Мета-данные -->
 					<div class="card__meta-content hidden" id="meta">
 						<p class="card__updatetime hidden" id="updatetime">Обновлено: 28.12.2022 16:15</p>
 						<p class="card__keywords hidden" id="keywords">Ключевые слова: администратор, справочник, бланки документов</p>
 					</div>
 				</div>
+
+				<!-- Результаты поиска -->
 				<div class="search">
-					<div class="search-wrap">
-						<div class="overlay ">
-							<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-								<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
-							</svg>
-						</div>
-						<form class="search__search-form search-form" action="pages/search/actions/search_init.php" method="POST">
-							<div class="search-form__wrap">
-							  <input type="text" class="search-form__input" placeholder="Введите запрос" id="search_input" name="query" data-dep="" data-look="0" autocomplete="off" value="" autofocus="true">
-							  <button class="search-form__submit btn" id="search_btn" type="submit">Найти</button>
-							</div>
-							<span class="field__message" id="search_message"></span>
-						</form>
-					</div>
 					<div class="result-wrap">
-						<div class="overlay ">
-							<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+						<div class="overlay">
+							<svg class="spin" xmlns="http://www.w3.org/2000/svg" style="margin:auto;display:block;shape-rendering:auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
 								<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
 							</svg>
 						</div>
 						<div class="counter result__counter">
 							<span class="counter__text">Найдено совпадений: </span>
 							<span class="counter__quantity" id="result_counter">0</span>
-							<span class="counter__text">Показано: </span>
+							<span class="counter__text">· Показано: </span>
 							<span class="counter__showed" id="showed_result">0</span>
 						</div>
-						<div class="result__out" id="result_out">
-
-						</div>
+						<div class="result__out" id="result_out"></div>
 						<div class="result__message" id="start_message">
 							<div>Для получения результатов поиска введите запрос в поисковую строку</div>
 							<span>Поиск возможен по следующим параметрам:</span>
@@ -160,60 +209,95 @@
 							Результатов не найдено, попробуйте изменить поисковой запрос
 						</div>
 						<div class="result__view-more hidden" id="show_more">
-							<button class="btn" id="show_more_btn">Показать еще</button>
+							<button class="btn" id="show_more_btn">Показать ещё</button>
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</main>
 
-<footer class="footer">
-	<button class="scroll-btn hidden" id="scroll_btn">
-		<i class="fa fa-arrow-up"></i>
-	</button>
-	<div class="container">
-		<div class="footer-wrap">
-			<div class="theme-box">
-				<button id="toggle_theme">
-					<i class="fa fa-adjust" title="Светлая тема"></i>
-					<i class="fa fa-adjust" style="transform: rotate(180deg);" title="Тёмная тема"></i>
-				</button>
+	<footer class="footer">
+		<button class="scroll-btn hidden" id="scroll_btn">
+			<i class="fa fa-arrow-up"></i>
+		</button>
+		<div class="container">
+			<div class="footer-wrap">
+				<div class="theme-box">
+					<button id="toggle_theme">
+						<i class="fa fa-adjust" title="Светлая тема"></i>
+						<i class="fa fa-adjust" style="transform: rotate(180deg);" title="Тёмная тема"></i>
+					</button>
+				</div>
+				<div class="version-box">
+					<span class="footer__department">Научно-инновационный отдел</span>
+					<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a>
+				</div>
+				<div class="inf-box"></div>
 			</div>
-			<div class="version-box">
-				<span class="footer__department">Научно-инновационный отдел</span>
-				<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a>
-			</div>
-			<div class="inf-box"></div>
 		</div>
-	</div>
-</footer>
+	</footer>
 
-<script>
-	function getCookie(name) {
-      let matches = document.cookie.match( new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-      ));
-      return matches ? decodeURIComponent(matches[1]) : undefined;
-    };
-	
-	try {
-		let Theme = 'light';
-		if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
-			Theme = getCookie('theme');
-		} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
-			Theme = localStorage.getItem('theme');
+	<script>
+		function getCookie(name) {
+			let matches = document.cookie.match(new RegExp(
+				"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+			));
+			return matches ? decodeURIComponent(matches[1]) : undefined;
 		};
-		
-		if (Theme === 'dark') {
-			document.querySelector('body').classList.add('dark');
-		} else {
-			document.querySelector('body').classList.remove('dark');
+
+		try {
+			let Theme = 'light';
+			if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
+				Theme = getCookie('theme');
+			} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
+				Theme = localStorage.getItem('theme');
+			};
+			if (Theme === 'dark') {
+				document.querySelector('body').classList.add('dark');
+			} else {
+				document.querySelector('body').classList.remove('dark');
+			};
+		} catch (error) {
+			console.error('Не удалось установить тему:', error);
 		};
-	} catch (error) {
-		console.error('Не удалось установить тему:', error);
-	};
-</script>
+	</script>
+
+	<script>
+		window.addEventListener('load', function() {
+			try {
+				var resultOut = document.querySelector('#result_out');
+				var deptLink = document.querySelector('.card__dept-link');
+				if (resultOut && deptLink) {
+					resultOut.addEventListener('click', function(e) {
+						var person = e.target.closest('.person');
+						if (!person || !person.dataset.depmemo) return;
+						deptLink.href = '../../pages/departments/index.html?dep=' + encodeURIComponent(person.dataset.depmemo);
+					});
+				}
+			} catch(e) {}
+		});
+	</script>
+
+	<script>
+		window.addEventListener('load', function () {
+			try {
+				const state = typeof State !== 'undefined' && State ? State : null;
+				if (state) {
+					let staffCount = 0, deptCount = 0;
+					for (const key in state) {
+						deptCount++;
+						staffCount += Object.keys(state[key].staff || {}).length;
+					}
+					const staffEl = document.querySelector('#stat_staff_count');
+					const deptEl = document.querySelector('#stat_dept_count');
+					if (staffEl) staffEl.textContent = staffCount.toLocaleString('ru-RU');
+					if (deptEl) deptEl.textContent = deptCount;
+				}
+			} catch (e) {}
+		});
+	</script>
 
 </body>
 </html>

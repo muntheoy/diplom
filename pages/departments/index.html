@@ -14,108 +14,118 @@
 	<script defer src="js/departments.js"></script>
 </head>
 <body>
-	
-  <header class="header" id="header">
+
+<header class="header" id="header">
 	<div class="container">
 		<div class="header-wrap">
 			<a class="logo" href="../../pages/main/index.html">
 				<span class="logo__img-block">
-					<img class="logo__img" src="../../assets/img/Header/logo-ckba.png" onselectstart="return false">
+					<img class="logo__img" src="../../assets/img/Header/logo-ckba.svg" onselectstart="return false">
 				</span>
-				<div class="logo__info-block">
-					<span class="logo__factory-discription" onselectstart="return false" onmousedown="return false">АО "ЦКБА"</span>
-					<div class="logo__factory-name" onselectstart="return false" onmousedown="return false">СПРАВОЧНИК
-						<div class="logo__version">
-						</div>
-					</div>
-				</div>
+				<div class="logo__info-block"></div>
 			</a>
-			<nav class="navbar">
-				<ul class="navbar__list">
-					<li class="navbar__items" data-partition-menu="search"  onselectstart="return false" onmousedown="return false">
-						<a href="../../pages/main/index.html">Поиск</a> 
-					</li>
-					<li class="navbar__items navbar__items_active" data-partition-menu="department" onselectstart="return false" onmousedown="return false">
-						<a href="../../pages/departments/index.html">Подразделения</a> 
-					</li>
-					<li class="navbar__items" data-partition-menu="plan" onselectstart="return false" onmousedown="return false">
-						<a href="../../pages/plan/index.html">План</a> 
-					</li>
-					<li class="navbar__items" data-partition-menu="help" onselectstart="return false" onmousedown="return false">
-						<a href="../../pages/help/index.html">Помощь</a> 
-					</li>
-				</ul>
-			</nav>
 		</div>
 	</div>
 </header>
 
 <main>
 	<div class="container">
-		<div class="wrap" id="content_wrap">
-			<div class="sidebar-box">
-				<div class="sidebar agile">
-					<div class="overlay">
-						<div>
-							<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-								<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
-							</svg>
-						</div>
+
+		<!-- Hero: поиск по подразделению -->
+		<div class="dept-hero">
+			<div class="dept-hero__wrap">
+				<h1 class="dept-hero__title">Подразделения</h1>
+				<p class="dept-hero__subtitle">Просмотр структуры подразделений предприятия.</p>
+				<form class="search__search-form search-form" action="#" method="POST">
+					<div class="search-form__wrap">
+						<span class="search-form__icon-left"><i class="fa fa-search"></i></span>
+						<input type="text" class="search-form__input" placeholder="Введите название подразделения" id="search_input" name="query" data-dep="" data-lock="0" autocomplete="off" value="">
+						<button class="search-form__btn search-form__btn_clear hidden" id="clear_btn" type="button">
+							<i class="fa fa-close"></i>
+						</button>
+						<button class="search-form__btn search-form__btn_submit" id="search_btn" type="button">
+							<i class="fa fa-search"></i>
+							<span>Найти</span>
+						</button>
 					</div>
-					<div class="sidebar-wrap" id="departments_list">
-						
-					</div>
+					<span class="field__message" id="search_message"></span>
+				</form>
+				<div class="dept-hero__stats">
+					<span class="dept-hero__stat">Сотрудников в базе: <strong id="hero_staff_count">—</strong></span>
+					<span class="dept-hero__stat-sep">·</span>
+					<span class="dept-hero__stat">Подразделений: <strong id="hero_dept_count">—</strong></span>
 				</div>
 			</div>
-			<div class="content agile">
-				<div class="overlay">
-					<div>
-						<svg class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;  display: block; shape-rendering: auto;" width="65px" height="65px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-							<circle cx="50" cy="50" fill="none" stroke="#337ab7" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+		</div>
+
+		<!-- Основной контент -->
+		<div class="wrap" id="content_wrap">
+
+			<!-- Боковая колонка -->
+			<div class="sidebar-col">
+				<div class="sidebar-col__label">
+					Структура <span class="sidebar-col__count" id="dept_count"></span>
+				</div>
+				<div class="sidebar agile">
+					<div class="overlay">
+						<svg class="spin" xmlns="http://www.w3.org/2000/svg" style="margin:auto;display:block;shape-rendering:auto;" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+							<circle cx="50" cy="50" fill="none" stroke="rgba(0,169,154,0.7)" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
 						</svg>
 					</div>
+					<div class="sidebar-wrap" id="departments_list"></div>
 				</div>
-				<div class="metadata">
-					<h2 class="metadata__title" id="dep_name"></h2>
-					<table class="metadata__table table">
-						<tr>
-							<td class="table__items table__header-items">Сокращенно</td>
-							<td class="table__items table__header-items">Номер</td>
-							<td class="table__items table__header-items">Кол-во записей</td>
-							<td class="table__items table__header-items">Рабочее время</td>
-							<td class="table__items table__header-items">Обед</td>
-						</tr>
-						<tr>
-							<td class="table__items" id="dep_shortname"></td>
-							<td class="table__items" id="dep_number"></td>
-							<td class="table__items" id="dep_quantity"></td>
-							<td class="table__items" id="dep_worktime"></td>
-							<td class="table__items" id="dep_dinnertime"></td>
-						</tr>
-					</table>
+			</div>
+
+			<!-- Правая часть -->
+			<div class="content agile">
+				<div class="overlay">
+					<svg class="spin" xmlns="http://www.w3.org/2000/svg" style="margin:auto;display:block;shape-rendering:auto;" width="40px" height="40px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+						<circle cx="50" cy="50" fill="none" stroke="rgba(0,169,154,0.7)" stroke-width="6" r="35" stroke-dasharray="164.93361431346415 56.97787143782138"></circle>
+					</svg>
+				</div>
+
+				<!-- Карточка подразделения -->
+				<div class="dept-info-card metadata">
+					<div class="dept-title-block">
+						<div class="dept-icon-wrap">
+							<i class="fa fa-building-o" aria-hidden="true"></i>
+						</div>
+						<h2 class="metadata__title" id="dep_name"></h2>
+					</div>
+					<div class="dept-stats-row">
+						<div class="dept-stat-card">
+							<span class="dept-stat-card__label">Сотрудников</span>
+							<span class="dept-stat-card__value" id="dep_quantity"></span>
+						</div>
+						<div class="dept-stat-card">
+							<span class="dept-stat-card__label">Рабочее время</span>
+							<span class="dept-stat-card__value" id="dep_worktime"></span>
+						</div>
+						<div class="dept-stat-card">
+							<span class="dept-stat-card__label">Обед</span>
+							<span class="dept-stat-card__value" id="dep_dinnertime"></span>
+						</div>
+						<div class="dept-stat-card">
+							<span class="dept-stat-card__label">Сокращение</span>
+							<span class="dept-stat-card__value" id="dep_shortname"></span>
+						</div>
+					</div>
 					<div class="metadata__links-block links-block">
 						<div class="links-block__list" id="groups_list"></div>
 					</div>
 				</div>
-				<div class="search">
-					<form class="search__search-form search-form" action="pages/search/actions/search_init.php" method="POST">
-						<div class="search-form__wrap">
-						  	<input type="text" class="search-form__input" placeholder="Введите запрос" id="search_input" name="query" data-dep="" data-lock="0" autocomplete="off" value="">
-						  	<button class="search-form__btn search-form__btn_submit" id="search_btn" type="button">
-								<i class="fa fa-search"></i>
-							</button>
-						  	<button class="search-form__btn search-form__btn_clear hidden" id="clear_btn" type="button">
-								<i class="fa fa-close"></i>
-							</button>
-						</div>
-						<span class="field__message" id="search_message"></span>
-					</form>
+
+				<!-- Скрытый элемент для JS (dep_number обязателен) -->
+				<span id="dep_number" hidden aria-hidden="true"></span>
+
+				<!-- Список сотрудников -->
+				<div class="section-label">
+					<span class="section-label__title">Сотрудники</span>
 				</div>
-				<div class="personal" id="personal">
+				<div class="employees-card">
+					<div class="personal" id="personal"></div>
 				</div>
-				<div class="noresult hidden" id="noresult">
-					Ничего не найдено
-				</div>
+				<div class="noresult hidden" id="noresult">Ничего не найдено</div>
 			</div>
 		</div>
 	</div>
@@ -141,14 +151,14 @@
 		</div>
 	</div>
 </footer>
+
 <script>
 	function getCookie(name) {
-      let matches = document.cookie.match( new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-      ));
-      return matches ? decodeURIComponent(matches[1]) : undefined;
-    };
-	
+		let matches = document.cookie.match(new RegExp(
+			"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+		));
+		return matches ? decodeURIComponent(matches[1]) : undefined;
+	};
 	try {
 		let Theme = 'light';
 		if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
@@ -156,7 +166,6 @@
 		} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
 			Theme = localStorage.getItem('theme');
 		};
-		
 		if (Theme === 'dark') {
 			document.querySelector('body').classList.add('dark');
 		} else {
@@ -167,6 +176,26 @@
 	};
 </script>
 
+<script>
+	window.addEventListener('load', function() {
+		try {
+			var state = (typeof State !== 'undefined' && State) ? State : null;
+			if (state) {
+				var deptCount = Object.keys(state).length;
+				var staffCount = 0;
+				for (var key in state) staffCount += Object.keys(state[key].staff || {}).length;
+				var deptCountEl = document.querySelector('#dept_count');
+				if (deptCountEl && deptCount > 0) deptCountEl.textContent = '• ' + deptCount + ' подразделений';
+				var heroStaff = document.querySelector('#hero_staff_count');
+				var heroDept = document.querySelector('#hero_dept_count');
+				if (heroStaff) heroStaff.textContent = staffCount.toLocaleString('ru-RU');
+				if (heroDept) heroDept.textContent = deptCount;
+			}
+		} catch(e) {}
+	});
+</script>
+
+<!-- Попап: карточка сотрудника -->
 <div class="bottom-layer hidden" id="bottom_layer">
 	<div class="popup animate__animated" id="person_card_popup">
 		<button class="popup__close" id="popup_close">
