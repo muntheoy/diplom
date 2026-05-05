@@ -11,35 +11,29 @@
 	<script defer src="../../assets/js/main.js"></script>
 </head>
 <body>
-	
+
 	<header class="header" id="header">
 		<div class="container">
 			<div class="header-wrap">
 				<a class="logo" href="../../pages/main/index.html">
 					<span class="logo__img-block">
-						<img class="logo__img" src="../../assets/img/Header/logo-ckba.png" onselectstart="return false">
+						<img class="logo__img" src="../../assets/img/Header/logo-ckba.svg" onselectstart="return false">
 					</span>
-					<div class="logo__info-block">
-						<span class="logo__factory-discription" onselectstart="return false" onmousedown="return false">АО "ЦКБА"</span>
-						<div class="logo__factory-name" onselectstart="return false" onmousedown="return false">СПРАВОЧНИК
-							<div class="logo__version">
-							</div>
-						</div>
-					</div>
+					<div class="logo__info-block"></div>
 				</a>
 				<nav class="navbar">
 					<ul class="navbar__list">
-						<li class="navbar__items" data-partition-menu="search"  onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/main/index.html">Поиск</a> 
+						<li class="navbar__items" data-partition-menu="search" onselectstart="return false" onmousedown="return false">
+							<a href="../../pages/main/index.html">Поиск</a>
 						</li>
 						<li class="navbar__items" data-partition-menu="department" onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/departments/index.html">Подразделения</a> 
+							<a href="../../pages/departments/index.html">Подразделения</a>
 						</li>
 						<li class="navbar__items" data-partition-menu="plan" onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/plan/index.html">План</a> 
+							<a href="../../pages/plan/index.html">План</a>
 						</li>
 						<li class="navbar__items navbar__items_active" data-partition-menu="help" onselectstart="return false" onmousedown="return false">
-							<a href="../../pages/help/index.html">Помощь</a> 
+							<a href="../../pages/help/index.html">Помощь</a>
 						</li>
 					</ul>
 				</nav>
@@ -49,104 +43,191 @@
 
 	<main>
 		<div class="container">
+			<div class="page-hero">
+				<h1 class="page-hero__title">Помощь</h1>
+				<p class="page-hero__desc">Управление данными, техподдержка и ответы на частые вопросы по работе со справочником.</p>
+			</div>
 			<div class="wrap" id="content_wrap">
-				<div class="help content-section">
-					<p class="help__text description">
-						Вы можете добавить информацию о себе или других сотрудниках, сообщить о замеченных ошибках, прочитать справочную информацию, выбрав нужный раздел ниже.
-					</p>
-					<div class="help__navlinks navlinks">
-						<a class="navlinks__item" href="../../pages/changing/index.html">
-							<i class="navlinks__icon fa fa-vcard-o"></i>
-							<h4 class="navlinks__title">Внести изменения</h4>
-							<p class="navlinks__text">Добавить, удалить сотрудника, изменить контактные данные и т.д.</p>
-						</a>
-						<a class="navlinks__item" href="../../pages/mailing/index.html">
-							<i class="navlinks__icon fa fa-envelope-o"></i>
-							<h4 class="navlinks__title">Рассылки</h4>
-							<p class="navlinks__text">Просмотреть и скачать списки для рассылки писем по почте</p>
-						</a>
-						<a class="navlinks__item" href="../../pages/it-service-desk/index.html">
-							<i class="navlinks__icon fa fa-desktop"></i>
-							<h4 class="navlinks__title">IT-поддержка</h4>
-							<p class="navlinks__text">сотрудники ЦИТ, ответственные за поддержку программных продуктов</p>
-						</a>
-						<a class="navlinks__item" href="../../pages/emergency/index.html">
-							<i class="navlinks__icon fa fa-ambulance"></i>
-							<h4 class="navlinks__title">Экстренные службы"</h4>
-							<p class="navlinks__text">Посмотреть телефоны для вызова экстренных служб</p>
-						</a>
-						<a class="navlinks__item" href="../../pages/information/index.html">
-							<i class="navlinks__icon fa fa-ban"></i>
-							<h4 class="navlinks__title">Правила</h4>
-							<p class="navlinks__text">Ознакомиться с правилами пользования справочником</p>
-						</a>
-						<a class="navlinks__item" href="../../pages/support/index.html">
-							<i class="navlinks__icon fa fa-support"></i>
-							<h4 class="navlinks__title">Техподдержка</h4>
-							<p class="navlinks__text">Контакты сотрудников, занимающихся поддержкой и развитием справочника</p>
-						</a>
-						<a class="navlinks__item" href="../../pages/faq/index.html">
-							<i class="navlinks__icon fa fa-question-circle-o"></i>
-							<h4 class="navlinks__title">Вопросы</h4>
-							<p class="navlinks__text">Здесь можно посмотреть ответы на часто задаваемые вопросы</p>
-						</a>
-						<a class="navlinks__item" href="../../pages/versions/index.html">
-							<i class="navlinks__icon fa fa-code-fork"></i>
-							<h4 class="navlinks__title">Версии</h4>
-							<p class="navlinks__text">Информация об изменениях, внесенных в новые версии</p>
-						</a>
+
+				<div class="help-layout">
+
+					<!-- Main content area -->
+					<div class="help-main">
+
+						<div class="help-section-label">Управление данными</div>
+						<div class="help-cards">
+							<a class="navlinks__item help-card" href="../../pages/changing/index.html">
+								<i class="navlinks__icon fa fa-vcard-o"></i>
+								<h4 class="navlinks__title">Внести изменения</h4>
+								<p class="navlinks__text">Добавить, удалить сотрудника, изменить контактные данные.</p>
+								<div class="help-card__arrow">→</div>
+							</a>
+							<a class="navlinks__item help-card" href="../../pages/versions/index.html">
+								<i class="navlinks__icon fa fa-code-fork"></i>
+								<h4 class="navlinks__title">История версий</h4>
+								<p class="navlinks__text">Список изменений, добавленных в каждой новой версии.</p>
+								<div class="help-card__arrow">→</div>
+							</a>
+							<a class="navlinks__item help-card" href="../../pages/information/index.html">
+								<i class="navlinks__icon fa fa-book"></i>
+								<h4 class="navlinks__title">Справочная информация</h4>
+								<p class="navlinks__text">Правила пользования справочником и регламенты.</p>
+								<div class="help-card__arrow">→</div>
+							</a>
+						</div>
+
+						<div class="help-section-label">Поддержка</div>
+						<div class="help-cards">
+							<a class="navlinks__item help-card" href="../../pages/it-service-desk/index.html">
+								<i class="navlinks__icon fa fa-desktop"></i>
+								<h4 class="navlinks__title">IT-служба</h4>
+								<p class="navlinks__text">Сотрудники ЦИТ, ответственные за поддержку программных продуктов.</p>
+								<div class="help-card__arrow">→</div>
+							</a>
+							<a class="navlinks__item help-card" href="../../pages/emergency/index.html">
+								<i class="navlinks__icon fa fa-ambulance"></i>
+								<h4 class="navlinks__title">Аварийные контакты</h4>
+								<p class="navlinks__text">Кого вызывать при пожаре, утечке или отключении электричества.</p>
+								<div class="help-card__arrow">→</div>
+							</a>
+							<a class="navlinks__item help-card" href="../../pages/faq/index.html">
+								<i class="navlinks__icon fa fa-question-circle-o"></i>
+								<h4 class="navlinks__title">FAQ</h4>
+								<p class="navlinks__text">Ответы на часто задаваемые вопросы по работе со справочником.</p>
+								<div class="help-card__arrow">→</div>
+							</a>
+						</div>
+
+						<div class="help-section-label">Техподдержка</div>
+						<div class="help-cards">
+							<a class="navlinks__item help-card" href="../../pages/support/index.html">
+								<i class="navlinks__icon fa fa-support"></i>
+								<h4 class="navlinks__title">Техподдержка</h4>
+								<p class="navlinks__text">Контакты сотрудников, занимающихся поддержкой и развитием справочника.</p>
+								<div class="help-card__arrow">→</div>
+							</a>
+						</div>
+
 					</div>
-				</div>
+
+					<!-- Sidebar -->
+					<aside class="help-side">
+
+						<!-- FAQ quick answers -->
+						<div class="help-side-card">
+							<div class="help-side-card__head">
+								<div class="help-side-card__icon">
+									<i class="fa fa-question-circle-o"></i>
+								</div>
+								<h3 class="help-side-card__title">Часто спрашивают</h3>
+							</div>
+							<div class="faq-item faq-item--open">
+								<button class="faq-q" onclick="this.parentElement.classList.toggle('faq-item--open')">
+									Как изменить мой телефон?
+									<i class="faq-q__chev fa fa-chevron-down"></i>
+								</button>
+								<div class="faq-a">Перейдите в «Внести изменения», заполните форму — запрос поступит в ЦИТ.</div>
+							</div>
+							<div class="faq-item">
+								<button class="faq-q" onclick="this.parentElement.classList.toggle('faq-item--open')">
+									Как часто обновляется база?
+									<i class="faq-q__chev fa fa-chevron-down"></i>
+								</button>
+								<div class="faq-a">База обновляется по мере поступления заявок от сотрудников и HR-службы.</div>
+							</div>
+							<div class="faq-item">
+								<button class="faq-q" onclick="this.parentElement.classList.toggle('faq-item--open')">
+									Можно ли с телефона?
+									<i class="faq-q__chev fa fa-chevron-down"></i>
+								</button>
+								<div class="faq-a">Да, справочник адаптирован для мобильных устройств в корпоративной сети.</div>
+							</div>
+							<div class="faq-item">
+								<button class="faq-q" onclick="this.parentElement.classList.toggle('faq-item--open')">
+									Как найти по внутреннему номеру?
+									<i class="faq-q__chev fa fa-chevron-down"></i>
+								</button>
+								<div class="faq-a">Введите номер в строку поиска — например «01-59» или просто «01-59 э».</div>
+							</div>
+						</div>
+
+						<!-- IT contacts -->
+						<div class="help-side-card">
+							<div class="help-side-card__head">
+								<div class="help-side-card__icon">
+									<i class="fa fa-desktop"></i>
+								</div>
+								<h3 class="help-side-card__title">IT-служба</h3>
+							</div>
+							<div class="it-row">
+								<div class="it-row__icon"><i class="fa fa-phone"></i></div>
+								<div class="it-row__body">
+									<div class="it-row__lbl">Телефон</div>
+									<div class="it-row__val">03-50 э · 03-51 э</div>
+								</div>
+							</div>
+							<div class="it-row">
+								<div class="it-row__icon"><i class="fa fa-clock-o"></i></div>
+								<div class="it-row__body">
+									<div class="it-row__lbl">Часы работы</div>
+									<div class="it-row__val">пн–пт 08:00 – 17:00</div>
+								</div>
+							</div>
+						</div>
+
+					</aside>
+
+				</div><!-- /.help-layout -->
+
 			</div>
 		</div>
 	</main>
 
-<footer class="footer">
-	<button class="scroll-btn hidden" id="scroll_btn">
-		<i class="fa fa-arrow-up"></i>
-	</button>
-	<div class="container">
-		<div class="footer-wrap">
-			<div class="theme-box">
-				<button id="toggle_theme">
-					<i class="fa fa-adjust" title="Светлая тема"></i>
-					<i class="fa fa-adjust" style="transform: rotate(180deg);" title="Тёмная тема"></i>
-				</button>
+	<footer class="footer">
+		<button class="scroll-btn hidden" id="scroll_btn">
+			<i class="fa fa-arrow-up"></i>
+		</button>
+		<div class="container">
+			<div class="footer-wrap">
+				<div class="theme-box">
+					<button id="toggle_theme">
+						<i class="fa fa-adjust" title="Светлая тема"></i>
+						<i class="fa fa-adjust" style="transform: rotate(180deg);" title="Тёмная тема"></i>
+					</button>
+				</div>
+				<div class="version-box">
+					<span class="footer__department">Научно-инновационный отдел</span>
+					<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a>
+				</div>
+				<div class="inf-box"></div>
 			</div>
-			<div class="version-box">
-				<span class="footer__department">Научно-инновационный отдел</span>
-				<a class="footer__version" href="../../pages/versions/index.html">v 2.2.0</a>
-			</div>
-			<div class="inf-box"></div>
 		</div>
-	</div>
-</footer>
+	</footer>
 
-<script>
-	function getCookie(name) {
-      let matches = document.cookie.match( new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-      ));
-      return matches ? decodeURIComponent(matches[1]) : undefined;
-    };
-	
-	try {
-		let Theme = 'light';
-		if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
-			Theme = getCookie('theme');
-		} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
-			Theme = localStorage.getItem('theme');
+	<script>
+		function getCookie(name) {
+			let matches = document.cookie.match(new RegExp(
+				"(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+			));
+			return matches ? decodeURIComponent(matches[1]) : undefined;
 		};
-		
-		if (Theme === 'dark') {
-			document.querySelector('body').classList.add('dark');
-		} else {
-			document.querySelector('body').classList.remove('dark');
+
+		try {
+			let Theme = 'light';
+			if (new RegExp(/Firefox/i).test(navigator.userAgent)) {
+				Theme = getCookie('theme');
+			} else if (new RegExp(/Chrome/i).test(navigator.userAgent)) {
+				Theme = localStorage.getItem('theme');
+			};
+			if (Theme === 'dark') {
+				document.querySelector('body').classList.add('dark');
+			} else {
+				document.querySelector('body').classList.remove('dark');
+			};
+		} catch (error) {
+			console.error('Не удалось установить тему:', error);
 		};
-	} catch (error) {
-		console.error('Не удалось установить тему:', error);
-	};
-</script>
+	</script>
 
 </body>
 </html>

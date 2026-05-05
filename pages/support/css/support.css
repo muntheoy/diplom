@@ -1,1 +1,180 @@
-.content-wrap{width:100%;min-height:calc(100vh - 115px);position:relative;padding:25px;background-color:#ffffff;border-radius:10px;-webkit-box-shadow:0px 0px 5px 6px #dfdfdf;box-shadow:0px 0px 5px 6px #dfdfdf;font-family:Montserrat, "Open sans", sans-serif}.support{width:800px;margin:0 auto}.support__title{text-align:center}.support__subtitle{text-align:center;margin-bottom:15px}.support__text{text-align:justify;margin-bottom:35px}.support__description{text-align:center;margin-bottom:35px}.support__card-box{width:100%;display:-ms-grid;display:grid;-ms-grid-columns:(1fr)[3];grid-template-columns:repeat(3, 1fr);-webkit-column-gap:10px;column-gap:10px;row-gap:30px}.card{width:200px;-ms-grid-column-align:center;justify-self:center;-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.card__img{margin:0 auto 10px;width:80px}.card__img img{width:100%}.card__name{font-size:16px;font-weight:500;text-align:center;margin-bottom:5px}.card__email,.card__phone{font-size:14px;text-align:center;margin-bottom:5px}@media all and (min-width: 2100px){.content-wrap{min-height:calc(100vh - 180px);padding:30px;-webkit-box-shadow:0px 0px 10px 10px #dfdfdf;box-shadow:0px 0px 10px 10px #dfdfdf}.support{width:1200px}.support__subtitle{margin-bottom:35px}.support__text{font-size:22px;margin-bottom:35px}.support__description{margin-bottom:50px}.support__card-box{-webkit-column-gap:20px;column-gap:20px;row-gap:40px}.card{width:300px}.card__img{margin:0 auto 15px;width:140px}.card__name{font-size:24px;margin-bottom:10px}.card__email,.card__phone{font-size:22px;margin-bottom:10px}}@media all and (max-width: 800px){.support{width:600px}}@media all and (max-width: 700px){.support{width:550px}.support__title{font-size:18px}.support__subtitle{font-size:16px}.support__description{font-size:12px}.support__text{font-size:13px}.card{width:180px}.card__img{width:60px}.card__name{font-size:14px}.card__email,.card__phone{font-size:12px}}
+/* ===== PAGE ===== */
+main {
+  background: var(--color-page-bg);
+  min-height: calc(100vh - 56px);
+}
+
+.page-hero {
+  margin-top: var(--space-11);
+}
+
+.content-wrap {
+  width: 100%;
+  min-height: calc(100vh - 115px);
+  position: relative;
+  padding: var(--space-12);
+  background-color: var(--color-surface);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-surface);
+  font-family: var(--font-family-base);
+}
+
+/* ===== SUPPORT CONTAINER ===== */
+.support {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.support__title { text-align: center; }
+
+.support__subtitle {
+  text-align: center;
+  margin-bottom: var(--space-9);
+}
+
+.support__text {
+  text-align: justify;
+  margin-bottom: var(--space-13);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.support__description {
+  text-align: center;
+  margin-bottom: var(--space-13);
+}
+
+/* ===== CARD GRID — employee card style ===== */
+.support__card-box {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: var(--space-7);
+  row-gap: var(--space-13);
+}
+
+.support .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  justify-self: center;
+  align-self: start;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-11);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+  text-align: center;
+}
+
+.support .card:hover {
+  border-color: #007175;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 113, 117, .10);
+}
+
+.support .card__img {
+  margin: 0 auto var(--space-6);
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-round);
+  overflow: hidden;
+  border: 2px solid var(--color-border);
+}
+
+.support .card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.support .card__name {
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.support .card__email,
+.support .card__phone {
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: var(--space-2);
+  color: var(--color-text-soft);
+}
+
+.support .card__email a {
+  color: #007175;
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.support .card__email a:hover { color: #005458; text-decoration: underline; }
+
+.support .card__phone {
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ===== DARK MODE ===== */
+.dark main { background: #1a1a1a; }
+
+.dark .content-wrap {
+  background-color: var(--color-surface-dark);
+  border: 1px solid var(--color-border-dark);
+  box-shadow: none;
+}
+
+.dark .support__text { color: #999; }
+
+.dark .support .card {
+  background: #1e1e1e;
+  border-color: #2e2e2e;
+}
+
+.dark .support .card:hover {
+  border-color: #4dd4c8;
+  box-shadow: 0 6px 18px rgba(0,0,0,.3);
+}
+
+.dark .support .card__img { border-color: #383838; }
+.dark .support .card__name { color: #dedede; }
+.dark .support .card__email a { color: #4dd4c8; }
+.dark .support .card__email a:hover { color: #5dddd4; }
+.dark .support .card__phone { color: #999; }
+
+/* ===== RESPONSIVE ===== */
+@media all and (min-width: 2100px) {
+  .content-wrap {
+    min-height: calc(100vh - 180px);
+    padding: var(--space-13);
+  }
+  .support { max-width: 1200px; }
+  .support__subtitle { margin-bottom: var(--space-13); }
+  .support__text { font-size: 22px; margin-bottom: var(--space-13); }
+  .support__description { margin-bottom: var(--space-15); }
+  .support__card-box { column-gap: var(--space-11); row-gap: var(--space-14); }
+  .support .card__img { margin: 0 auto var(--space-9); width: 140px; height: 140px; }
+  .support .card__name { font-size: 24px; margin-bottom: var(--space-6); }
+  .support .card__email, .support .card__phone { font-size: 22px; margin-bottom: var(--space-6); }
+}
+
+@media all and (max-width: 800px) {
+  .support { max-width: 600px; }
+  .support__card-box { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media all and (max-width: 700px) {
+  .support { max-width: 550px; }
+  .support__title { font-size: 18px; }
+  .support__subtitle { font-size: 16px; }
+  .support__description { font-size: var(--font-size-label); }
+  .support__text { font-size: 13px; }
+  .support__card-box { grid-template-columns: 1fr; }
+  .support .card__img { width: 60px; height: 60px; }
+  .support .card__name { font-size: var(--font-size-body); }
+  .support .card__email, .support .card__phone { font-size: var(--font-size-label); }
+}
