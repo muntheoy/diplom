@@ -5,7 +5,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>IT-поддержка - Справочник АО "ЦКБА"</title>
 	<link rel="shortcut icon" href="../../assets/img/Header/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
+<script>
+  try {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      if (localStorage.getItem('theme') === 'dark' && document.body) {
+        document.body.classList.add('dark');
+      }
+    } catch (e) {}
+  });
+</script>
+<style>html:not(.ready){visibility:hidden;}</style>
+<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
 	<link rel="stylesheet" href="css/it-service-desk.css">
 	<script defer src="../../assets/js/main.js"></script>
@@ -55,9 +72,6 @@
 		</div>
 		<div class="content-wrap content-section" id="content_wrap">
 			<div class="service-desk">
-				<h2 class="service-desk__title title">IT-поддержка по направлениям</h2>
-				<p class="service-desk__description description">Здесь вы можете узнать, какой сотрудник ЦИТ отвечает за поддержку программных продуктов и сервисов</p>
-
 				<div class="service-desk__card-box">
 					<div class="service-desk__card card">
 						<div class="card__img">
@@ -194,5 +208,6 @@
 	};
 </script>
 
+<script>document.documentElement.classList.add('ready');</script>
 </body>
 </html>

@@ -1,11 +1,28 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Часто задаваемые вопросы - Справочник АО "ЦКБА"</title>
 	<link rel="shortcut icon" href="../../assets/img/Header/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
+<script>
+  try {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      if (localStorage.getItem('theme') === 'dark' && document.body) {
+        document.body.classList.add('dark');
+      }
+    } catch (e) {}
+  });
+</script>
+<style>html:not(.ready){visibility:hidden;}</style>
+<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
 	<link rel="stylesheet" href="css/faq.css">
 	<script defer src="../../assets/js/main.js"></script>
@@ -55,8 +72,6 @@
 		</div>
 		<div class="content-wrap content-section" id="content_wrap">
 			<div class="faq">
-				<h2 class="faq__title title">Часто задаваемые вопросы</h2>
-				<p class="faq__description description">Здесь вы можете посмотреть ответы на часто задаваемые вопросы о работ справочника, обновлении информации и фото</p>
 				<h3 class="faq__subtitle subtitle">Навигатор</h3>
 				<div class="faq__links-block" id="groups_list">
 					<a href="#question_1" class="faq__link">Меня нет в справочнике, что сделать, чтобы добавили</a>
@@ -201,5 +216,6 @@
 	};
 </script>
 
+<script>document.documentElement.classList.add('ready');</script>
 </body>
 </html>

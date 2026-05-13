@@ -5,7 +5,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Главная - Справочник АО "ЦКБА"</title>
 	<link rel="shortcut icon" href="../../assets/img/Header/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
+<script>
+  try {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+
+  document.addEventListener('DOMContentLoaded', function () {
+    try {
+      if (localStorage.getItem('theme') === 'dark' && document.body) {
+        document.body.classList.add('dark');
+      }
+    } catch (e) {}
+  });
+</script>
+<style>html:not(.ready){visibility:hidden;}</style>
+<link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
 	<link rel="stylesheet" href="css/search.css">
 	<script defer src="../../assets/js/main.js"></script>
@@ -194,14 +211,11 @@
 						</div>
 						<div class="result__out" id="result_out"></div>
 						<div class="result__message" id="start_message">
-							<div>Введите запрос для поиска сотрудников</div>
-							<span>Поиск доступен по:</span>
-							<ul>
-								<li>фамилия, имя, отчество;</li>
-								<li>рабочий телефон;</li>
-								<li>подразделение;</li>
-								<li>ключевые слова.</li>
-							</ul>
+							<div class="empty-state">
+								<i class="fa fa-search empty-state__icon"></i>
+								<h3 class="empty-state__title">Начните вводить имя или подразделение</h3>
+								<p class="empty-state__subtitle">Поиск по ФИО · телефону · подразделению · ключевым словам</p>
+							</div>
 						</div>
 						<div class="result__message hidden" id="no_result">
 							Результатов не найдено, попробуйте изменить запрос
@@ -297,5 +311,6 @@
 		});
 	</script>
 
+<script>document.documentElement.classList.add('ready');</script>
 </body>
 </html>

@@ -317,24 +317,35 @@ window.addEventListener('load', function () {
           }
           if (_startEl) _startEl.dispatchEvent(new Event('click', {bubbles: true}));
           try {
+            // ── Debounce: авто-поиск при наборе текста ─────────────────────
+            const _debounce = (fn, delay) => {
+              let t;
+              return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), delay); };
+            };
+
             this.contentItems.searchBtn.addEventListener('click', this.searchHandler);
-            this.contentItems.searchInput.addEventListener('submit', this.searchHandler);
+
+            // input event — авто-фильтр с задержкой 300мс
+            this.contentItems.searchInput.addEventListener('input', _debounce(() => {
+              const val = this.contentItems.searchInput.value.trim();
+              if (val.length > 0) {
+                this.contentItems.clearBtn.classList.remove('hidden');
+                this.searchHandler();
+              } else {
+                this.resetDepSearch();
+              }
+            }, 300));
+
+            // keydown — Enter (немедленно) и Escape (сброс)
             this.contentItems.searchInput.addEventListener('keydown', event => {
               if (event.key === 'Enter') {
                 event.preventDefault();
                 this.searchHandler();
               } else if (event.key === 'Escape') {
                 this.resetDepSearch();
-              } else {
-                const input = event.target;
-                if (input.value === '') {
-                  this.resetDepSearch(event);
-                } else if (input.value !== '' && input.dataset.query === '0') {
-                  this.contentItems.searchInput.dataset.query = '0';
-                  this.contentItems.clearBtn.classList.remove('hidden');
-                };
               }
             });
+
             this.contentItems.clearBtn.addEventListener('click', this.resetDepSearch);
           } catch (error) {
             this.contentItems.searchMessage.innerHTML = 'Возникла непредвиденная ошибка!';
@@ -501,22 +512,117 @@ window.addEventListener('load', function () {
           console.error(error);
         });
       });
+      _defineProperty(this, "closeDetailPanel", () => {
+        const panel = document.querySelector('#detail_panel');
+        const wrap  = document.querySelector('#content_wrap');
+        if (!panel) return;
+        panel.style.opacity = '0';
+        setTimeout(() => {
+          panel.classList.remove('detail-panel--open');
+          if (wrap) wrap.classList.remove('wrap--panel-open');
+          panel.innerHTML = '';
+          panel.style.opacity = '';
+          document.querySelectorAll('.card').forEach(c => c.classList.remove('card_selected', 'active'));
+        }, 200);
+      });
+      _defineProperty(this, "updateDetailPanel", person => {
+        const panel = document.querySelector('#detail_panel');
+        const wrap  = document.querySelector('#content_wrap');
+        if (!panel) return;
+
+        panel.style.opacity = '0';
+
+        setTimeout(() => {
+          // Resolve photo
+          let photoLink = '../../' + person.photo_link;
+          if (!person.photo_link) {
+            photoLink = person.sex === 'woman'
+              ? '../../assets/img/Staff/woman.jpg'
+              : '../../assets/img/Staff/man.jpg';
+          }
+
+          // Rows: info section (dept + schedule)
+          const infoRows = [
+            { icon: 'fa-building-o', label: 'ПОДРАЗДЕЛЕНИЕ', value: person.department },
+            { icon: 'fa-users',      label: 'ГРУППА',        value: person.groupName   },
+            { icon: 'fa-clock-o',    label: 'РАБОЧИЕ ЧАСЫ', value: person.workTime    },
+            { icon: 'fa-coffee',     label: 'ОБЕД',          value: person.dinnerTime  },
+          ].filter(r => r.value && r.value.trim());
+
+          // Rows: contacts section
+          const contactRows = [
+            { icon: 'fa-phone',      label: 'ТЕЛЕФОН',        value: person.work_phone   },
+            { icon: 'fa-tty',        label: 'ГОР. ТЕЛЕФОН',   value: person.town_phone   },
+            { icon: 'fa-mobile',     label: 'МОБИЛЬНЫЙ',      value: person.mobile_phone },
+            { icon: 'fa-envelope-o', label: 'ПОЧТА',          value: person.email,        isEmail: true },
+            { icon: 'fa-map-marker', label: 'МЕСТОПОЛОЖЕНИЕ', value: person.location     },
+          ].filter(r => r.value && r.value.trim());
+
+          const makeRow = r => `
+            <div class="dp-row">
+              <div class="dp-icon"><i class="fa ${r.icon}"></i></div>
+              <div class="dp-body">
+                <div class="dp-label">${r.label}</div>
+                <div class="dp-value">${r.isEmail
+                  ? `<a href="mailto:${r.value}">${r.value}</a>`
+                  : r.value
+                }</div>
+              </div>
+            </div>`;
+
+          const infoHTML    = infoRows.map(makeRow).join('');
+          const contactHTML = contactRows.map(makeRow).join('');
+
+          panel.innerHTML = `
+            <!-- Card 1: Photo + Identity + dept/schedule -->
+            <div class="dp-card">
+              <button class="dp-close" id="dp_close_btn" title="Закрыть">
+                <i class="fa fa-close"></i>
+              </button>
+              <div class="dp-main">
+                <div class="dp-photo-wrap">
+                  <img src="${photoLink}" class="dp-photo" alt="Фото">
+                </div>
+                <div class="dp-identity">
+                  <h3 class="dp-name">${person.surname}<br>${person.name}<br>${person.patronymic}</h3>
+                  <p class="dp-position">${person.position}</p>
+                </div>
+              </div>
+              ${infoHTML ? `<div class="dp-divider"></div><div class="dp-contacts">${infoHTML}</div>` : ''}
+            </div>
+            ${contactHTML ? `
+            <!-- Card 2: Contacts -->
+            <div class="dp-card">
+              <div class="dp-contacts">${contactHTML}</div>
+            </div>` : ''}
+          `;
+
+          // Show panel + shift grid
+          panel.classList.add('detail-panel--open');
+          if (wrap) wrap.classList.add('wrap--panel-open');
+
+          // Close button
+          const closeBtn = panel.querySelector('#dp_close_btn');
+          if (closeBtn) closeBtn.addEventListener('click', () => this.closeDetailPanel());
+
+          requestAnimationFrame(() => { panel.style.opacity = '1'; });
+        }, 150);
+      });
       _defineProperty(this, "openCardHandler", event => {
         if (event.target.tagName === 'A') return;
         if (event.target.closest('.img_link') !== null) return;
         const popup = new Popup();
-        popup.reset();
         new Promise((resolve, reject) => {
           const curCard = event.target.closest('.card');
           if (curCard === null) return;
           const personMemo = curCard.dataset.memo;
-          if (!personMemo || personMemo === '') reject('Не удалось получить идентификатор сотрудника. Перезагрузите страницу или обратитесь к администратору.');
+          if (!personMemo || personMemo === '') reject('Не удалось получить идентификатор сотрудника.');
           const depMemo = this.contentItems.searchInput.dataset.dep;
-          if (!depMemo || depMemo === '') reject('Не удалось получить идентификатор подразделения. Перезагрузите страницу или обратитесь к администратору.');
           const department = this.staff[depMemo];
-          if (!department || typeof department !== 'object') reject('Не удалось получить данные. Перезагрузите страницу или обратитесь к администратору.');
+          if (!department) reject('Не удалось получить данные.');
           const person = department.staff[personMemo];
-          if (!person || typeof person !== 'object') reject('Не удалось получить данные. Перезагрузите страницу или обратитесь к администратору.');
+          if (!person) reject('Не удалось получить данные сотрудника.');
+
           person.department = department.name;
           person.workTime = department.work_time;
           person.dinnerTime = department.dinner_time;
@@ -525,29 +631,24 @@ window.addEventListener('load', function () {
           } else if (person.group === '0') {
             person.groupName = 'Без группы';
           } else {
-            const group = department.groups.filter(item => {
-              return item.id === person.group;
-            });
-            if (!group || group.lenght === 0) {
-              person.groupName = 'Без группы';
-            } else {
-              person.groupName = group[0].name;
-            };
-          };
+            const group = department.groups.find(item => item.id === person.group);
+            person.groupName = group ? group.name : 'Без группы';
+          }
           resolve(person);
-        }).then(response => {
-          popup.innerInfo(response);
-        }).then(() => {
-          popup.show();
+        }).then(person => {
+          if (window.innerWidth < 1100) {
+            popup.reset();
+            popup.innerInfo(person);
+            popup.show();
+          } else {
+            this.updateDetailPanel(person);
+            // Highlight selected card
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('card_selected', 'active'));
+            event.target.closest('.card').classList.add('card_selected', 'active');
+          }
           this.contentItems.personal.dataset.lock = '';
         }).catch(error => {
-          if (typeof error === 'string') {
-            alert(error);
-          } else {
-            alert('Возникла непредвиденная ошибка! Перезагрузите страницу.');
-            console.error(error);
-          };
-          popup.reset();
+          console.error(error);
           this.contentItems.personal.dataset.lock = '';
         });
       });

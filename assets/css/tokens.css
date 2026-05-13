@@ -39,6 +39,10 @@
   --color-header-bg:#FFFFFF;
   --color-header-accent:#5fd6fd;
   --color-header-accent-muted:#4da9d0;
+  --color-search-bg-dark:#2b2b2b;
+  --color-search-placeholder-dark:#aaaaaa;
+  --color-search-icon-bg:transparent;
+  --color-header-bg-dark:#123b44;
   --color-footer-bg:#013650;
   --color-overlay:rgba(255,255,255,.85);
   --color-overlay-dark:rgba(85,85,85,.85);
@@ -57,30 +61,46 @@
   --color-scroll-text:rgba(0,0,0,.5);
   --color-scroll-text-hover:rgba(0,0,0,.65);
 
-  --radius-xs:3px;
-  --radius-sm:5px;
-  --radius-md:12px;
-  --radius-lg:10px;
-  --radius-round:50%;
-  --radius-pill:20px;
+  --radius-xs: 3px;
+  --radius-sm: 8px;   /* was 5px — unified to 8px */
+  --radius-md: 12px;
+  --radius-lg: 16px;  /* was 10px — lg should be larger than md */
+  --radius-round: 50%;
+  --radius-pill: 20px;
 
-  --space-0:0;
-  --space-1:2px;
-  --space-2:3px;
-  --space-3:5px;
-  --space-4:6px;
-  --space-5:8px;
-  --space-6:10px;
-  --space-7:12px;
-  --space-8:14px;
-  --space-9:15px;
-  --space-10:18px;
-  --space-11:20px;
-  --space-12:25px;
-  --space-13:30px;
-  --space-14:40px;
-  --space-15:50px;
-  --space-16:75px;
+  --space-0: 0;
+  --space-1: 2px;
+  --space-2: 3px;
+  --space-3: 5px;
+  --space-4: 6px;
+  --space-5: 8px;
+  --space-6: 10px;
+  --space-7: 12px;
+  --space-8: 14px;
+  --space-9: 15px;
+  --space-10: 18px;
+  --space-11: 20px;
+  --space-12: 25px;
+  --space-13: 30px;
+  --space-14: 40px;
+  --space-15: 50px;
+  --space-16: 75px;
+
+  /* ── Gap scale (base 4px, predictable) ──────────────────── */
+  /* --gap-N = N × 4px. Use these for new components.         */
+  --gap-1:  4px;
+  --gap-2:  8px;
+  --gap-3:  12px;
+  --gap-4:  16px;
+  --gap-5:  20px;
+  --gap-6:  24px;
+  --gap-7:  28px;
+  --gap-8:  32px;
+  --gap-9:  36px;
+  --gap-10: 40px;
+  --gap-12: 48px;
+  --gap-14: 56px;
+  --gap-16: 64px;
 
   --size-header-height:55px;
   --size-footer-height:40px;
@@ -98,8 +118,21 @@
   --size-container-mobile:600px;
   --size-container-mobile-sm:400px;
 
-  --shadow-surface:0 0 5px 6px #dfdfdf;
-  --shadow-nav-active:0 6px 18px rgba(167,167,167,.25);
+  --shadow-surface:  0 0 5px 6px #dfdfdf;  /* legacy — kept for compat */
+  --shadow-nav-active: 0 6px 18px rgba(167,167,167,.25);
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.05), 0 1px 8px rgba(0,0,0,0.04);
+  --shadow-md:  0 2px 12px rgba(0,0,0,0.07);
+  --shadow-lg:  0 4px 24px rgba(0,0,0,0.12);
+
+  /* ── Accent colors (active states, selected items) ───────── */
+  --color-accent-surface: #eef8f8;
+  --color-accent-border:  #007175;
+
+  /* ── Z-index scale ───────────────────────────────────────── */
+  --z-overlay:   50;
+  --z-dropdown: 100;
+  --z-panel:    200;
+  --z-modal:    300;
 
   --transition-fast:.1s ease-in-out;
   --transition-base:.2s ease-in-out;
@@ -479,8 +512,11 @@ button{
   color:#dedede;
 }
 
-.dark{
-  background-color:#1e1e1e;
+.dark {
+  background-color: #0f1418;
+  --color-page-bg: #0f1418;
+  --color-surface-dark: #181e24;
+  --color-border-dark: #2a3540;
 }
 
 .dark input[type="text"],.dark input[type="password"],.dark input[type="tel"],.dark input[type="email"],.dark input[type="number"],.dark input[type="date"],.dark input[type="radio"],.dark input[type="checkbox"],.dark select,.dark textarea{
@@ -489,11 +525,20 @@ button{
   border-color:var(--color-border);
 }
 
-.dark .content-section{
-  background-color:var(--color-surface-dark);
-  border:1px solid var(--color-border-dark);
-  box-shadow:none;
-  color:#dedede;
+.dark .content-section {
+  background-color: var(--color-surface-dark);
+  border: 1px solid var(--color-border-dark);
+  box-shadow: none;
+  color: #dedede;
+}
+
+/* Dark overrides for new shadow/accent tokens */
+.dark {
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 2px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.5);
+  --color-accent-surface: #0d2421;
+  --color-accent-border:  #4dd4c8;
 }
 
 .dark .overlay{
@@ -520,22 +565,91 @@ button{
   color:var(--color-header-accent);
 }
 
-.dark .navbar__items .navbar__link:hover,.dark .navbar__items .navbar__link:focus{
-  background-color:transparent;
-  border-color:transparent;
-  color:var(--color-nav-hover)!important;
+.dark .navbar__items .navbar__link {
+  color: #aaaaaa !important;
 }
 
-.dark .navbar__items_active .navbar__link,.dark .navbar__items_active .navbar__link:hover,.dark .navbar__items_active .navbar__link:focus{
-  color:var(--color-nav-active)!important;
-  background-color:transparent;
-  border-color:transparent;
+.dark .navbar__items .navbar__link:hover,
+.dark .navbar__items .navbar__link:focus {
+  background-color: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.1);
+  color: #e0e0e0 !important;
 }
 
-.dark .scroll-btn{
-  background-color:rgba(130,130,130,.25);
-  border-color:rgba(215,215,215,.5);
-  color:rgba(215,215,215,.5);
+.dark .navbar__items_active .navbar__link,
+.dark .navbar__items_active .navbar__link:hover,
+.dark .navbar__items_active .navbar__link:focus {
+  color: #4dd4c8 !important;         /* was #007074 — dark on dark = invisible */
+  background-color: rgba(77,212,200,.12);
+  border-color: rgba(77,212,200,.22);
+  box-shadow: 0 2px 12px rgba(77,212,200,.10);
+}
+
+.dark .scroll-btn {
+  background-color: rgba(130,130,130,.25);
+  border-color: rgba(215,215,215,.5);
+  color: rgba(215,215,215,.5);
+}
+
+/* ===== DARK MODE — HEADER ===== */
+.dark .header {
+  background: rgba(12, 18, 22, 0.92) !important;
+  border-bottom: 1px solid rgba(77, 212, 200, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 rgba(0,0,0,.4);
+}
+
+/* ===== DARK MODE — NAVBAR PILL ===== */
+.dark .navbar__list {
+  background: #1a1c1e;
+  border: 1px solid rgba(77, 212, 200, 0.1);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* New-style .navbar__link items */
+.dark .navbar__items .navbar__link {
+  color: #9ca3af !important;
+}
+
+.dark .navbar__items .navbar__link:hover,
+.dark .navbar__items .navbar__link:focus {
+  background-color: #2a2a2a;
+  border-color: rgba(255,255,255,.1);
+  color: #e0e0e0 !important;
+}
+
+.dark .navbar__items_active .navbar__link,
+.dark .navbar__items_active .navbar__link:hover,
+.dark .navbar__items_active .navbar__link:focus {
+  color: #4dd4c8 !important;
+  background: #1a3530;
+  border-color: rgba(77, 212, 200, 0.28);
+  box-shadow: 0 2px 10px rgba(77,212,200,.08);
+}
+
+/* Old-style plain <a> links inside nav */
+.dark .navbar__items a {
+  color: #b0b7c0;
+}
+
+.dark .navbar__items_active > a {
+  color: #4dd4c8 !important;
+}
+
+/* Hover underline indicator */
+.dark .navbar__items::before {
+  background-color: #4dd4c8;
+}
+
+/* Logo text */
+.dark .logo__factory-name {
+  color: #ffffff;
+}
+
+/* Navbar mask icon — inherits currentColor from link */
+.dark .navbar__icon {
+  background-color: currentColor;
 }
 
 @media all and (min-width:2100px){

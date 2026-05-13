@@ -131,6 +131,85 @@ main {
   cursor: pointer;
 }
 
+/* ===== CUSTOM SELECT ===== */
+.custom-select {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+.custom-select__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 16px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  color: #111827;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.custom-select__trigger i {
+  font-size: 12px;
+  color: #9ca3af;
+  transition: transform 0.2s;
+}
+
+.custom-select.open .custom-select__trigger {
+  border-color: #007175;
+  box-shadow: 0 0 0 3px rgba(0, 113, 117, 0.1);
+}
+
+.custom-select.open .custom-select__trigger i {
+  transform: rotate(180deg);
+}
+
+.custom-select__options {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  z-index: 200;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s;
+}
+
+.custom-select.open .custom-select__options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.custom-select__option {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #111827;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.custom-select__option:hover {
+  background: #f3f4f6;
+}
+
+.custom-select__option.selected {
+  background: #f0fafa;
+  color: #007175;
+  font-weight: 500;
+}
+
 /* TEXTAREA */
 .forms-block textarea.field__input {
   height: auto !important;
@@ -258,8 +337,33 @@ main {
 
 .dark .forms-block .overlay { background: rgba(26,26,26,0.88); }
 
-.dark .changing__btn.btn { background: #007175 !important; }
 .dark .changing__btn.btn:hover { background: #005458 !important; }
+
+/* Dark Mode Custom Select */
+.dark .custom-select__trigger {
+  background: #2a2a2a;
+  border-color: #3a3a3a;
+  color: #e0e0e0;
+}
+
+.dark .custom-select__options {
+  background: #252525;
+  border-color: #3a3a3a;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.dark .custom-select__option {
+  color: #e0e0e0;
+}
+
+.dark .custom-select__option:hover {
+  background: #333333;
+}
+
+.dark .custom-select__option.selected {
+  background: #1a3530;
+  color: #4dd4c8;
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 700px) {

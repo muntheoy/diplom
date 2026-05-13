@@ -397,6 +397,7 @@ window.addEventListener('load', function () {
         }).then(() => {
           this.clearResultList();
           this.clearCard();
+          this.cardElements.card.classList.remove('card_empty');
           this.inputElements.searchMessage.innerHTML = '';
           this.showResult();
           this.resultElements.startMessageElement.classList.add('hidden');
@@ -503,6 +504,7 @@ window.addEventListener('load', function () {
       this.lastShowed = 0;
       // this.staff = State;
       this.staff = staff;
+      this.cardElements.card.classList.add('card_empty');
       this.inputElements.button;
     }
   };
@@ -511,6 +513,23 @@ window.addEventListener('load', function () {
     const SearchElement = new Search(AppState);
     SearchElement.endLoad();
     SearchElement.inputElements.button.addEventListener('click', SearchElement.search);
+
+    // ── Debounce: авто-поиск при наборе текста (300 мс задержки) ──────────
+    const _debounce = (fn, delay) => {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), delay);
+      };
+    };
+    SearchElement.inputElements.input.addEventListener(
+      'input',
+      _debounce(SearchElement.search, 300)
+    );
+    // Enter — немедленный поиск без задержки
+    SearchElement.inputElements.input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); SearchElement.search(); }
+    });
     SearchElement.resultElements.showMoreBtn.addEventListener('click', e => {
       e.preventDefault();
       if (SearchElement.resultElements.showMoreBtn.dataset.lock === 'true') return;

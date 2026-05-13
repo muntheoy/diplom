@@ -281,7 +281,45 @@ window.addEventListener('load', function () {
       addFormInit();
       resolve();
     }).then(endLoad());
-    const themeSwitcher = document.querySelector('#theme_form_input');
+    // Custom Select Initialization
+    const initCustomSelect = (selectId, customId) => {
+      const realSelect = document.getElementById(selectId);
+      const customSelect = document.getElementById(customId);
+      if (!realSelect || !customSelect) return;
+
+      const trigger = customSelect.querySelector('.custom-select__trigger');
+      const triggerText = trigger.querySelector('span');
+      const options = customSelect.querySelectorAll('.custom-select__option');
+
+      trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        customSelect.classList.toggle('open');
+      });
+
+      options.forEach(option => {
+        option.addEventListener('click', () => {
+          const value = option.dataset.value;
+          const text = option.textContent;
+          realSelect.value = value;
+          realSelect.dispatchEvent(new Event('change'));
+          triggerText.textContent = text;
+          options.forEach(opt => opt.classList.remove('selected'));
+          option.classList.add('selected');
+          customSelect.classList.remove('open');
+        });
+      });
+
+      document.addEventListener('click', () => {
+        customSelect.classList.remove('open');
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') customSelect.classList.remove('open');
+      });
+    };
+    initCustomSelect('type_select', 'type_select_custom');
+
+    const themeSwitcher = document.querySelector('#type_select');
     themeSwitcher.addEventListener('change', () => {
       themeSwitcher.disabled = true;
       startLoad();
