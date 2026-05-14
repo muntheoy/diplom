@@ -1,6 +1,6 @@
 /* ===== PAGE BACKGROUND ===== */
 main {
-  background: #f0f0f0;
+  background: transparent;
   min-height: 100vh;
 }
 
@@ -11,7 +11,7 @@ main {
   gap: 16px;
   width: 100%;
   padding-bottom: 32px;
-  transition: gap 0.25s ease;
+  /* gap is not GPU-accelerated — removed transition to prevent layout thrashing */
 }
 
 /* When detail panel is open, content and panel share the row */
@@ -21,14 +21,14 @@ main {
 
 /* ===== HERO ===== */
 .dept-hero {
-  background: linear-gradient(135deg, #005f72 0%, #00a99a 100%);
-  border-radius: 16px;
-  padding: 36px 40px 28px;
-  margin-bottom: 16px;
+  background: linear-gradient(140deg, #004e62 0%, #006e68 50%, #00917f 100%);
+  border-radius: 20px;
+  padding: 40px 44px 32px;
+  margin-bottom: 18px;
   color: #fff;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0, 95, 114, 0.22);
+  box-shadow: 0 4px 12px rgba(0,78,98,.25), 0 12px 40px rgba(0,78,98,.2);
 }
 
 .dept-hero::after {
@@ -46,10 +46,11 @@ main {
 }
 
 .dept-hero__title {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 700;
-  margin: 0 0 8px;
-  line-height: 1.2;
+  margin: 0 0 10px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .dept-hero__subtitle {
@@ -201,9 +202,9 @@ main {
   overflow-y: auto;
   overflow-x: hidden;
   background: #fff;
-  border: 1px solid #e8eaed;
-  border-radius: 14px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .05), 0 1px 8px rgba(0, 0, 0, .04);
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
   position: relative;
 }
 
@@ -235,22 +236,22 @@ main {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 9px 12px;
-  border-radius: 8px;
+  padding: 10px 12px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 13px;
   line-height: 1.35;
   margin-bottom: 2px;
-  transition: background 0.12s;
+  transition: background 0.15s cubic-bezier(0.23,1,0.32,1), transform 0.15s cubic-bezier(0.23,1,0.32,1);
 }
 
 .deplink:hover {
-  background: #f5f7f7;
+  background: rgba(0,113,117,.05);
 }
 
 .deplink_active,
 .deplink_active:hover {
-  background: #e0f5f3;
+  background: linear-gradient(90deg, rgba(0,113,117,.1) 0%, rgba(0,113,117,.05) 100%);
 }
 
 /* deplink__number is hidden (dept number not shown) */
@@ -335,11 +336,23 @@ main {
   max-height: calc(100vh - 90px);
   overflow-y: auto;
   overflow-x: hidden;
-  transition: opacity 0.2s ease-in-out;
+  /* Slide-in from right with fade when displayed by JS */
+  animation: panelSlideIn 0.28s cubic-bezier(0.23, 1, 0.32, 1) both;
 
   /* Custom scrollbar */
   scrollbar-width: thin;
   scrollbar-color: rgba(0,113,117,.35) transparent;
+}
+
+@keyframes panelSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .detail-panel::-webkit-scrollbar { width: 3px; }
@@ -355,7 +368,7 @@ main {
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
   padding: 0 0 8px;
-  transition: grid-template-columns 0.25s ease;
+  /* grid-template-columns is not GPU-accelerated — no transition */
 }
 
 .wrap--panel-open .personal__staffbox {
@@ -365,10 +378,10 @@ main {
 /* ===== DP — Detail Panel Card (mirrors main page .card__container) ===== */
 .dp-card {
   background: #fff;
-  border: 1px solid #e8eaed;
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 1px 8px rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
   position: relative;
 }
 
@@ -689,32 +702,39 @@ main {
     "photo contacts";
   column-gap: 12px;
   row-gap: 8px;
-  padding: 12px;
+  padding: 14px;
   background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 14px;
   cursor: pointer;
-  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  transition: border-color 0.2s cubic-bezier(0.23,1,0.32,1),
+              background 0.2s cubic-bezier(0.23,1,0.32,1),
+              transform 0.2s cubic-bezier(0.23,1,0.32,1),
+              box-shadow 0.2s cubic-bezier(0.23,1,0.32,1);
   position: relative;
   overflow: hidden;
-  border-left: 3px solid transparent; /* Reserve space for active state */
+  border-left: 3px solid transparent;
+  box-shadow: 0 1px 3px rgba(0,0,0,.03);
 }
 
 .card.card_selected,
 .card.active {
   border-left-color: #007175;
-  background: #eef8f8;
+  background: #f4fffe;
+  border-color: rgba(0,113,117,.2);
+  box-shadow: 0 2px 8px rgba(0,113,117,.08);
 }
 
 .card:hover {
-  border-color: #007175;
-  background: #f6fbfb;
+  border-color: rgba(0,113,117,.25);
+  border-left-color: #007175;
+  background: #f4fffe;
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 113, 117, 0.10);
+  box-shadow: 0 4px 14px rgba(0,113,117,.1), 0 8px 28px rgba(0,0,0,.05);
 }
 
 .card:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.99);
   box-shadow: none;
   transition-duration: 0.08s;
 }
@@ -1032,7 +1052,7 @@ main {
 
 /* ===== DARK MODE ===== */
 .dark main {
-  background: #1a1a1a;
+  background: transparent;
 }
 
 .dark .sidebar-col__label,
@@ -1041,9 +1061,9 @@ main {
 }
 
 .dark .sidebar {
-  background: #252525;
-  border-color: #333;
-  box-shadow: none;
+  background: #161b22;
+  border-color: rgba(255,255,255,.07);
+  box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 4px 24px rgba(0,0,0,.2);
 }
 
 .dark .employees-card {
@@ -1053,12 +1073,12 @@ main {
 }
 
 .dark .deplink:hover {
-  background: #2a2a2a;
+  background: rgba(255,255,255,.04);
 }
 
 .dark .deplink_active,
 .dark .deplink_active:hover {
-  background: #1a3530;
+  background: linear-gradient(90deg, rgba(77,212,200,.1) 0%, rgba(77,212,200,.04) 100%);
 }
 
 .dark .deplink__shortname,
@@ -1096,14 +1116,23 @@ main {
 }
 
 .dark .card {
-  background: #1e1e1e;
-  border-color: #2e2e2e;
+  background: #0d1117;
+  border-color: rgba(255,255,255,.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
 .dark .card:hover {
-  border-color: #007175;
-  background: #1a2e2d;
-  box-shadow: 0 4px 16px rgba(0, 113, 117, 0.22);
+  border-color: rgba(77,212,200,.2);
+  border-left-color: #4dd4c8;
+  background: #0f1e1d;
+  box-shadow: 0 4px 14px rgba(77,212,200,.1), 0 8px 28px rgba(0,0,0,.2);
+}
+
+.dark .card.card_selected,
+.dark .card.active {
+  border-left-color: #4dd4c8;
+  border-color: rgba(77,212,200,.2);
+  background: #0f1e1d;
 }
 
 .dark .card__fullname {
@@ -1119,11 +1148,11 @@ main {
 }
 
 .dark .card__email {
-  color: #3a3f45;
+  color: #6b7280;
 }
 
 .dark .card__email a {
-  color: #3a3f45;
+  color: #6b7280;
 }
 
 .dark .card__email a:hover {
@@ -1178,9 +1207,9 @@ main {
 
 /* ===== DP (Detail Panel) — DARK MODE ===== */
 .dark .dp-card {
-  background: #181e24;
-  border-color: #2a3540;
-  box-shadow: none;
+  background: #161b22;
+  border-color: rgba(255,255,255,.07);
+  box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 4px 24px rgba(0,0,0,.2);
 }
 
 .dark .dp-name     { color: #e6e6e6; }
@@ -1260,5 +1289,66 @@ main {
 
   .bottom-layer {
     padding: 16px;
+  }
+}
+
+/* ===================================================
+   STAGGER ENTRANCE — employee cards in grid
+   =================================================== */
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.personal__staffbox .card {
+  animation: cardFadeUp 0.22s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.personal__staffbox .card:nth-child(1)  { animation-delay: 0ms   }
+.personal__staffbox .card:nth-child(2)  { animation-delay: 35ms  }
+.personal__staffbox .card:nth-child(3)  { animation-delay: 70ms  }
+.personal__staffbox .card:nth-child(4)  { animation-delay: 105ms }
+.personal__staffbox .card:nth-child(5)  { animation-delay: 140ms }
+.personal__staffbox .card:nth-child(6)  { animation-delay: 175ms }
+.personal__staffbox .card:nth-child(n+7) { animation-delay: 200ms }
+
+/* ===== DEPLINK — improved active indicator ===== */
+.deplink_active {
+  position: relative;
+}
+
+.deplink_active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: #007175;
+  border-radius: 0 3px 3px 0;
+}
+
+.dark .deplink_active::before {
+  background: #4dd4c8;
+}
+
+/* ===== REDUCED MOTION — departments ===== */
+@media (prefers-reduced-motion: reduce) {
+  .personal__staffbox .card,
+  .detail-panel {
+    animation: none;
+  }
+  .card,
+  .deplink,
+  .dp-close,
+  .dept-hero .search-form__btn_submit {
+    transition: none;
   }
 }

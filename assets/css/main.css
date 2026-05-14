@@ -1,5 +1,6 @@
 @font-face {
   font-family: Montserrat;
+  font-display: swap;
   src: url("../fonts/Montserrat-Regular.ttf");
   src: local("Montserrat-Regular"), url("../fonts/Montserrat-Regular.ttf") format("truetype"), url("../fonts/Montserrat-Regular.eot") format("eot")
 }
@@ -7,6 +8,7 @@
 @font-face {
   font-family: Montserrat;
   font-weight: 500;
+  font-display: swap;
   src: url("../fonts/Montserrat-Medium.ttf");
   src: local("Montserrat-Medium"), url("../fonts/Montserrat-Medium.ttf") format("truetype"), url("../fonts/Montserrat-Medium.eot") format("eot")
 }
@@ -14,6 +16,7 @@
 @font-face {
   font-family: Montserrat;
   font-weight: 600;
+  font-display: swap;
   src: url("../fonts/Montserrat-SemiBold.ttf");
   src: local("Montserrat-SemiBold"), url("../fonts/Montserrat-SemiBold.ttf") format("truetype"), url("../fonts/Montserrat-SemiBold.eot") format("eot")
 }
@@ -21,6 +24,7 @@
 @font-face {
   font-family: Montserrat;
   font-weight: 700;
+  font-display: swap;
   src: url("../fonts/Montserrat-Bold.ttf");
   src: local("Montserrat-Bold"), url("../fonts/Montserrat-Bold.ttf") format("truetype"), url("../fonts/Montserrat-Bold.eot") format("eot")
 }
@@ -142,7 +146,7 @@ a {
 .description {
   display: block;
   font-size: 14px;
-  line-height: 1.2em;
+  line-height: 1.55;
   color: #555555;
   font-weight: 400
 }
@@ -178,8 +182,8 @@ a {
 }
 
 .spin {
-  -webkit-animation: rotateElem 0.8s linear infinite;
-  animation: rotateElem 0.8s linear infinite
+  -webkit-animation: rotateElem 0.6s linear infinite;
+  animation: rotateElem 0.6s linear infinite
 }
 
 .form {
@@ -215,7 +219,8 @@ input[type="checkbox"]:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border: 1px solid #acacac
+  border-color: #007175;
+  box-shadow: 0 0 0 3px rgba(0, 113, 117, 0.12)
 }
 
 input[type="checkbox"] {
@@ -327,7 +332,8 @@ button {
   transition: 0.2s ease-in-out
 }
 
-button:hover {
+button:hover,
+button {
   cursor: pointer
 }
 
@@ -352,8 +358,9 @@ button:hover {
   font-size: 13px;
   font-weight: 500;
   color: #ffffff;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out
+  cursor: pointer;
+  -webkit-transition: background-color 0.15s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.15s cubic-bezier(0.23, 1, 0.32, 1), transform 0.15s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: background-color 0.15s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.15s cubic-bezier(0.23, 1, 0.32, 1), transform 0.15s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.15s cubic-bezier(0.23, 1, 0.32, 1)
 }
 
 .btn:hover,
@@ -362,6 +369,12 @@ button:hover {
   color: #ffffff;
   border: 1px solid #204d74;
   cursor: pointer
+}
+
+.btn:active {
+  transform: scale(0.97);
+  -webkit-transition-duration: 0.08s;
+  transition-duration: 0.08s
 }
 
 .btn_grey {
@@ -421,15 +434,24 @@ pre {
   -webkit-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  word-wrap: break-word;
-  line-height: 1.2
+  word-wrap: break-word
+}
+
+p,
+li {
+  line-height: 1.55
+}
+
+::selection {
+  background: rgba(0, 113, 117, 0.18);
+  color: inherit
 }
 
 a {
   color: #0b86d3;
   text-decoration: none;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out
+  -webkit-transition: color 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: color 0.15s cubic-bezier(0.23, 1, 0.32, 1)
 }
 
 a:hover {
@@ -466,7 +488,7 @@ a:hover {
   padding: 25px;
   background-color: #ffffff;
   border-radius: 5px;
-  bow-shadow: 0px 0px 5px 6px #dfdfdf;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.06);
   font-family: Montserrat, "Open sans", sans-serif
 }
 
@@ -573,6 +595,11 @@ a:hover {
 /* Theme toggle button */
 .dark #toggle_theme {
   color: #aaaaaa;
+}
+
+@keyframes shimmer {
+  0% { background-position: -600px 0 }
+  100% { background-position: 600px 0 }
 }
 
 @-webkit-keyframes rotateElem {
@@ -881,12 +908,14 @@ a:hover {
   display: block;
   height: 1.5px;
   background-color: #ffffff;
-  width: 0;
+  width: 100%;
   position: absolute;
   bottom: -3px;
-  right: 0;
-  -webkit-transition: 0.4s ease-in-out;
-  transition: 0.4s ease-in-out
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: right center;
+  -webkit-transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1)
 }
 
 .navbar__items:hover {
@@ -894,8 +923,8 @@ a:hover {
 }
 
 .navbar__items:hover::before {
-  width: 100%;
-  left: 0
+  transform: scaleX(1);
+  transform-origin: left center
 }
 
 .navbar__items_active a {
@@ -1148,32 +1177,26 @@ a:hover {
 
 @-webkit-keyframes showResult {
   from {
-    margin-left: -200%;
+    -webkit-transform: translateX(-24px);
+    transform: translateX(-24px);
     opacity: 0
   }
 
-  50% {
-    opacity: 0.3
-  }
-
   to {
-    margin: 0 0 10px 0;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
     opacity: 1
   }
 }
 
 @keyframes showResult {
   from {
-    margin-left: -200%;
+    transform: translateX(-24px);
     opacity: 0
   }
 
-  50% {
-    opacity: 0.3
-  }
-
   to {
-    margin: 0 0 10px 0;
+    transform: translateX(0);
     opacity: 1
   }
 }
@@ -1220,135 +1243,157 @@ a:hover {
 
 @-webkit-keyframes nextNavbarItem {
   from {
-    margin-left: -200%
+    opacity: 0;
+    -webkit-transform: translateX(-20px);
+    transform: translateX(-20px)
   }
 
   to {
-    margin-left: 0
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0)
   }
 }
 
 @keyframes nextNavbarItem {
   from {
-    margin-left: -200%
+    opacity: 0;
+    transform: translateX(-20px)
   }
 
   to {
-    margin-left: 0
+    opacity: 1;
+    transform: translateX(0)
   }
 }
 
 @-webkit-keyframes concealNavbarItem {
   from {
-    margin-right: 0
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0)
   }
 
   to {
-    margin-right: -200%
+    opacity: 0;
+    -webkit-transform: translateX(20px);
+    transform: translateX(20px)
   }
 }
 
 @keyframes concealNavbarItem {
   from {
-    margin-right: 0
+    opacity: 1;
+    transform: translateX(0)
   }
 
   to {
-    margin-right: -200%
+    opacity: 0;
+    transform: translateX(20px)
   }
 }
 
 @-webkit-keyframes nextPage {
   from {
-    left: -100%
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    opacity: 0
   }
 
   to {
-    left: 0
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1
   }
 }
 
 @keyframes nextPage {
   from {
-    left: -100%
+    transform: translateX(-100%);
+    opacity: 0
   }
 
   to {
-    left: 0
+    transform: translateX(0);
+    opacity: 1
   }
 }
 
 @-webkit-keyframes activePage {
   from {
-    left: 0
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    opacity: 1
   }
 
   to {
-    left: 100%
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+    opacity: 0
   }
 }
 
 @keyframes activePage {
   from {
-    left: 0
+    transform: translateX(0);
+    opacity: 1
   }
 
   to {
-    left: 100%
+    transform: translateX(100%);
+    opacity: 0
   }
 }
 
 @-webkit-keyframes showEmergency {
   from {
-    width: 0;
-    padding: 0
+    opacity: 0;
+    -webkit-transform: translateX(-12px);
+    transform: translateX(-12px)
   }
 
   to {
-    width: 400px;
-    padding: 10px 15px;
-    border-right: 2px solid #f85757
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0)
   }
 }
 
 @keyframes showEmergency {
   from {
-    width: 0;
-    padding: 0
+    opacity: 0;
+    transform: translateX(-12px)
   }
 
   to {
-    width: 400px;
-    padding: 10px 15px;
-    border-right: 2px solid #f85757
+    opacity: 1;
+    transform: translateX(0)
   }
 }
 
 @-webkit-keyframes hideEmergency {
   from {
-    width: 400px;
-    padding: 10px 15px;
-    border-right: 2px solid #f85757
+    opacity: 1;
+    -webkit-transform: translateX(0);
+    transform: translateX(0)
   }
 
   to {
-    width: 0;
-    padding: 0;
-    border-right: none
+    opacity: 0;
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px)
   }
 }
 
 @keyframes hideEmergency {
   from {
-    width: 400px;
-    padding: 10px 15px;
-    border-right: 2px solid #f85757
+    opacity: 1;
+    transform: translateX(0)
   }
 
   to {
-    width: 0;
-    padding: 0;
-    border-right: none
+    opacity: 0;
+    transform: translateX(-8px)
   }
 }
 
@@ -1418,53 +1463,70 @@ a:hover {
 
 /* ===== PAGE HERO (shared component) ===== */
 .page-hero {
-  background: linear-gradient(135deg, #005f72, #00a99a);
-  border-radius: 16px;
-  padding: 36px 40px 28px;
-  margin-bottom: 20px;
+  background: linear-gradient(140deg, #004e62 0%, #006e68 50%, #00917f 100%);
+  border-radius: 20px;
+  padding: 40px 44px 32px;
+  margin-bottom: 24px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0, 95, 114, .22);
+  box-shadow: 0 4px 12px rgba(0,78,98,.25), 0 12px 40px rgba(0,78,98,.2);
 }
 
+/* Dot grid overlay */
 .page-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(rgba(255, 255, 255, .06) 1.5px, transparent 1.5px);
+  background: radial-gradient(rgba(255, 255, 255, .07) 1.5px, transparent 1.5px);
   background-size: 20px 20px;
   pointer-events: none;
 }
 
+/* Radial glow top-right */
+.page-hero::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -40px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
 .page-hero__title {
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 700;
   color: #fff;
-  margin: 0 0 8px;
-  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+  letter-spacing: -0.02em;
   position: relative;
-  line-height: 1.2;
+  z-index: 1;
+  line-height: 1.15;
 }
 
 .page-hero__desc {
-  font-size: 14px;
-  color: rgba(255, 255, 255, .75);
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, .78);
   margin: 0;
   max-width: 560px;
-  line-height: 1.5;
+  line-height: 1.6;
   position: relative;
+  z-index: 1;
 }
 
-/* Fix content-section box-shadow typo in minified css */
 .content-section {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, .05), 0 4px 16px rgba(0, 0, 0, .05);
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.055);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 6px 28px rgba(0,0,0,.07);
+  padding: 28px;
 }
 
 /* ===== FOOTER (redesigned) ===== */
 .footer {
-  background: linear-gradient(135deg, var(--color-footer-bg) 0%, #01516e 100%);
-  border-top: 1px solid rgba(95, 214, 253, .15);
-  box-shadow: 0 -2px 16px rgba(1, 54, 80, .18);
+  background: linear-gradient(135deg, #012f48 0%, #01516e 60%, #006878 100%);
+  border-top: 1px solid rgba(95, 214, 253, .12);
+  box-shadow: 0 -4px 32px rgba(1, 40, 60, .25);
 }
 
 .footer-wrap {
@@ -1505,7 +1567,8 @@ a:hover {
 
 /* ===== DARK MODE — page-hero ===== */
 .dark .page-hero {
-  background: linear-gradient(135deg, #00404f, #00706a);
+  background: linear-gradient(140deg, #003244 0%, #004e48 50%, #006459 100%);
+  box-shadow: 0 4px 12px rgba(0,0,0,.4), 0 12px 40px rgba(0,0,0,.3);
 }
 
 @media (max-width: 700px) {
@@ -1516,5 +1579,34 @@ a:hover {
 
   .page-hero__title {
     font-size: 20px;
+  }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important
+  }
+}
+
+/* ===== SCROLL BUTTON — active feedback ===== */
+.scroll-btn:active {
+  transform: scale(0.93)
+}
+
+/* ===== HOVER: touch-only guard (Emil principle) ===== */
+@media (hover: none) {
+  .btn:hover {
+    background-color: #337ab7;
+    border-color: #2e6da4
+  }
+  .btn_grey:hover {
+    background-color: #626262;
+    border-color: #626262
   }
 }

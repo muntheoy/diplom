@@ -1,6 +1,6 @@
 /* ===== PAGE ===== */
 main {
-  background: var(--color-page-bg);
+  background: transparent;
   min-height: calc(100vh - 56px);
 }
 

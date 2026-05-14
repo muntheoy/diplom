@@ -3,7 +3,7 @@
    ============================================================ */
 
 main {
-	background: #f0f0f0;
+	background: transparent;
 	min-height: 100vh;
 }
 
@@ -45,37 +45,52 @@ main {
 
 .search-wrap {
 	position: relative;
-	background: linear-gradient(135deg, #005f72 0%, #00a99a 100%);
-	border-radius: 16px;
-	padding: 36px 40px 28px;
-	box-shadow: 0 4px 24px rgba(0, 95, 114, 0.22);
+	background: linear-gradient(140deg, #004e62 0%, #006e68 50%, #00917f 100%);
+	border-radius: 20px;
+	padding: 40px 44px 32px;
+	box-shadow: 0 4px 12px rgba(0,78,98,.25), 0 12px 40px rgba(0,78,98,.2);
 	overflow: hidden;
 }
 
+/* Dot grid overlay */
 .search-wrap::after {
 	content: '';
 	position: absolute;
 	inset: 0;
-	background-image: radial-gradient(rgba(255,255,255,.06) 1.5px, transparent 1.5px);
+	background-image: radial-gradient(rgba(255,255,255,.07) 1.5px, transparent 1.5px);
 	background-size: 20px 20px;
 	pointer-events: none;
 }
 
+/* Radial glow top-right */
+.search-wrap::before {
+	content: '';
+	position: absolute;
+	top: -60px;
+	right: -40px;
+	width: 320px;
+	height: 320px;
+	background: radial-gradient(circle, rgba(255,255,255,.08) 0%, transparent 70%);
+	pointer-events: none;
+	z-index: 0;
+}
+
 .search-hero__title {
 	color: #ffffff;
-	font-size: 32px;
+	font-size: 34px;
 	font-weight: 700;
-	line-height: 1.2;
-	margin: 0 0 8px;
+	line-height: 1.15;
+	margin: 0 0 10px;
 	position: relative;
 	z-index: 1;
+	letter-spacing: -0.02em;
 }
 
 .search-hero__subtitle {
-	color: rgba(255, 255, 255, 0.82);
-	font-size: 14px;
-	line-height: 1.5;
-	margin: 0 0 22px;
+	color: rgba(255, 255, 255, 0.78);
+	font-size: 14.5px;
+	line-height: 1.6;
+	margin: 0 0 24px;
 	position: relative;
 	z-index: 1;
 }
@@ -90,15 +105,17 @@ main {
 	display: flex;
 	align-items: center;
 	background: #ffffff;
-	border-radius: 10px;
-	padding: 6px 6px 6px 16px;
-	gap: 8px;
-	box-shadow: 0 2px 16px rgba(0,0,0,0.14);
-	transition: box-shadow 0.2s ease;
+	border-radius: 12px;
+	padding: 6px 6px 6px 18px;
+	gap: 10px;
+	box-shadow: 0 4px 20px rgba(0,0,0,.18), 0 1px 4px rgba(0,0,0,.1), inset 0 1px 0 rgba(255,255,255,.8);
+	transition: box-shadow 0.2s cubic-bezier(0.23,1,0.32,1);
+	position: relative;
+	z-index: 1;
 }
 
 .search-wrap .search-form__wrap:focus-within {
-	box-shadow: 0 2px 16px rgba(0,0,0,0.14), 0 0 0 2px rgba(0,113,117,0.20);
+	box-shadow: 0 4px 20px rgba(0,0,0,.18), 0 1px 4px rgba(0,0,0,.1), 0 0 0 3px rgba(255,255,255,.35);
 }
 
 .search-wrap .search-form__icon-left {
@@ -135,28 +152,30 @@ main {
 	display: flex;
 	align-items: center;
 	gap: 7px;
-	background: #005f72;
+	background: linear-gradient(135deg, #007a7e 0%, #009988 100%);
 	color: #ffffff;
 	border: none;
-	border-radius: 8px;
-	padding: 11px 20px;
+	border-radius: 10px;
+	padding: 12px 24px;
 	font-size: 14px;
-	font-weight: 600;
+	font-weight: 700;
 	font-family: inherit;
 	flex-shrink: 0;
 	cursor: pointer;
-	transition: background 0.15s, transform 0.15s ease, box-shadow 0.15s ease;
+	letter-spacing: 0.02em;
+	box-shadow: 0 2px 8px rgba(0,113,117,.3), inset 0 1px 0 rgba(255,255,255,.15);
+	transition: background 0.15s cubic-bezier(0.23,1,0.32,1), transform 0.15s cubic-bezier(0.23,1,0.32,1), box-shadow 0.15s cubic-bezier(0.23,1,0.32,1);
 }
 
 .search-wrap .search-form__submit:hover {
-	background: #004d5d;
+	background: linear-gradient(135deg, #00686b 0%, #007a70 100%);
 	transform: translateY(-1px);
-	box-shadow: 0 4px 12px rgba(0,95,114,0.35);
+	box-shadow: 0 4px 14px rgba(0,113,117,.4), inset 0 1px 0 rgba(255,255,255,.15);
 }
 
 .search-wrap .search-form__submit:active {
-	transform: translateY(0);
-	box-shadow: none;
+	transform: scale(0.97) translateY(0);
+	box-shadow: 0 1px 4px rgba(0,113,117,.2);
 }
 
 .search-wrap .field__message {
@@ -207,12 +226,12 @@ main {
 
 .card__container {
 	background: #ffffff;
-	border-radius: 12px;
-	padding: 20px;
-	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+	border-radius: 16px;
+	padding: 22px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.06);
 	margin-bottom: 12px;
 	position: relative;
-	border: 1px solid #eeeeee;
+	border: 1px solid rgba(0,0,0,.06);
 }
 
 .card__container:last-child {
@@ -388,9 +407,11 @@ main {
 
 /* Скелет-лоадер */
 .card_loading .card__photo-block {
-	background: #efefef;
 	border-radius: 8px;
 	min-height: 140px;
+	background: linear-gradient(90deg, #efefef 25%, #e3e3e3 37%, #efefef 63%);
+	background-size: 600px 100%;
+	animation: shimmer 1.4s ease-in-out infinite;
 }
 
 .card_loading .card__photo { opacity: 0; }
@@ -399,16 +420,22 @@ main {
 .card_loading .card__position,
 .card_loading .card__department,
 .card_loading .card__group {
-	color: #efefef;
-	background: #efefef;
+	color: transparent !important;
+	background: linear-gradient(90deg, #efefef 25%, #e3e3e3 37%, #efefef 63%);
+	background-size: 600px 100%;
+	animation: shimmer 1.4s ease-in-out infinite;
 	border-radius: 4px;
+	user-select: none;
 }
 
 .card_loading #worktime span,
 .card_loading #dinnertime span {
-	color: #efefef;
-	background: #efefef;
+	color: transparent !important;
+	background: linear-gradient(90deg, #efefef 25%, #e3e3e3 37%, #efefef 63%);
+	background-size: 600px 100%;
+	animation: shimmer 1.4s ease-in-out infinite;
 	border-radius: 4px;
+	user-select: none;
 }
 
 /* ============================================================
@@ -418,10 +445,10 @@ main {
 .result-wrap {
 	position: relative;
 	background: #ffffff;
-	border-radius: 12px;
-	padding: 20px 20px 16px;
-	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-	border: 1px solid #eeeeee;
+	border-radius: 16px;
+	padding: 22px 22px 18px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
+	border: 1px solid rgba(0,0,0,.06);
 	min-height: 300px;
 }
 
@@ -470,36 +497,42 @@ main {
 	column-gap: 12px;
 	row-gap: 8px;
 
-	padding: 12px;
-	border-radius: 12px;
-	border: 1px solid #e5e7eb;
+	padding: 14px;
+	border-radius: 14px;
+	border: 1px solid rgba(0,0,0,.07);
 	border-left: 3px solid transparent;
 	background: #ffffff;
+	box-shadow: 0 1px 3px rgba(0,0,0,.03);
 
-	transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+	transition: border-color 0.2s cubic-bezier(0.23,1,0.32,1),
+	            background 0.2s cubic-bezier(0.23,1,0.32,1),
+	            transform 0.2s cubic-bezier(0.23,1,0.32,1),
+	            box-shadow 0.2s cubic-bezier(0.23,1,0.32,1);
 	cursor: pointer;
 }
 
 /* hover */
 .result__person.person:hover {
-	background: #f6fbfb;
-	border-color: #007175;
+	background: #f4fffe;
+	border-color: rgba(0,113,117,.25);
+	border-left-color: #007175;
 	transform: translateY(-2px);
-	box-shadow: 0 4px 16px rgba(0,113,117,0.10);
+	box-shadow: 0 4px 14px rgba(0,113,117,.1), 0 8px 28px rgba(0,0,0,.05);
 }
 
 /* active */
 .result__person.person:active {
-	transform: translateY(0);
+	transform: translateY(0) scale(0.99);
 	box-shadow: none;
 	transition-duration: 0.08s;
 }
 
-/* active */
+/* selected */
 .person.active {
 	background: #eef8f8;
-	border-color: #007175;
+	border-color: rgba(0,113,117,.25);
 	border-left-color: #007175;
+	box-shadow: 0 2px 8px rgba(0,113,117,.08);
 }
 
 /* ===== ФОТО (КЛЮЧЕВОЕ) ===== */
@@ -684,7 +717,7 @@ main {
 	font-weight: 500;
 	font-family: inherit;
 	cursor: pointer;
-	transition: all 0.12s;
+	transition: background-color 0.15s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.15s cubic-bezier(0.23, 1, 0.32, 1), color 0.15s cubic-bezier(0.23, 1, 0.32, 1), transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .result__view-more .btn:hover {
@@ -693,14 +726,20 @@ main {
 	border-color: #b8e8e8;
 }
 
+.result__view-more .btn:active {
+	transform: scale(0.97);
+	transition-duration: 0.08s;
+}
+
 /* ============================================================
    ТЁМНАЯ ТЕМА
    ============================================================ */
 
-.dark main { background: #1a1a1a; }
+.dark main { background: transparent; }
 
 .dark .search-wrap {
-    background: var(--color-header-bg-dark);
+	background: linear-gradient(140deg, #003244 0%, #004e48 50%, #006459 100%);
+	box-shadow: 0 4px 12px rgba(0,0,0,.4), 0 12px 40px rgba(0,0,0,.3);
 }
 
 .dark .search-wrap .overlay {
@@ -722,9 +761,9 @@ main {
 .dark .search-form__submit:hover { background: #004d5d; }
 
 .dark .card__container {
-	background: #252525;
-	border-color: #333;
-	box-shadow: none;
+	background: #161b22;
+	border-color: rgba(255,255,255,.07);
+	box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
 .dark .card .overlay { background: rgba(30,30,30,0.88); }
@@ -751,18 +790,32 @@ main {
 .dark .card__dept-link { color: #3dc9bf; }
 .dark .card__dept-link:hover { color: #5dddd4; }
 
-.dark .card_loading .card__photo-block { background: #333; }
+.dark .card_loading .card__photo-block {
+	background: linear-gradient(90deg, #2e2e2e 25%, #383838 37%, #2e2e2e 63%);
+	background-size: 600px 100%;
+	animation: shimmer 1.4s ease-in-out infinite;
+}
 .dark .card_loading .card__fullname,
 .dark .card_loading .card__position,
 .dark .card_loading .card__department,
-.dark .card_loading .card__group { color: #333; background: #333; }
+.dark .card_loading .card__group {
+	color: transparent !important;
+	background: linear-gradient(90deg, #2e2e2e 25%, #383838 37%, #2e2e2e 63%);
+	background-size: 600px 100%;
+	animation: shimmer 1.4s ease-in-out infinite;
+}
 .dark .card_loading #worktime span,
-.dark .card_loading #dinnertime span { color: #333; background: #333; }
+.dark .card_loading #dinnertime span {
+	color: transparent !important;
+	background: linear-gradient(90deg, #2e2e2e 25%, #383838 37%, #2e2e2e 63%);
+	background-size: 600px 100%;
+	animation: shimmer 1.4s ease-in-out infinite;
+}
 
 .dark .result-wrap {
-	background: #252525;
-	border-color: #333;
-	box-shadow: none;
+	background: #161b22;
+	border-color: rgba(255,255,255,.07);
+	box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
 .dark .result-wrap .overlay { background: rgba(30,30,30,0.88); }
@@ -772,14 +825,16 @@ main {
 .dark .counter__showed { color: #888; }
 
 .dark .result__person.person {
-	border-color: #2e2e2e;
-	background: #1e1e1e;
+	border-color: rgba(255,255,255,.06);
+	background: #0d1117;
+	box-shadow: 0 1px 3px rgba(0,0,0,.2);
 }
 
 .dark .result__person.person:hover {
-	border-color: #007175;
-	background: #1a2e2d;
-	box-shadow: 0 4px 16px rgba(0,113,117,0.22);
+	border-color: rgba(77,212,200,.2);
+	border-left-color: #4dd4c8;
+	background: #0f1e1d;
+	box-shadow: 0 4px 14px rgba(77,212,200,.1), 0 8px 28px rgba(0,0,0,.2);
 }
 
 .dark .person.person_active,
@@ -798,8 +853,8 @@ main {
 }
 
 .dark .person__phone { color: #3dc9bf; }
-.dark .person__email { color: #3a3f45; }
-.dark .person__email a { color: #3a3f45; }
+.dark .person__email { color: #6b7280; }
+.dark .person__email a { color: #6b7280; }
 .dark .person__email a:hover { color: #4dd4c8; }
 
 .dark .person__photo { background: #1a3530; }
@@ -859,4 +914,48 @@ main {
 	.search-hero__title { font-size: 20px; }
 	.search-hero__subtitle { display: none; }
 	.person__contacts-block { display: none; }
+}
+
+/* ============================================================
+   STAGGER ENTRANCE — result cards
+   Keep delays short (40ms each). Never block interaction.
+   ============================================================ */
+
+@keyframes cardEnter {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.result__out .result__person {
+	animation: cardEnter 0.25s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.result__out .result__person:nth-child(1)  { animation-delay: 0ms   }
+.result__out .result__person:nth-child(2)  { animation-delay: 40ms  }
+.result__out .result__person:nth-child(3)  { animation-delay: 80ms  }
+.result__out .result__person:nth-child(4)  { animation-delay: 120ms }
+.result__out .result__person:nth-child(5)  { animation-delay: 160ms }
+.result__out .result__person:nth-child(6)  { animation-delay: 200ms }
+.result__out .result__person:nth-child(7)  { animation-delay: 240ms }
+.result__out .result__person:nth-child(8)  { animation-delay: 280ms }
+.result__out .result__person:nth-child(n+9) { animation-delay: 300ms }
+
+/* ============================================================
+   REDUCED MOTION — search page
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+	.result__out .result__person {
+		animation: none;
+	}
+	.result__person.person,
+	.search-wrap .search-form__submit,
+	.search-wrap .search-form__wrap {
+		transition: none;
+	}
 }

@@ -1,6 +1,6 @@
 /* ===== PAGE ===== */
 main {
-  background: #f0f0f0;
+  background: transparent;
   min-height: calc(100vh - 56px);
 }
 
@@ -27,15 +27,15 @@ main {
 
 /* ===== SECTION LABELS ===== */
 .help-section-label {
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 700;
   color: #9ca3af;
-  margin: 28px 0 10px;
+  margin: 32px 0 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .help-section-label:first-child { margin-top: 0; }
@@ -44,7 +44,7 @@ main {
   content: '';
   flex: 1;
   height: 1px;
-  background: #e8eaed;
+  background: linear-gradient(90deg, #e0e4ea, transparent);
 }
 
 /* ===== CARDS GRID ===== */
@@ -59,40 +59,70 @@ main {
 /* ===== INDIVIDUAL HELP CARD ===== */
 .help-card {
   background: #fff;
-  border: 1px solid #e8eaed;
-  border-radius: 12px;
-  padding: 18px;
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 16px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
   position: relative;
+  overflow: hidden;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.04);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.05);
+  transition: border-color 0.2s cubic-bezier(0.23,1,0.32,1),
+              box-shadow 0.2s cubic-bezier(0.23,1,0.32,1),
+              transform 0.2s cubic-bezier(0.23,1,0.32,1),
+              background 0.2s cubic-bezier(0.23,1,0.32,1);
+}
+
+/* Left accent bar — hidden until hover */
+.help-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #007175 0%, #00a99a 100%);
+  border-radius: 3px 0 0 3px;
+  opacity: 0;
+  transform: scaleY(0.6);
+  transition: opacity 0.2s cubic-bezier(0.23,1,0.32,1), transform 0.2s cubic-bezier(0.23,1,0.32,1);
+}
+
+.help-card:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
 }
 
 .help-card:hover {
-  border-color: #007175;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,113,117,.10);
+  border-color: rgba(0,113,117,.22);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.06), 0 10px 36px rgba(0,113,117,.12);
+  background: #fafffe;
 }
 
-/* Icon box */
+.help-card:active {
+  transform: translateY(-1px);
+  transition-duration: 0.08s;
+}
+
+/* Icon box — gradient background with depth */
 .help-card .navlinks__icon,
 .help-card__icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: #f0fafa;
-  border: 1px solid #b8e8e8;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: linear-gradient(145deg, #e8f8f7 0%, #d4f0ef 100%);
+  border: 1px solid rgba(0,113,117,.14);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #007175;
-  font-size: 16px;
+  font-size: 18px;
   flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0,113,117,.1), inset 0 1px 0 rgba(255,255,255,.7);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s cubic-bezier(0.23,1,0.32,1);
 }
 
 /* Make fa icons fit */
@@ -100,26 +130,34 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
+}
+
+.help-card:hover .navlinks__icon,
+.help-card:hover .help-card__icon {
+  background: linear-gradient(145deg, #d4f0ef 0%, #bde8e7 100%);
+  box-shadow: 0 2px 8px rgba(0,113,117,.18), inset 0 1px 0 rgba(255,255,255,.7);
+  transform: scale(1.06);
 }
 
 /* Title */
 .navlinks__title,
 .help-card__title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #252525;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #1a1a2e;
   margin: 0;
-  line-height: 1.3;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 /* Description */
 .navlinks__text,
 .help-card__desc {
-  font-size: 12px;
-  color: #9ca3af;
-  line-height: 1.5;
+  font-size: 12.5px;
+  color: #7a8394;
+  line-height: 1.6;
   margin: 0;
   flex: 1;
 }
@@ -127,13 +165,14 @@ main {
 /* Arrow indicator */
 .help-card__arrow {
   font-size: 0;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   margin-top: auto;
-  color: #007175;
+  color: rgba(0,113,117,.5);
+  transition: color 0.2s, transform 0.2s cubic-bezier(0.23,1,0.32,1);
 }
 
 .help-card__arrow::before {
@@ -151,8 +190,8 @@ main {
 }
 
 .help-card:hover .help-card__arrow {
-  transform: translateX(3px);
-  transition: transform 0.15s ease;
+  color: #007175;
+  transform: translateX(4px);
 }
 
 /* ===== SIDEBAR ===== */
@@ -166,38 +205,40 @@ main {
 
 .help-side-card {
   background: #fff;
-  border: 1px solid #e8eaed;
-  border-radius: 12px;
-  padding: 18px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 1px 8px rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 20px rgba(0,0,0,.05);
 }
 
 .help-side-card__head {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .help-side-card__icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: #f0fafa;
-  border: 1px solid #b8e8e8;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #e8f8f7 0%, #d4f0ef 100%);
+  border: 1px solid rgba(0,113,117,.14);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #007175;
-  font-size: 14px;
+  font-size: 15px;
   flex-shrink: 0;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
 }
 
 .help-side-card__title {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 700;
-  color: #252525;
+  color: #1a1a2e;
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
 /* ===== FAQ ===== */
@@ -299,48 +340,63 @@ main {
 }
 
 /* ===== DARK MODE ===== */
-.dark main { background: #1a1a1a; }
+.dark main { background: transparent; }
 
 .dark .help-card,
 .dark .help-side-card {
-  background: #252525;
-  border-color: #333;
-  box-shadow: none;
+  background: #161b22;
+  border-color: rgba(255,255,255,.07);
+  box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 4px 20px rgba(0,0,0,.2);
 }
 
 .dark .help-card:hover {
-  border-color: #4dd4c8;
-  box-shadow: 0 6px 18px rgba(0,0,0,.3);
+  border-color: rgba(77,212,200,.22);
+  box-shadow: 0 4px 12px rgba(0,0,0,.2), 0 10px 36px rgba(77,212,200,.1);
+  background: #1a2228;
+}
+
+.dark .help-card::before {
+  background: linear-gradient(180deg, #4dd4c8 0%, #00a99a 100%);
 }
 
 .dark .navlinks__title,
 .dark .help-card__title,
 .dark .help-side-card__title,
-.dark .faq-q { color: #e6e6e6; }
+.dark .faq-q { color: #e2e8f0; }
 
 .dark .navlinks__text,
-.dark .help-card__desc { color: #9ca3af; }
+.dark .help-card__desc { color: #8892a4; }
 
 .dark .faq-a,
-.dark .it-row__lbl { color: #666; }
+.dark .it-row__lbl { color: #4a5568; }
 
 .dark .navlinks__icon,
 .dark .help-card__icon,
 .dark .help-side-card__icon,
 .dark .it-row__icon {
-  background: #1a3530;
-  border-color: #2a5048;
+  background: linear-gradient(145deg, #0d2421, #152e2b);
+  border-color: rgba(77,212,200,.15);
   color: #4dd4c8;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
 }
 
-.dark .faq-item { border-color: #333; }
+.dark .help-card:hover .navlinks__icon,
+.dark .help-card:hover .help-card__icon {
+  background: linear-gradient(145deg, #152e2b, #1a3e3a);
+}
+
+.dark .faq-item { border-color: rgba(255,255,255,.06); }
 .dark .faq-item.faq-item--open .faq-q__chev { color: #4dd4c8; }
+.dark .faq-q:hover { color: #4dd4c8; }
 
-.dark .it-row { border-color: #333; }
-.dark .it-row__val { color: #ccc; }
+.dark .it-row { border-color: rgba(255,255,255,.06); }
+.dark .it-row__val { color: #c8d0da; }
 
-.dark .help-section-label { color: #6b7280; }
-.dark .help-section-label::after { background: #2e2e2e; }
+.dark .help-section-label { color: #4a5568; }
+.dark .help-section-label::after { background: linear-gradient(90deg, rgba(255,255,255,.06), transparent); }
+
+.dark .help-card__arrow { color: rgba(77,212,200,.4); }
+.dark .help-card:hover .help-card__arrow { color: #4dd4c8; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1100px) {
