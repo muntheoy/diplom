@@ -127,6 +127,7 @@ main {
   font-family: inherit;
   flex-shrink: 0;
   cursor: pointer;
+  touch-action: manipulation;
   transition: background 0.15s, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -593,7 +594,7 @@ main {
 }
 
 .dept-stat-card__label {
-  font-size: 9px;
+  font-size: 10px;
   color: rgba(255, 255, 255, .80);
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -814,7 +815,7 @@ main {
 }
 
 .card__email {
-  font-size: 11px;
+  font-size: 12px;
   color: #9ca3af;
   white-space: nowrap;
   overflow: hidden;
@@ -909,31 +910,44 @@ main {
 }
 
 .popup__close {
-  border: none;
-  background: none;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
   position: absolute;
-  top: 6px;
-  right: 6px;
-  color: #555;
-  padding: 6px 8px;
-  font-size: 15px;
+  top: 10px;
+  right: 10px;
+  color: #9ca3af;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  font-size: 12px;
   cursor: pointer;
   z-index: 1;
-  border-radius: 6px;
-  transition: background 0.12s;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .15s cubic-bezier(0.23,1,0.32,1),
+              color .15s cubic-bezier(0.23,1,0.32,1),
+              border-color .15s cubic-bezier(0.23,1,0.32,1);
 }
 
 .popup__close:hover {
-  background: #f0f0f0;
+  background: #f0f2f5;
+  color: #374151;
+  border-color: #d1d5db;
+}
+
+.popup__close:active {
+  transform: scale(0.95);
 }
 
 .popup__container {
-  padding: 22px;
+  padding: 22px 24px;
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 16px;
   margin-bottom: 10px;
-  border: 1px solid #e8eaed;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
+  border: 1px solid rgba(0,0,0,.07);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
 }
 
 .popup__container:last-child {
@@ -955,9 +969,11 @@ main {
   width: 140px;
   height: 210px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 12px;
   display: block;
-  background: repeating-linear-gradient(45deg, #f0fafa 0 10px, #e2f4f4 10px 20px);
+  background: linear-gradient(145deg, #e8f8f7, #d4f0ef);
+  border: 1px solid rgba(0,113,117,.12);
+  box-shadow: 0 2px 8px rgba(0,113,117,.1);
 }
 
 .popup__name-block {
@@ -1016,10 +1032,10 @@ main {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 8px;
   font-weight: 500;
   font-size: 14px;
-  color: #252525;
+  color: #1a1a2e;
 }
 
 .popup__contacts:first-child {
@@ -1027,14 +1043,23 @@ main {
 }
 
 .popup__contacts i {
-  width: 22px;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: linear-gradient(145deg, #e8f8f7, #d4f0ef);
+  border: 1px solid rgba(0,113,117,.14);
+  border-radius: 8px;
+  font-size: 13px;
+  color: #007175;
   text-align: center;
-  font-size: 16px;
-  color: #9ca3af;
+  transition: background .15s, transform .15s;
 }
 
 .popup #popup_mobile i {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .popup__meta-content {
@@ -1057,7 +1082,7 @@ main {
 
 .dark .sidebar-col__label,
 .dark .section-label__title {
-  color: #555;
+  color: #4a5568;
 }
 
 .dark .sidebar {
@@ -1092,8 +1117,8 @@ main {
 }
 
 .dark .deplink__count {
-  background: #2a2a2a;
-  color: #666;
+  background: rgba(255,255,255,.07);
+  color: rgba(255,255,255,.32);
 }
 
 .dark .deplink_active .deplink__count {
@@ -1173,8 +1198,9 @@ main {
 }
 
 .dark .popup__container {
-  background-color: #252525;
-  border-color: #383838;
+  background-color: #161b22;
+  border-color: rgba(255,255,255,.07);
+  box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 4px 24px rgba(0,0,0,.2);
 }
 
 /* Dark mode sidebar scrollbar */
@@ -1188,21 +1214,40 @@ main {
 
 .dark .popup__fullname,
 .dark .popup__department {
-  color: #e6e6e6;
+  color: #e2e8f0;
 }
 
 .dark .popup__position,
-.dark .popup__group,
+.dark .popup__group {
+  color: #8892a4;
+}
+
 .dark .popup__contacts {
-  color: #aaa;
+  color: #c8d0da;
+}
+
+.dark .popup__contacts i {
+  background: linear-gradient(145deg, #0d2421, #152e2b);
+  border-color: rgba(77,212,200,.15);
+  color: #4dd4c8;
 }
 
 .dark .popup__close {
-  color: #ccc;
+  background: #0d1117;
+  border-color: rgba(255,255,255,.1);
+  color: #6b7280;
 }
 
 .dark .popup__close:hover {
-  background: #333;
+  background: #161b22;
+  border-color: rgba(255,255,255,.16);
+  color: #c8d0da;
+}
+
+.dark .popup__photo {
+  background: linear-gradient(145deg, #0d2421, #152e2b);
+  border-color: rgba(77,212,200,.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,.2);
 }
 
 /* ===== DP (Detail Panel) — DARK MODE ===== */
@@ -1348,7 +1393,9 @@ main {
   .card,
   .deplink,
   .dp-close,
+  .popup__close,
   .dept-hero .search-form__btn_submit {
     transition: none;
   }
+  .popup__close:active { transform: none; }
 }

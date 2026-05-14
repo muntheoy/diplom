@@ -10,14 +10,15 @@ main {
 
 .content-wrap {
   width: 100%;
-  min-height: calc(100vh - 115px);
+  min-height: calc(100vh - 120px);
   position: relative;
-  padding: 20px;
+  padding: 32px 36px;
   background: #fff;
-  border: 1px solid #e8eaed;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
   font-family: inherit;
+  margin-bottom: 32px;
 }
 
 /* ===== TITLES ===== */
@@ -25,8 +26,15 @@ main {
 
 .information__subtitle {
   max-width: 800px;
-  text-align: center;
+  text-align: left;
   margin: 0 auto var(--space-9);
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: -0.01em;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0,113,117,.15);
+  margin-top: 28px;
 }
 
 .information__description {
@@ -35,32 +43,56 @@ main {
   margin: 0 auto var(--space-13);
 }
 
+/* ===== INTRO PARAGRAPH ===== */
+.content-section > p:first-of-type {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.7;
+  background: linear-gradient(145deg, #f0fafa, #e8f8f7);
+  border: 1px solid rgba(0,113,117,.15);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
 /* ===== LISTS ===== */
 .list {
   max-width: 800px;
-  margin: 0 auto var(--space-13);
+  margin: 0 auto 20px;
   list-style: none;
   padding: 0;
+  background: #fafbfc;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .list li {
-  margin-bottom: var(--space-9);
-  text-align: justify;
-  line-height: 1.6;
-  color: var(--color-text);
-  padding-left: var(--space-12);
+  padding: 12px 20px 12px 48px;
+  text-align: left;
+  line-height: 1.65;
+  color: #374151;
+  font-size: 13.5px;
   position: relative;
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  transition: background .15s;
 }
+
+.list li:last-child { border-bottom: none; }
+
+.list li:hover { background: #f0fafa; }
 
 .list li::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 9px;
-  width: 6px;
-  height: 6px;
-  border-radius: var(--radius-round);
-  background: #007175;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #007175 0%, #00a99a 100%);
+  box-shadow: 0 1px 3px rgba(0,113,117,.3);
 }
 
 /* ===== PARAGRAPHS ===== */
@@ -68,21 +100,49 @@ p {
   max-width: 800px;
   margin: 0 auto var(--space-12);
   text-align: justify;
-  line-height: 1.6;
+  line-height: 1.7;
+  color: #374151;
+  font-size: 14px;
 }
 
 /* ===== DARK MODE ===== */
-.dark main { background: #1a1a1a; }
+.dark main { background: transparent; }
 
 .dark .content-wrap {
-  background: #252525;
-  border-color: #333;
-  box-shadow: none;
+  background: #161b22;
+  border-color: rgba(255,255,255,.07);
+  box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 4px 24px rgba(0,0,0,.2);
 }
 
-.dark p, .dark .list li { color: #dedede; }
+.dark .information__subtitle {
+  color: #c8d0da;
+  border-top-color: rgba(77,212,200,.15);
+}
 
-.dark .list li::before { background: #4dd4c8; }
+.dark .content-section > p:first-of-type {
+  background: linear-gradient(145deg, #0d2421, #111d1c);
+  border-color: rgba(77,212,200,.12);
+  color: #8892a4;
+}
+
+.dark .list {
+  background: #0d1117;
+  border-color: rgba(255,255,255,.06);
+}
+
+.dark .list li {
+  color: #c8d0da;
+  border-bottom-color: rgba(255,255,255,.05);
+}
+
+.dark .list li:hover { background: rgba(77,212,200,.04); }
+
+.dark .list li::before {
+  background: linear-gradient(135deg, #4dd4c8 0%, #00a99a 100%);
+  box-shadow: 0 1px 3px rgba(77,212,200,.2);
+}
+
+.dark p { color: #8892a4; }
 
 /* ===== RESPONSIVE ===== */
 @media all and (min-width: 2100px) {
@@ -104,6 +164,7 @@ p {
 }
 
 @media all and (max-width: 800px) {
+  .content-wrap { padding: 24px 20px; }
   .information__title { text-align: center; }
   .information__subtitle { max-width: 600px; }
   .information__description { max-width: 600px; text-align: center; }
@@ -112,8 +173,13 @@ p {
 }
 
 @media all and (max-width: 700px) {
+  .content-wrap { padding: 20px 16px; }
   .information__title { font-size: 18px; }
   .information__subtitle { max-width: 550px; font-size: 16px; }
   .information__description { max-width: 550px; font-size: var(--font-size-label); }
   .list, p { font-size: 13px; max-width: 550px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list li { transition: none; }
 }

@@ -407,5 +407,110 @@
 		console.error('Не удалось установить тему:', error);
 	};
 </script>
+<script>
+(function () {
+  'use strict';
+  function initCSelect(id) {
+    var native = document.getElementById(id);
+    if (!native) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'csel';
+    native.parentNode.insertBefore(wrap, native);
+    var trigger = document.createElement('div');
+    trigger.className = 'csel__trigger';
+    trigger.setAttribute('tabindex', '0');
+    trigger.setAttribute('role', 'combobox');
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+    var txt = document.createElement('span');
+    txt.className = 'csel__txt';
+    var chev = document.createElement('span');
+    chev.className = 'csel__chev';
+    chev.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>';
+    trigger.appendChild(txt);
+    trigger.appendChild(chev);
+    wrap.appendChild(trigger);
+    var list = document.createElement('div');
+    list.className = 'csel__list';
+    list.setAttribute('role', 'listbox');
+    wrap.appendChild(list);
+    wrap.appendChild(native);
+    var label = document.querySelector('label[for="' + id + '"]');
+    if (label) {
+      label.addEventListener('click', function (e) {
+        e.preventDefault();
+        open();
+        trigger.focus();
+      });
+    }
+    function getLabel() {
+      var o = native.options[native.selectedIndex];
+      return o ? o.text : '—';
+    }
+    function sync() {
+      var isPH = native.selectedIndex === 0 && native.value === '0';
+      txt.textContent = getLabel();
+      txt.classList.toggle('csel__txt--ph', isPH);
+      wrap.classList.toggle('csel--error', native.classList.contains('input_error'));
+      wrap.classList.toggle('csel--disabled', !!native.disabled);
+    }
+    function buildList() {
+      list.innerHTML = '';
+      Array.from(native.options).forEach(function (opt, i) {
+        var item = document.createElement('div');
+        item.className = 'csel__item';
+        if (i === native.selectedIndex) item.className += ' csel__item--sel';
+        if (opt.value === '0') item.className += ' csel__item--ph';
+        item.textContent = opt.text;
+        item.setAttribute('role', 'option');
+        item.setAttribute('aria-selected', String(i === native.selectedIndex));
+        item.addEventListener('mousedown', function (e) {
+          e.preventDefault();
+          native.selectedIndex = i;
+          native.dispatchEvent(new Event('change'));
+          close();
+        });
+        list.appendChild(item);
+      });
+    }
+    function open() {
+      if (native.disabled) return;
+      document.querySelectorAll('.csel.open').forEach(function (el) {
+        if (el !== wrap) el.classList.remove('open');
+      });
+      buildList();
+      wrap.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+    function close() {
+      wrap.classList.remove('open');
+      trigger.setAttribute('aria-expanded', 'false');
+      sync();
+    }
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      wrap.classList.contains('open') ? close() : open();
+    });
+    trigger.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        wrap.classList.contains('open') ? close() : open();
+      }
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowDown') { e.preventDefault(); if (!wrap.classList.contains('open')) open(); }
+    });
+    document.addEventListener('click', function () { close(); });
+    native.addEventListener('change', function () { sync(); });
+    var obs = new MutationObserver(function () { sync(); });
+    obs.observe(native, { attributes: true, attributeFilter: ['class', 'disabled'] });
+    sync();
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    initCSelect('add_department');
+    initCSelect('add_group');
+    initCSelect('delete_department');
+  });
+}());
+</script>
 </body>
 </html>
