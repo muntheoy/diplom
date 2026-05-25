@@ -4,19 +4,20 @@ main {
   min-height: calc(100vh - 56px);
 }
 
+body { overflow-y: visible; }
+
 .page-hero {
   margin-top: var(--space-11);
 }
 
 .content-wrap {
   width: 100%;
-  min-height: calc(100vh - 120px);
   position: relative;
   padding: 32px 36px;
   background: #fff;
   border: 1px solid rgba(0,0,0,.07);
   border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.9);
   font-family: inherit;
   margin-bottom: 32px;
 }
@@ -68,7 +69,7 @@ main {
   border: 1px solid rgba(0,0,0,.07);
   border-radius: 16px;
   padding: 24px 18px 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,.85);
   transition: border-color .2s cubic-bezier(0.23,1,0.32,1),
               box-shadow .2s cubic-bezier(0.23,1,0.32,1),
               transform .2s cubic-bezier(0.23,1,0.32,1);
@@ -167,14 +168,15 @@ main {
 .card__phone {
   font-size: 13px;
   text-align: center;
-  color: #374151;
+  color: #007175;
   font-weight: 700;
   font-family: 'Courier New', monospace;
-  background: #f0fafa;
-  border: 1px solid rgba(0,113,117,.12);
+  background: linear-gradient(135deg, #e4f8f6 0%, #d0f0eb 100%);
+  border: 1px solid rgba(0,113,117,.18);
   border-radius: 6px;
   padding: 3px 10px;
   margin-top: 2px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
 }
 
 /* ===== DARK MODE ===== */
@@ -228,9 +230,31 @@ main {
   border-color: rgba(77,212,200,.12);
 }
 
+/* ===== STAGGER ENTRANCE — service desk cards ===== */
+@keyframes deskCardIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.service-desk__card.card {
+  animation: deskCardIn 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.service-desk__card-box .service-desk__card:nth-child(1)   { animation-delay: 0ms }
+.service-desk__card-box .service-desk__card:nth-child(2)   { animation-delay: 55ms }
+.service-desk__card-box .service-desk__card:nth-child(3)   { animation-delay: 110ms }
+.service-desk__card-box .service-desk__card:nth-child(4)   { animation-delay: 165ms }
+.service-desk__card-box .service-desk__card:nth-child(5)   { animation-delay: 220ms }
+.service-desk__card-box .service-desk__card:nth-child(6)   { animation-delay: 275ms }
+.service-desk__card-box .service-desk__card:nth-child(n+7) { animation-delay: 300ms }
+
+@media (prefers-reduced-motion: reduce) {
+  .service-desk__card.card { animation: none !important; }
+}
+
 /* ===== RESPONSIVE ===== */
 @media all and (min-width: 2100px) {
-  .content-wrap { min-height: calc(100vh - 180px); padding: var(--space-13); }
+  .content-wrap { padding: var(--space-13); }
   .service-desk { max-width: 1200px; }
   .service-desk__description { max-width: 800px; margin: 0 auto var(--space-15); }
   .service-desk__card-box { gap: 24px; }

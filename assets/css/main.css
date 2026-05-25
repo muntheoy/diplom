@@ -89,6 +89,8 @@ html {
 body {
   overflow-y: hidden;
   background-color: #f0f0f2;
+  background-image: radial-gradient(rgba(0,0,0,.045) 1px, transparent 1px);
+  background-size: 28px 28px;
   min-height: 100%;
   font-family: Montserrat, "Open sans", sans-serif;
   padding: 0;
@@ -328,8 +330,8 @@ button {
   border-radius: 3px;
   border: 1px solid #e5e5e5;
   padding: 6px 15px 6px 15px;
-  -webkit-transition: 0.2s ease-in-out;
-  transition: 0.2s ease-in-out
+  -webkit-transition: 0.18s cubic-bezier(0.23,1,0.32,1);
+  transition: 0.18s cubic-bezier(0.23,1,0.32,1)
 }
 
 button:hover,
@@ -352,8 +354,9 @@ button {
   width: max-content;
   padding: 5px 15px 7px 15px;
   border-radius: 5px;
-  background-color: #337ab7;
-  border: 1px solid #2e6da4;
+  background: linear-gradient(135deg, #006f73 0%, #008f81 100%);
+  border: 1px solid #005860;
+  box-shadow: 0 1px 4px rgba(0,113,117,.2), inset 0 1px 0 rgba(255,255,255,.15);
   font-family: Montserrat, 'Open sans', Sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -365,9 +368,10 @@ button {
 
 .btn:hover,
 .btn:focus {
-  background-color: #286090;
+  background: linear-gradient(135deg, #005c60 0%, #007a70 100%);
   color: #ffffff;
-  border: 1px solid #204d74;
+  border: 1px solid #00484b;
+  box-shadow: 0 3px 10px rgba(0,113,117,.3), inset 0 1px 0 rgba(255,255,255,.15);
   cursor: pointer
 }
 
@@ -494,6 +498,8 @@ a:hover {
 
 .dark {
   background-color: #0f1418;
+  background-image: radial-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 .dark input[type="text"],
@@ -504,8 +510,7 @@ a:hover {
 .dark input[type="date"],
 .dark input[type="radio"],
 .dark input[type="checkbox"],
-.dark select,
-.dark textarea {
+.dark select {
   background-color: #333333;
   color: #ffffff;
   border: 1px solid #e5e5e5
@@ -530,8 +535,8 @@ a:hover {
 }
 
 .dark .content-section {
-  background-color: #252525;
-  border: 1px solid #383838;
+  background-color: #161b22;
+  border: 1px solid rgba(255,255,255,.07);
   -webkit-box-shadow: none;
   box-shadow: none;
   color: #dedede
@@ -587,9 +592,15 @@ a:hover {
 
 /* Scroll-to-top button */
 .dark .scroll-btn {
-  background-color: rgba(130, 130, 130, 0.25);
-  border: 3px solid rgba(215, 215, 215, 0.5);
-  color: rgba(215, 215, 215, 0.5);
+  background-color: rgba(77, 212, 200, 0.08);
+  border: 3px solid rgba(77, 212, 200, 0.3);
+  color: rgba(77, 212, 200, 0.55);
+}
+
+.dark .scroll-btn:hover {
+  background-color: rgba(77, 212, 200, 0.15);
+  border-color: rgba(77, 212, 200, 0.5);
+  color: #4dd4c8;
 }
 
 /* Theme toggle button */
@@ -1079,19 +1090,19 @@ a:hover {
   position: fixed;
   bottom: 45px;
   right: 30px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border: 3px solid rgba(0, 0, 0, 0.5);
-  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 113, 117, 0.08);
+  border: 3px solid rgba(0, 113, 117, 0.35);
+  color: rgba(0, 113, 117, 0.6);
   border-radius: 50%;
   font-size: 16px;
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out
+  -webkit-transition: 0.25s cubic-bezier(0.23,1,0.32,1);
+  transition: 0.25s cubic-bezier(0.23,1,0.32,1)
 }
 
 .scroll-btn:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 3px solid rgba(0, 0, 0, 0.65);
-  color: rgba(0, 0, 0, 0.65);
+  background-color: rgba(0, 113, 117, 0.15);
+  border: 3px solid rgba(0, 113, 117, 0.55);
+  color: #007175;
   cursor: pointer
 }
 
@@ -1121,9 +1132,9 @@ a:hover {
 }
 
 .dark .scroll-btn {
-  background-color: rgba(130, 130, 130, 0.25);
-  border: 3px solid rgba(215, 215, 215, 0.5);
-  color: rgba(215, 215, 215, 0.5)
+  background-color: rgba(77, 212, 200, 0.08);
+  border: 3px solid rgba(77, 212, 200, 0.3);
+  color: rgba(77, 212, 200, 0.55)
 }
 
 .dark #toggle_theme i:last-child {
@@ -1469,7 +1480,8 @@ a:hover {
   margin-bottom: 24px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,78,98,.25), 0 12px 40px rgba(0,78,98,.2);
+  box-shadow: 0 4px 12px rgba(0,78,98,.25), 0 16px 48px rgba(0,78,98,.22), inset 0 1px 0 rgba(255,255,255,.1);
+  isolation: isolate;
 }
 
 /* Dot grid overlay */
@@ -1499,7 +1511,7 @@ a:hover {
   font-weight: 700;
   color: #fff;
   margin: 0 0 10px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   position: relative;
   z-index: 1;
   line-height: 1.15;
@@ -1602,8 +1614,8 @@ a:hover {
 /* ===== HOVER: touch-only guard (Emil principle) ===== */
 @media (hover: none) {
   .btn:hover {
-    background-color: #337ab7;
-    border-color: #2e6da4
+    background: linear-gradient(135deg, #006f73 0%, #008f81 100%);
+    border-color: #005860
   }
   .btn_grey:hover {
     background-color: #626262;

@@ -4,9 +4,32 @@ main {
   min-height: calc(100vh - 56px);
 }
 
+/* Override body { overflow-y: hidden } from main.css */
+body { overflow-y: visible; }
+
 .page-hero {
   margin-top: var(--space-11);
+  margin-bottom: var(--space-7);
 }
+
+.page-hero__title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a2e2d;
+  margin: 0 0 6px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.page-hero__desc {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.dark .page-hero__title { color: #e2e8f0; }
+.dark .page-hero__desc  { color: #6b7280; }
 
 /* ===== PLAN LAYOUT ===== */
 .plan { width: 100%; }
@@ -20,7 +43,7 @@ main {
   margin-right: var(--space-6);
   background-color: var(--color-surface);
   border-radius: var(--radius-md);
-  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 4px 16px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,.9);
   font-family: var(--font-family-base);
 }
 
@@ -43,8 +66,9 @@ main {
   width: 100%;
 }
 
-/* ===== MAP MARKERS (preserved exactly — do NOT change) ===== */
+/* ===== MAP MARKERS ===== */
 .map__marker {
+  fill: #007175;
   fill-opacity: 0.07;
   transition: 0.3s ease-in-out;
   position: relative;
@@ -57,6 +81,8 @@ main {
   fill-opacity: 0.4;
   cursor: pointer;
 }
+
+.dark .map__marker { fill: #4dd4c8; }
 
 .map #plan { display: block; }
 .map #plan_dark { display: none; }
@@ -100,12 +126,12 @@ main {
 }
 
 /* ===== DARK MODE ===== */
-.dark main { background: #1a1a1a; }
+.dark main { background: transparent; }
 
 .dark .map {
-  background-color: var(--color-surface-dark);
-  border: 1px solid var(--color-border-dark);
-  box-shadow: none;
+  background-color: #161b22;
+  border: 1px solid rgba(255,255,255,.07);
+  box-shadow: 0 1px 3px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .dark #plan { display: none; }

@@ -4,19 +4,20 @@ main {
   min-height: calc(100vh - 56px);
 }
 
+body { overflow-y: visible; }
+
 .page-hero {
   margin-top: var(--space-11);
 }
 
 .content-wrap {
   width: 100%;
-  min-height: calc(100vh - 120px);
   position: relative;
   padding: 32px 36px;
   background: #fff;
   border: 1px solid rgba(0,0,0,.07);
   border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.9);
   font-family: inherit;
   margin-bottom: 32px;
 }
@@ -27,15 +28,17 @@ main {
 .information__subtitle {
   max-width: 800px;
   text-align: left;
-  margin: 0 auto var(--space-9);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: #1a1a2e;
   letter-spacing: -0.01em;
-  padding-top: 8px;
-  border-top: 1px solid rgba(0,113,117,.15);
-  margin-top: 28px;
+  margin: 28px auto 16px;
+  padding-bottom: 10px;
+  background: linear-gradient(90deg, rgba(0,113,117,.15), transparent) bottom / 100% 2px no-repeat;
+  line-height: 1.25;
 }
+
+.information__subtitle:first-of-type { margin-top: 0; }
 
 .information__description {
   text-align: center;
@@ -116,7 +119,7 @@ p {
 
 .dark .information__subtitle {
   color: #c8d0da;
-  border-top-color: rgba(77,212,200,.15);
+  background: linear-gradient(90deg, rgba(77,212,200,.12), transparent) bottom / 100% 2px no-repeat;
 }
 
 .dark .content-section > p:first-of-type {
@@ -147,7 +150,6 @@ p {
 /* ===== RESPONSIVE ===== */
 @media all and (min-width: 2100px) {
   .content-wrap {
-    min-height: calc(100vh - 180px);
     padding: var(--space-13);
   }
   .information__description { margin: 0 auto var(--space-15); }

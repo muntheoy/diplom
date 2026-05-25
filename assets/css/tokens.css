@@ -39,8 +39,8 @@
   --color-header-bg:#FFFFFF;
   --color-header-accent:#5fd6fd;
   --color-header-accent-muted:#4da9d0;
-  --color-search-bg-dark:#2b2b2b;
-  --color-search-placeholder-dark:#aaaaaa;
+  --color-search-bg-dark:#1a2a28;
+  --color-search-placeholder-dark:#7a9a97;
   --color-search-icon-bg:transparent;
   --color-header-bg-dark:#123b44;
   --color-footer-bg:#013650;
@@ -150,6 +150,9 @@
 
   /* ── Focus ring ──────────────────────────────────────────── */
   --color-focus-ring: rgba(0, 113, 117, 0.22);
+
+  /* ── Glow accent for hero/interactive highlights ─────── */
+  --color-glow: rgba(0, 160, 145, 0.18);
 }
 
 /* ── Body: dot-grid background gives instant "designed" depth ── */
@@ -274,22 +277,22 @@ button{
 .btn{
   padding:8px 20px 9px;
   border-radius:var(--radius-sm);
-  background: linear-gradient(155deg, #4088c0 0%, #2566a0 100%);
-  border: 1px solid #1d5a96;
+  background: linear-gradient(135deg, #006f73 0%, #008f81 100%);
+  border: 1px solid #005860;
   font-family:var(--font-family-base);
   font-size:var(--font-size-button);
   font-weight:var(--font-weight-semibold);
   letter-spacing:0.02em;
   color:var(--color-text-inverse);
-  box-shadow: 0 1px 2px rgba(0,0,0,.14), 0 2px 8px rgba(37,102,160,.22), inset 0 1px 0 rgba(255,255,255,.12);
+  box-shadow: 0 1px 2px rgba(0,0,0,.14), 0 2px 8px rgba(0,113,117,.25), inset 0 1px 0 rgba(255,255,255,.15);
   transition: background 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out), transform 0.18s var(--ease-out), border-color 0.18s var(--ease-out);
 }
 
 .btn:hover,.btn:focus{
-  background: linear-gradient(155deg, #3578af 0%, #1f5590 100%);
-  border-color: #18508a;
+  background: linear-gradient(135deg, #005c60 0%, #007a70 100%);
+  border-color: #00484b;
   color:var(--color-text-inverse);
-  box-shadow: 0 2px 8px rgba(0,0,0,.12), 0 4px 16px rgba(37,102,160,.32), inset 0 1px 0 rgba(255,255,255,.12);
+  box-shadow: 0 2px 8px rgba(0,0,0,.12), 0 4px 16px rgba(0,113,117,.35), inset 0 1px 0 rgba(255,255,255,.15);
   transform: translateY(-1px);
 }
 
@@ -325,8 +328,8 @@ button{
   padding:28px;
   background-color:var(--color-surface);
   border: 1px solid rgba(0,0,0,.055);
-  border-radius:var(--radius-md);
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
+  border-radius:16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 6px 28px rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,.9);
   font-family:var(--font-family-base);
 }
 
@@ -504,26 +507,68 @@ button{
   width:20%;
 }
 
-.footer{
-  background-color:var(--color-footer-bg);
-  font-family:var(--font-family-base);
+/* ===== FOOTER REDESIGN ===== */
+.footer {
+  background: linear-gradient(180deg, #005c61 0%, #003d44 100%);
+  font-family: var(--font-family-base);
+  border-top: 1px solid rgba(0,200,185,.15);
+  box-shadow: 0 -1px 8px rgba(0,0,0,.12);
+  position: relative;
+  overflow: hidden;
 }
 
-.footer-wrap{
-  height:var(--size-footer-height);
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.footer__department,.footer__version{
-  color:var(--color-header-accent);
+.footer-wrap {
+  height: 56px;
+  position: relative;
+  z-index: 1;
 }
 
-.footer__department{
-  font-size:var(--font-size-body);
-  margin-right:var(--space-11);
+.footer__department,
+.footer__version {
+  color: rgba(255,255,255,.55);
 }
 
-.footer__version{
-  font-size:var(--font-size-body);
+.footer__department {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-right: var(--space-11);
+}
+
+.footer__version {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(77,212,200,.9);
+  background: rgba(77,212,200,.12);
+  border: 1px solid rgba(77,212,200,.25);
+  border-radius: 20px;
+  padding: 3px 11px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background .15s cubic-bezier(0.23,1,0.32,1),
+              color .15s cubic-bezier(0.23,1,0.32,1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.footer__version:hover {
+  background: rgba(77,212,200,.2);
+  color: #4dd4c8;
+}
+
+.theme-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .scroll-btn{
@@ -544,8 +589,33 @@ button{
   color:var(--color-scroll-text-hover);
 }
 
-#toggle_theme{
-  color:#dedede;
+#toggle_theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.65);
+  cursor: pointer;
+  font-size: 18px;
+  transition: background .18s cubic-bezier(0.23,1,0.32,1),
+              color .18s cubic-bezier(0.23,1,0.32,1),
+              border-color .18s,
+              transform .18s cubic-bezier(0.23,1,0.32,1);
+}
+
+#toggle_theme:hover {
+  background: rgba(77,212,200,.15);
+  border-color: rgba(77,212,200,.3);
+  color: #4dd4c8;
+  transform: scale(1.04);
+}
+
+#toggle_theme:active {
+  transform: scale(0.96);
 }
 
 .dark {
@@ -563,7 +633,7 @@ body.dark {
   background-size: 24px 24px;
 }
 
-.dark input[type="text"],.dark input[type="password"],.dark input[type="tel"],.dark input[type="email"],.dark input[type="number"],.dark input[type="date"],.dark input[type="radio"],.dark input[type="checkbox"],.dark select,.dark textarea{
+.dark input[type="text"],.dark input[type="password"],.dark input[type="tel"],.dark input[type="email"],.dark input[type="number"],.dark input[type="date"],.dark input[type="radio"],.dark input[type="checkbox"],.dark select{
   background-color:#333333;
   color:var(--color-text-inverse);
   border-color:var(--color-border);
@@ -630,9 +700,47 @@ body.dark {
 }
 
 .dark .scroll-btn {
-  background-color: rgba(130,130,130,.25);
-  border-color: rgba(215,215,215,.5);
-  color: rgba(215,215,215,.5);
+  background-color: rgba(77,212,200,.08);
+  border-color: rgba(77,212,200,.3);
+  color: rgba(77,212,200,.55);
+}
+
+/* ===== DARK MODE — FOOTER ===== */
+.dark .footer {
+  background: #161b22;
+  border-top-color: rgba(255,255,255,.07);
+  box-shadow: 0 -1px 8px rgba(0,0,0,.2);
+}
+
+.dark .footer::before {
+  background-image: radial-gradient(rgba(255,255,255,.025) 1px, transparent 1px);
+}
+
+.dark .footer__department {
+  color: rgba(255,255,255,.3);
+}
+
+.dark .footer__version {
+  color: rgba(255,255,255,.5);
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.1);
+}
+
+.dark .footer__version:hover {
+  background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.8);
+}
+
+.dark #toggle_theme {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.09);
+  color: rgba(255,255,255,.45);
+}
+
+.dark #toggle_theme:hover {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.15);
+  color: rgba(255,255,255,.85);
 }
 
 /* ===== DARK MODE — HEADER ===== */
@@ -856,5 +964,76 @@ body.dark {
 @media all and (max-width:620px){
   .container{
     width:var(--size-container-mobile-sm);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   VISUAL POLISH — shared across all pages
+   ═══════════════════════════════════════════════════════════ */
+
+/* Smooth fade-up for page-level blocks */
+@keyframes tokensFadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Gentle drifting glow on the page-hero overlay */
+@keyframes tokensHeroGlow {
+  0%, 100% { opacity: 1;   transform: scale(1)    translate(0, 0); }
+  40%       { opacity: 0.6; transform: scale(1.15) translate(-5%, 4%); }
+  70%       { opacity: 0.9; transform: scale(1.08) translate(4%, -3%); }
+}
+
+/* ── Hero entrance + animated glow orb ──────────────────── */
+.page-hero {
+  animation: tokensFadeUp 0.28s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.page-hero::after {
+  animation: tokensHeroGlow 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ── Content card entrance ───────────────────────────────── */
+.content-section {
+  animation: tokensFadeUp 0.34s 0.05s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.content-wrap {
+  animation: tokensFadeUp 0.34s 0.05s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Link polish ─────────────────────────────────────────── */
+a {
+  text-underline-offset: 3px;
+}
+
+/* ── Text selection ──────────────────────────────────────── */
+::selection {
+  background: rgba(0, 113, 117, 0.16);
+  color: inherit;
+}
+
+/* ── Map/plan section entrance ───────────────────────────── */
+.map {
+  animation: tokensFadeUp 0.34s 0.05s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Content wrap for versions (no outer container) ─────── */
+#versions_list {
+  animation: tokensFadeUp 0.34s 0.1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ── Reduced motion: disable entrance animations ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  .page-hero,
+  .content-section,
+  .content-wrap,
+  .map,
+  #versions_list {
+    animation: none !important;
+  }
+  .page-hero::after {
+    animation: none !important;
   }
 }

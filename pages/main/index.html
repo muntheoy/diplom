@@ -24,6 +24,7 @@
 <style>html:not(.ready){visibility:hidden;}</style>
 <link rel="stylesheet" type="text/css" href="../../assets/libs/font-awesome-4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../../assets/css/main.css">
+	<link rel="stylesheet" href="../../assets/css/tokens.css">
 	<link rel="stylesheet" href="css/search.css">
 	<script defer src="../../assets/js/main.js"></script>
 	<script defer src="../../assets/data/Data.v2.js"></script>
@@ -211,14 +212,39 @@
 						</div>
 						<div class="result__out" id="result_out"></div>
 						<div class="result__message" id="start_message">
-							<div class="empty-state">
-								<i class="fa fa-search empty-state__icon"></i>
-								<h3 class="empty-state__title">Начните вводить имя или подразделение</h3>
-								<p class="empty-state__subtitle">Поиск по ФИО · телефону · подразделению · ключевым словам</p>
+							<div class="es-state">
+								<div class="es-visual">
+									<div class="es-ring es-ring--3"></div>
+									<div class="es-ring es-ring--2"></div>
+									<div class="es-ring es-ring--1"></div>
+									<div class="es-icon-wrap">
+										<i class="fa fa-search"></i>
+									</div>
+								</div>
+								<h3 class="es-title">Найдите коллегу</h3>
+								<p class="es-subtitle">Введите имя, телефон или название отдела</p>
+								<div class="es-chips">
+									<span class="es-chip"><i class="fa fa-user"></i> По имени</span>
+									<span class="es-chip"><i class="fa fa-phone"></i> По телефону</span>
+									<span class="es-chip"><i class="fa fa-building"></i> По отделу</span>
+								</div>
 							</div>
 						</div>
 						<div class="result__message hidden" id="no_result">
-							Результатов не найдено, попробуйте изменить запрос
+							<div class="es-state">
+								<div class="es-visual es-visual--empty">
+									<div class="es-icon-wrap es-icon-wrap--muted">
+										<i class="fa fa-search"></i>
+									</div>
+								</div>
+								<h3 class="es-title es-title--muted">Ничего не найдено</h3>
+								<p class="es-subtitle">Попробуйте изменить запрос</p>
+								<ul class="es-tips">
+									<li>Проверьте написание имени или отдела</li>
+									<li>Используйте только часть имени</li>
+									<li>Попробуйте поиск по номеру телефона</li>
+								</ul>
+							</div>
 						</div>
 						<div class="result__view-more hidden" id="show_more">
 							<button class="btn" id="show_more_btn">Показать ещё</button>

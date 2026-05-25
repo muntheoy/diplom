@@ -4,46 +4,41 @@ main {
   min-height: calc(100vh - 56px);
 }
 
+body { overflow-y: visible; }
+
 .page-hero {
   margin-top: var(--space-11);
 }
 
 .content-wrap {
   width: 100%;
-  min-height: calc(100vh - 120px);
   position: relative;
   padding: 32px 36px;
   background: #fff;
   border: 1px solid rgba(0,0,0,.07);
   border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.9);
   font-family: inherit;
   margin-bottom: 32px;
 }
 
 /* ===== TITLES ===== */
-.emergency__title { text-align: center; }
+.emergency__title { display: none; }
+
+.emergency__description { display: none; }
 
 .emergency__subtitle {
-  text-align: center;
-  margin: 0 auto 20px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: #1a1a2e;
   letter-spacing: -0.01em;
-  margin-top: 32px;
+  margin: 28px 0 16px;
+  padding-bottom: 10px;
+  background: linear-gradient(90deg, rgba(0,113,117,.15), transparent) bottom / 100% 2px no-repeat;
+  line-height: 1.25;
 }
 
 .emergency__subtitle:first-of-type { margin-top: 0; }
-
-.emergency__description {
-  max-width: 600px;
-  text-align: center;
-  margin: 0 auto var(--space-13);
-  font-size: 13.5px;
-  color: #9ca3af;
-  line-height: 1.55;
-}
 
 /* ===== TABLE ===== */
 .emergency__table {
@@ -122,7 +117,10 @@ main {
   box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 4px 24px rgba(0,0,0,.2);
 }
 
-.dark .emergency__subtitle { color: #c8d0da; }
+.dark .emergency__subtitle {
+  color: #c8d0da;
+  background: linear-gradient(90deg, rgba(77,212,200,.12), transparent) bottom / 100% 2px no-repeat;
+}
 
 .dark .emergency__table {
   border-color: rgba(255,255,255,.07);
@@ -156,11 +154,9 @@ main {
 /* ===== RESPONSIVE ===== */
 @media all and (min-width: 2100px) {
   .content-wrap {
-    min-height: calc(100vh - 180px);
     padding: var(--space-13);
   }
-  .emergency__subtitle { margin: 0 auto var(--space-11); }
-  .emergency__description { max-width: 800px; margin: 0 auto var(--space-15); }
+  .emergency__subtitle { margin: 0 0 var(--space-11); }
   .emergency__table { font-size: 22px; margin-bottom: var(--space-15); max-width: 1200px; }
 }
 

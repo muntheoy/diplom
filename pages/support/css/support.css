@@ -4,19 +4,20 @@ main {
   min-height: calc(100vh - 56px);
 }
 
+body { overflow-y: visible; }
+
 .page-hero {
   margin-top: var(--space-11);
 }
 
 .content-wrap {
   width: 100%;
-  min-height: calc(100vh - 120px);
   position: relative;
   padding: 32px 36px;
   background: #fff;
   border: 1px solid rgba(0,0,0,.07);
   border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 24px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.9);
   font-family: inherit;
   margin-bottom: 32px;
 }
@@ -29,26 +30,25 @@ main {
 }
 
 .support__title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: 700;
-  color: #1a1a2e;
-  letter-spacing: -0.02em;
-  margin: 0 0 10px;
+  display: none;
 }
 
 .support__subtitle {
-  text-align: center;
-  margin-bottom: 24px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: #1a1a2e;
   letter-spacing: -0.01em;
+  margin: 28px 0 16px;
+  padding-bottom: 10px;
+  background: linear-gradient(90deg, rgba(0,113,117,.15), transparent) bottom / 100% 2px no-repeat;
+  line-height: 1.25;
 }
+
+.support__subtitle:first-of-type { margin-top: 0; }
 
 .support__text {
   text-align: left;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   line-height: 1.7;
   color: #6b7280;
   font-size: 14px;
@@ -69,11 +69,14 @@ main {
 .support__text a:hover { border-bottom-color: #007175; }
 
 .support__description {
-  text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   font-size: 14px;
-  color: #9ca3af;
-  line-height: 1.6;
+  color: #6b7280;
+  line-height: 1.7;
+  padding: 14px 18px;
+  background: linear-gradient(145deg, #f0fafa 0%, #e8f8f7 100%);
+  border: 1px solid rgba(0,113,117,.14);
+  border-radius: 12px;
 }
 
 /* ===== CARD GRID ===== */
@@ -97,7 +100,7 @@ main {
   border: 1px solid rgba(0,0,0,.07);
   border-radius: 16px;
   padding: 24px 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.05), inset 0 1px 0 rgba(255,255,255,.85);
   transition: border-color .2s cubic-bezier(0.23,1,0.32,1),
               box-shadow .2s cubic-bezier(0.23,1,0.32,1),
               transform .2s cubic-bezier(0.23,1,0.32,1);
@@ -127,7 +130,7 @@ main {
 .support .card:hover {
   border-color: rgba(0,113,117,.22);
   transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,.06), 0 10px 32px rgba(0,113,117,.11);
+  box-shadow: 0 4px 12px rgba(0,0,0,.06), 0 10px 32px rgba(0,113,117,.14), inset 0 1px 0 rgba(255,255,255,.85);
 }
 
 /* Avatar */
@@ -204,8 +207,10 @@ main {
   box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 4px 24px rgba(0,0,0,.2);
 }
 
-.dark .support__title { color: #e2e8f0; }
-.dark .support__subtitle { color: #c8d0da; }
+.dark .support__subtitle {
+  color: #c8d0da;
+  background: linear-gradient(90deg, rgba(77,212,200,.12), transparent) bottom / 100% 2px no-repeat;
+}
 
 .dark .support__text {
   color: #8892a4;
@@ -216,7 +221,11 @@ main {
 .dark .support__text a { color: #4dd4c8; border-bottom-color: rgba(77,212,200,.25); }
 .dark .support__text a:hover { border-bottom-color: #4dd4c8; }
 
-.dark .support__description { color: #4a5568; }
+.dark .support__description {
+  color: #6b7a84;
+  background: linear-gradient(145deg, #0d2421 0%, #101d1a 100%);
+  border-color: rgba(77,212,200,.12);
+}
 
 .dark .support .card {
   background: #161b22;
@@ -245,9 +254,29 @@ main {
 .dark .support .card__email a:hover { color: #5dddd4; }
 .dark .support .card__phone { color: #c8d0da; }
 
+/* ===== STAGGER ENTRANCE — support cards ===== */
+@keyframes supportCardIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.support .card {
+  animation: supportCardIn 0.3s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.support__card-box .card:nth-child(1)   { animation-delay: 0ms }
+.support__card-box .card:nth-child(2)   { animation-delay: 60ms }
+.support__card-box .card:nth-child(3)   { animation-delay: 120ms }
+.support__card-box .card:nth-child(4)   { animation-delay: 180ms }
+.support__card-box .card:nth-child(n+5) { animation-delay: 220ms }
+
+@media (prefers-reduced-motion: reduce) {
+  .support .card { animation: none !important; }
+}
+
 /* ===== RESPONSIVE ===== */
 @media all and (min-width: 2100px) {
-  .content-wrap { min-height: calc(100vh - 180px); padding: var(--space-13); }
+  .content-wrap { padding: var(--space-13); }
   .support { max-width: 1200px; }
   .support__subtitle { margin-bottom: var(--space-13); }
   .support__text { font-size: 22px; margin-bottom: var(--space-13); }

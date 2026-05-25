@@ -546,17 +546,6 @@ window.addEventListener('load', function () {
         alert(error);
       });
     });
-    const html_element = document.querySelector('html');
-    const contentWrap = document.querySelector('main');
-    const cardElement = document.querySelector('.card');
-    window.addEventListener('scroll', () => {
-      if (html_element.scrollTop > contentWrap.offsetTop) {
-        const yPosition = html_element.scrollTop + 10;
-        cardElement.style = `position: sticky; top: ${yPosition}px;`;
-      } else {
-        cardElement.style = '';
-      };
-    });
   } catch (error) {
     alert('Возникла непредвиденная ошибка! Невозможно загрузить справочник. Не перезагружайте страницу и обратитесь к администратору по телефону 06-66 (э) или напишите на почту KuznetsovGS@ckba.local.');
     console.error(error);

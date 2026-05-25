@@ -30,9 +30,11 @@ window.addEventListener('load', function () {
             const bodyElement = document.querySelector('body');
             if (currentTheme === 'dark') {
               bodyElement.classList.remove('dark');
+              document.documentElement.classList.remove('dark');
               setCookie('theme', 'light', {secure: true, 'max-age': 2592000, samesite: 'strict'});
             } else {
               bodyElement.classList.add('dark');
+              document.documentElement.classList.add('dark');
               setCookie('theme', 'dark', {secure: true, 'max-age': 2592000, samesite: 'strict'});
             };
           });
@@ -46,9 +48,11 @@ window.addEventListener('load', function () {
             const bodyElement = document.querySelector('body');
             if (currentTheme === 'dark') {
               bodyElement.classList.remove('dark');
+              document.documentElement.classList.remove('dark');
               localStorage.setItem('theme', 'light');
             } else {
               bodyElement.classList.add('dark');
+              document.documentElement.classList.add('dark');
               localStorage.setItem('theme', 'dark');
             };
           });
@@ -61,8 +65,10 @@ window.addEventListener('load', function () {
         const bodyElement = document.querySelector('body');
         if (isDark) {
           bodyElement.classList.add('dark');
+          document.documentElement.classList.add('dark');
         } else {
           bodyElement.classList.remove('dark');
+          document.documentElement.classList.remove('dark');
         };
         if (browser === 'Firefox') {
           setCookie('theme', isDark ? 'dark' : 'light', {secure: true, 'max-age': 2592000, samesite: 'strict'});
@@ -131,7 +137,9 @@ window.addEventListener('load', function () {
     function syncHeaderOffset() {
       const headerElement = document.querySelector('#header');
       if (!headerElement) return;
-      document.body.style.paddingTop = `${headerElement.offsetHeight}px`;
+      const h = headerElement.offsetHeight;
+      document.body.style.paddingTop = `${h}px`;
+      document.documentElement.style.setProperty('--size-header-height', `${h}px`);
     };
 
     function ensureSharedStyles() {
